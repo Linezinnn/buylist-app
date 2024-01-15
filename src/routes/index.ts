@@ -1,11 +1,11 @@
 import { FastifyInstance } from "fastify";
-import { CreateAmountCategory } from "./create-amount-category";
+import { CreateAmountCategoryRoute } from "./create-amount-category";
 
 export type RouteParamsType = {
    serverInstance: FastifyInstance,
    prefix: string,
 }
 
-export function Routes(serverInstance: FastifyInstance) {
-   CreateAmountCategory({ serverInstance, prefix: '/category' })
+export async function Routes(serverInstance: FastifyInstance) {
+   CreateAmountCategoryRoute({ serverInstance, prefix: '/amount-category' })
 }

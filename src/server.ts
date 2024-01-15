@@ -1,17 +1,23 @@
 import fastify, { FastifyInstance } from 'fastify'
 import { fastifyCors } from '@fastify/cors'
 import { Routes } from './routes'
+import './database/prisma-client'
+import { connectDatabase } from './database/prisma-client'
 
 const server: FastifyInstance = fastify({ logger: true })
 const port: number = 8080
 
-server.register(Routes)
+connectDatabase()
+
 server.register(fastifyCors, {
    origin: '*'
 })
+server.register(Routes)
+
+server.get('/', (req, res) => res.send('anao'))
 
 server.listen({
-   port
+   port,
 }, () => {
    console.log(`The server is running in url: http://localhost:${port}`)
 })
