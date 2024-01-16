@@ -14,8 +14,6 @@ server.register(fastifyCors, {
 })
 server.register(Routes)
 
-server.get('/', (req, res) => res.send('anao'))
-
 server.listen({
    port,
 }, () => {

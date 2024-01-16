@@ -1,3 +1,7 @@
-import { AmountCategorySchemaType } from "../utils/validations/amount-category-schema";
+import { 
+   AmountCategoryDTOSchemaType, 
+   AmountCategoryResponseSchemaType 
+} from "../utils/validations/amount-category-validate";
 
-export type AmountCategoryType = AmountCategorySchemaType
+export type AmountCategoryType = AmountCategoryResponseSchemaType
+export type AmountCategoryDTOType = AmountCategoryDTOSchemaType

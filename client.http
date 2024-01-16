@@ -2,5 +2,5 @@ POST http://localhost:8080/amount-category
 Content-Type: application/json
 
 {
-   "name": "Litros"
+   "name": "g"
 }

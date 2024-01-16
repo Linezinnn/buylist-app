@@ -1,5 +1,5 @@
-import { AmountCategoryType } from "../../types/amount-category-types";
+import { FastifyReply, FastifyRequest} from 'fastify'
 
 export interface IAmountCategoryController {
-   create(data: AmountCategoryType): void
+   create(request: FastifyRequest, response: FastifyReply): Promise<void>
 }
