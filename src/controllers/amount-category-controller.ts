@@ -2,6 +2,7 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import { IAmountCategoryController } from "./interfaces/controllers-interfaces";
 import { ICreateAmountCategoryUseCase } from "../usecases/interfaces/usecases-interfaces";
 import { AmountCategoryDTOType, AmountCategoryType } from "../types/amount-category-types";
+import { UpError } from "../errors/up-error";
 
 export class AmountCategoryController implements IAmountCategoryController {
    constructor(
@@ -15,13 +16,13 @@ export class AmountCategoryController implements IAmountCategoryController {
          const result: AmountCategoryType = await this.createAmountCategoryUseCase.execute(data) 
 
          response
-         .send(result)
-         .header('location', `/amount-category/${result.id}`)
          .status(201)
-      } catch(error) {
+         .header('location', `/amount-category/${result.id}`)
+         .send(result)
+      } catch(error: any) {
          response
+         .status(error.statusCode || 200)
          .send(error)
-         .status(400)
       }
    }
 }

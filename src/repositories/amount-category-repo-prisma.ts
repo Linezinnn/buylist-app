@@ -12,4 +12,14 @@ export class AmountCategoryRepositoryPrisma implements AmountCategoryRepository 
 
       return result
    }
+
+   async getByName(name: string): Promise<AmountCategoryType | null> {
+       const result = await prismaClient.amountCategory.findFirst({
+         where: {
+            name,
+         }
+       })
+
+       return result
+   }
 }

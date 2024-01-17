@@ -1,11 +1,12 @@
 import { 
    AmountCategoryDTOSchema,
    AmountCategoryResponseSchema, 
-   AmountCategoryResponseSchemaType 
-} from "../utils/validations/amount-category-validate";
+} from "../utils/validations/amount-category-schema";
 import { AmountCategoryRepository } from "../repositories/interfaces/repositories-interfaces";
 import { AmountCategoryDTOType, AmountCategoryType } from "../types/amount-category-types";
 import { ICreateAmountCategoryUseCase } from "./interfaces/usecases-interfaces";
+import { validateFunction } from "../utils/validations/zod-validate-function";
+import { UpError } from "../errors/up-error";
 
 export class CreateAmountCategoryUseCase implements ICreateAmountCategoryUseCase {
    constructor(
@@ -13,15 +14,34 @@ export class CreateAmountCategoryUseCase implements ICreateAmountCategoryUseCase
    ) {}
 
    async execute(data: AmountCategoryDTOType): Promise<AmountCategoryType> {
-      const validatedData = AmountCategoryDTOSchema.parse(data)
+
+      const validatedData = validateFunction({
+         schema: AmountCategoryDTOSchema,
+         data,
+      })
 
       if(!validatedData.name) {
-         throw new Error('Bad Request: The payload needs an id or a name for creation') 
+         throw new UpError({
+            statusCode: 400,
+            message: 'Bad Request: The payload need a name for creation'
+         })
+      }
+
+      const checkIfNameAlreadyExists = await this.repository.getByName(validatedData.name) 
+
+      if(checkIfNameAlreadyExists) {
+         throw new UpError({
+            statusCode: 400,
+            message: 'Bad Request: The name already exists'
+         })
       }
       
       const amountCategory = await this.repository.create(validatedData.name)
 
-      const amountCategoryValidated = AmountCategoryResponseSchema.parse(amountCategory)
+      const amountCategoryValidated = validateFunction({
+         schema: AmountCategoryResponseSchema,
+         data: amountCategory
+      })
 
       return amountCategoryValidated
    }
