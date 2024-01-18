@@ -1,4 +1,5 @@
 import { ZodError, ZodType } from "zod"
+
 import { UpError } from "../../errors/up-error"
 
 interface validateFunctionProps<T> {

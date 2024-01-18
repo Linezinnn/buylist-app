@@ -1,8 +1,8 @@
 import fastify, { FastifyInstance } from 'fastify'
 import { fastifyCors } from '@fastify/cors'
-import { Routes } from './routes'
-import './database/prisma-client'
+
 import { connectDatabase } from './database/prisma-client'
+import { Routes } from './routes'
 
 const server: FastifyInstance = fastify({ logger: true })
 const port: number = 8080

@@ -1,8 +1,9 @@
 import { prismaClient } from "../database/prisma-client";
-import { AmountCategoryType } from "../types/amount-category-types";
-import { AmountCategoryRepository } from "./interfaces/repositories-interfaces";
 
-export class AmountCategoryRepositoryPrisma implements AmountCategoryRepository {
+import { AmountCategoryType } from "../types/amount-category-types";
+import { IAmountCategoryRepository } from "./interfaces/repositories-interfaces";
+
+export class AmountCategoryRepositoryPrisma implements IAmountCategoryRepository {
    async create(name: string): Promise<AmountCategoryType> {
       const result = await prismaClient.amountCategory.create({
          data: {

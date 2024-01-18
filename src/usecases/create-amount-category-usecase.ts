@@ -1,17 +1,20 @@
+import { statusCode } from "../constants/http-status-codes";
+
+import { IAmountCategoryRepository } from "../repositories/interfaces/repositories-interfaces";
+import { AmountCategoryDTOType, AmountCategoryType } from "../types/amount-category-types";
+import { ICreateAmountCategoryUseCase } from "./interfaces/usecases-interfaces";
+
+import { UpError } from "../errors/up-error";
+
 import { 
    AmountCategoryDTOSchema,
    AmountCategoryResponseSchema, 
 } from "../utils/validations/amount-category-schema";
-import { AmountCategoryRepository } from "../repositories/interfaces/repositories-interfaces";
-import { AmountCategoryDTOType, AmountCategoryType } from "../types/amount-category-types";
-import { ICreateAmountCategoryUseCase } from "./interfaces/usecases-interfaces";
 import { validateFunction } from "../utils/validations/zod-validate-function";
-import { UpError } from "../errors/up-error";
-import { statusCode } from "../constants/http-status-codes";
 
 export class CreateAmountCategoryUseCase implements ICreateAmountCategoryUseCase {
    constructor(
-      private repository: AmountCategoryRepository
+      private repository: IAmountCategoryRepository
    ) {}
 
    async execute(data: AmountCategoryDTOType): Promise<AmountCategoryType> {

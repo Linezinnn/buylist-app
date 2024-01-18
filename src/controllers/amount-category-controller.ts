@@ -1,9 +1,12 @@
 import { FastifyRequest, FastifyReply } from "fastify";
+
+import { statusCode } from "../constants/http-status-codes";
+
 import { IAmountCategoryController } from "./interfaces/controllers-interfaces";
 import { ICreateAmountCategoryUseCase } from "../usecases/interfaces/usecases-interfaces";
 import { AmountCategoryDTOType, AmountCategoryType } from "../types/amount-category-types";
+
 import { UpError } from "../errors/up-error";
-import { statusCode } from "../constants/http-status-codes";
 
 export class AmountCategoryController implements IAmountCategoryController {
    constructor(
