@@ -7,6 +7,7 @@ import { AmountCategoryDTOType, AmountCategoryType } from "../types/amount-categ
 import { ICreateAmountCategoryUseCase } from "./interfaces/usecases-interfaces";
 import { validateFunction } from "../utils/validations/zod-validate-function";
 import { UpError } from "../errors/up-error";
+import { statusCode } from "../constants/http-status-codes";
 
 export class CreateAmountCategoryUseCase implements ICreateAmountCategoryUseCase {
    constructor(
@@ -22,7 +23,7 @@ export class CreateAmountCategoryUseCase implements ICreateAmountCategoryUseCase
 
       if(!validatedData.name) {
          throw new UpError({
-            statusCode: 400,
+            statusCode: statusCode.BAD_REQUEST,
             message: 'Bad Request: The payload need a name for creation'
          })
       }
@@ -31,7 +32,7 @@ export class CreateAmountCategoryUseCase implements ICreateAmountCategoryUseCase
 
       if(checkIfNameAlreadyExists) {
          throw new UpError({
-            statusCode: 400,
+            statusCode: statusCode.BAD_REQUEST,
             message: 'Bad Request: The name already exists'
          })
       }

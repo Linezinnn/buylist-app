@@ -1,6 +1,6 @@
 interface UpErrorProps {
    statusCode?: number,
-   error?: object,
+   error?: any,
    message: string,
 }
 
