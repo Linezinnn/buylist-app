@@ -9,7 +9,7 @@ import { UpError } from "../errors/up-error";
 import { 
    AmountCategoryDTOSchema,
    AmountCategoryResponseSchema, 
-} from "../utils/validations/amount-category-schema";
+} from "../utils/validations/schemas/amount-category-schema";
 import { validateFunction } from "../utils/validations/zod-validate-function";
 
 export class CreateAmountCategoryUseCase implements ICreateAmountCategoryUseCase {

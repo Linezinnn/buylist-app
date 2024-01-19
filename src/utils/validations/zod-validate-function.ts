@@ -23,7 +23,7 @@ export function validateFunction<T>({schema, data}: validateFunctionProps<T>) {
 
       throw new UpError({
          statusCode: 500,
-         message: 'Unxpected error: The validation error type is incompatible',
+         message: 'Unxpected error: The error instance is incompatible',
          error,
       })
    }

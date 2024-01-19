@@ -26,7 +26,7 @@ export class AmountCategoryController implements IAmountCategoryController {
       } catch(error: unknown) {
          if(error instanceof UpError) {
             response
-            .status(error.statusCode || statusCode.OK)
+            .status(error.statusCode || statusCode.BAD_REQUEST)
             .send(error)
 
             return 
