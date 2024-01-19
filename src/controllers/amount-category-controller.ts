@@ -1,7 +1,6 @@
-import { FastifyRequest, FastifyReply } from "fastify";
-
 import { statusCode } from "../constants/http-status-codes";
 
+import { ServerRequest, ServerResponse } from "../types/server-types";
 import { IAmountCategoryController } from "./interfaces/controllers-interfaces";
 import { ICreateAmountCategoryUseCase } from "../usecases/interfaces/usecases-interfaces";
 import { AmountCategoryDTOType, AmountCategoryType } from "../types/amount-category-types";
@@ -13,7 +12,7 @@ export class AmountCategoryController implements IAmountCategoryController {
       private createAmountCategoryUseCase: ICreateAmountCategoryUseCase
    ) {}
 
-   async create(request: FastifyRequest, response: FastifyReply): Promise<void> {
+   async create(request: ServerRequest, response: ServerResponse): Promise<void> {
       try {
          const data = request.body as AmountCategoryDTOType
 

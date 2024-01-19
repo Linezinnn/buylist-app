@@ -1,5 +1,5 @@
-import { FastifyReply, FastifyRequest} from 'fastify'
+import { ServerRequest, ServerResponse } from "../../types/server-types";
 
 export interface IAmountCategoryController {
-   create(request: FastifyRequest, response: FastifyReply): Promise<void>
+   create(request: ServerRequest, response: ServerResponse): Promise<void>
 }

@@ -1,4 +1,4 @@
-import { FastifyInstance } from "fastify";
+import { ServerInstance } from "../types/server-types";
 
 import { AmountCategoryRoutes } from "./amount-category-routes";
 
@@ -8,7 +8,7 @@ import { CreateAmountCategoryUseCase } from "../usecases/create-amount-category-
 
 import { AmountCategoryRepositoryPrisma } from "../repositories/amount-category-repo-prisma";
 
-export async function Routes(serverInstance: FastifyInstance) {
+export async function Routes(serverInstance: ServerInstance) {
    const amountCategoryRoutes = new AmountCategoryRoutes(
       serverInstance, 
       new AmountCategoryController(
