@@ -16,7 +16,7 @@ export class AmountCategoryController implements IAmountCategoryController {
       try {
          const data = request.body as AmountCategoryDTOType
 
-         const result: AmountCategoryType = await this.createAmountCategoryUseCase.execute(data) 
+         const result: AmountCategoryType = await this.createAmountCategoryUseCase.execute(data)
 
          response
          .status(statusCode.CREATED)

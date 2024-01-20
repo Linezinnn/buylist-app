@@ -4,7 +4,7 @@ import { ZodError } from 'zod'
 import { AmountCategoryResponseSchema } from '../amount-category-schema'
 
 export function TESTAmountCategoryResponseSchema() {
-   describe('amount category dto schema', () => {
+   describe('amount category response schema', () => {
       test('validation needs to pass', () => {
          const testData = {
             name: 'teste',
