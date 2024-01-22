@@ -17,6 +17,7 @@ describe('create amount category usecase', () => {
       getByName(name) {
          return Promise.resolve(null)
       },
+      getAll(): any {}
    }
 
    test('must pass', async () => {

@@ -7,13 +7,16 @@ import { AmountCategoryController } from "../controllers/amount-category-control
 import { CreateAmountCategoryUseCase } from "../usecases/create-amount-category-usecase";
 
 import { AmountCategoryRepositoryPrisma } from "../repositories/amount-category-repo-prisma";
+import { GetAllAmountCategoriesUsecase } from "../usecases/get-all-amount-categories-usecase";
 
 export async function Routes(serverInstance: ServerInstance) {
    const amountCategoryRoutes = new AmountCategoryRoutes(
       serverInstance, 
       new AmountCategoryController(
-         new CreateAmountCategoryUseCase(new AmountCategoryRepositoryPrisma())
+         new CreateAmountCategoryUseCase(new AmountCategoryRepositoryPrisma()),
+         new GetAllAmountCategoriesUsecase(new AmountCategoryRepositoryPrisma())
    ))
 
    amountCategoryRoutes.createAmountCategory('/amount-category')
+   amountCategoryRoutes.getAllAmountCategories('/all-amount-categories')
 }

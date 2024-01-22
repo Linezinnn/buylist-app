@@ -11,7 +11,7 @@
   "main": "index.js",
   "scripts": {
     "server": "tsx watch src/server.ts",
-    "test": "vitest"
+    "tests": "vitest"
   },
   "keywords": [],
   "author": "",

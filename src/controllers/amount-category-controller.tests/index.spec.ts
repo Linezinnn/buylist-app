@@ -3,6 +3,7 @@ import { describe } from "vitest"
 import { TESTServerRequest, TESTServerResponse } from "../../types/server-types"
 
 import { AmountCategoryControllerCreate } from "./amount-category-controller-create"
+import { AmountCategoryControllerGet } from "./amount-category-controller-get"
 
 const serverInstance = {
    request: {
@@ -33,4 +34,5 @@ export type TESTServerInstanceType = typeof serverInstance
 
 describe('amount category controller', () => {
    AmountCategoryControllerCreate(serverInstance)
+   AmountCategoryControllerGet(serverInstance)
 })

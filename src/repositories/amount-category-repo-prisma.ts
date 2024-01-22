@@ -6,21 +6,23 @@ import { IAmountCategoryRepository } from "./interfaces/repositories-interfaces"
 export class AmountCategoryRepositoryPrisma implements IAmountCategoryRepository {
    async create(name: string): Promise<AmountCategoryType> {
       const result = await prismaClient.amountCategory.create({
-         data: {
-            name,
-         }
+         data: { name }
       })
 
       return result
    }
 
    async getByName(name: string): Promise<AmountCategoryType | null> {
-       const result = await prismaClient.amountCategory.findFirst({
-         where: {
-            name,
-         }
-       })
+      const result = await prismaClient.amountCategory.findFirst({
+         where: { name }
+      })
 
-       return result
+      return result
+   }
+
+   async getAll(): Promise<AmountCategoryType[]> {
+      const result = await prismaClient.amountCategory.findMany()
+
+      return result 
    }
 }

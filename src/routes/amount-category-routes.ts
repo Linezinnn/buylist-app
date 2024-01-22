@@ -13,4 +13,10 @@ export class AmountCategoryRoutes implements IAmountCategoryRoutes {
          this.controller.create(req, res)
       })
    }
+
+   getAllAmountCategories(prefix: string): void {
+      this.serverInstance.get(prefix, (_, res) => {
+         this.controller.getAll(res)
+      })
+   }
 }
