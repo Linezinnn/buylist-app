@@ -7,3 +7,7 @@ export interface ICreateAmountCategoryUseCase {
 export interface IGetAllAmountCategoriesUsecase {
    execute(): Promise<AmountCategoryType[]>
 }
+
+export interface IDeleteAmountCategoryUseCase {
+   execute(id: string): Promise<void>
+}

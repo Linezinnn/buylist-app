@@ -1,4 +1,6 @@
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { prismaClient } from "../database/prisma-client";
+import { UpError } from "../errors/up-error";
 
 import { AmountCategoryType } from "../types/amount-category-types";
 import { IAmountCategoryRepository } from "./interfaces/repositories-interfaces";
@@ -24,5 +26,19 @@ export class AmountCategoryRepositoryPrisma implements IAmountCategoryRepository
       const result = await prismaClient.amountCategory.findMany()
 
       return result 
+   }
+
+   async delete(id: string): Promise<boolean> {
+      try {
+         await prismaClient.amountCategory.delete({
+            where: { id }
+         })
+
+         return true
+      } catch (err) {
+         if(err instanceof PrismaClientKnownRequestError) return false
+
+         throw err
+      }
    }
 }

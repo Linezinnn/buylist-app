@@ -1,27 +1,30 @@
 import { describe, test, expect } from 'vitest'
 import { ZodError } from 'zod'
+import { randomUUID } from 'crypto'
 
 import { AmountCategoryResponseSchema } from '../amount-category-schema'
 
 export function TESTAmountCategoryResponseSchema() {
+   const uuid = randomUUID()
+
    describe('amount category response schema', () => {
       test('validation needs to pass', () => {
          const testData = {
             name: 'teste',
-            id: '1',
+            id: uuid,
             createdAt: new Date(),
          }
 
          const validatedData = AmountCategoryResponseSchema.parse(testData)
 
          expect(validatedData).toHaveProperty('name', 'teste')
-         expect(validatedData).toHaveProperty('id', '1')
+         expect(validatedData).toHaveProperty('id', uuid)
       })
 
       test('cannot pass because have a name with numbers', () => {
          const testData = {
             name: 'teste2',
-            id: '1',
+            id: uuid,
             createdAt: new Date()
          }
 
@@ -43,7 +46,7 @@ export function TESTAmountCategoryResponseSchema() {
       test('cannot pass because name is less than 1 character', () => {
          const testData = {
             name: '',
-            id: '1',
+            id: uuid,
             createdAt: new Date(),
          }
 
@@ -65,7 +68,7 @@ export function TESTAmountCategoryResponseSchema() {
       test('cannot pass because name has more than 1 character', () => {
          const testData = {
             name: 'este_texto_e_longo',
-            id: '1',
+            id: uuid,
             createdAt: new Date(),
          }
 
@@ -107,7 +110,7 @@ export function TESTAmountCategoryResponseSchema() {
 
       test('cannot pass because it does not have an id', () => {
          const testData = {
-            id: '1',
+            id: uuid,
             createdAt: new Date(),
          }
 
@@ -129,7 +132,7 @@ export function TESTAmountCategoryResponseSchema() {
       test('cannot pass because it does not have a valid date', () => {
          const testData = {
             name: 'test',
-            id: '1',
+            id: uuid,
             createdAt: 'qualquer_valor',
          }
 

@@ -1,4 +1,5 @@
 import { describe, test, expect } from "vitest"
+import { randomUUID } from "crypto"
 
 import { IAmountCategoryRepository } from "../repositories/interfaces/repositories-interfaces"
 import { AmountCategoryType } from "../types/amount-category-types"
@@ -8,6 +9,7 @@ import { UpError } from "../errors/up-error"
 
 describe('get all amount categories usecase', () => {
    const createdAt = new Date()
+   const uuid = randomUUID()
 
    const repository: IAmountCategoryRepository = {
       create(): any {},
@@ -15,10 +17,11 @@ describe('get all amount categories usecase', () => {
       getAll(): Promise<AmountCategoryType[]> {
          return Promise.resolve([{
             name: 'test',
-            id: 'id_test',
+            id: uuid,
             createdAt,
          }])
       },
+      delete(): any {}
    }
 
    test('must pass', async () => {
@@ -30,7 +33,7 @@ describe('get all amount categories usecase', () => {
 
       expect(result).toStrictEqual([{
          name: 'test',
-         id: 'id_test',
+         id: uuid,
          createdAt,
       }])
    })

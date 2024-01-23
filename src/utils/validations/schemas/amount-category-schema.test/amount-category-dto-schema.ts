@@ -1,26 +1,29 @@
 import { describe, expect, test } from 'vitest'
 import { ZodError } from 'zod'
+import { randomUUID } from 'crypto'
 
 import { AmountCategoryDTOSchema } from '../amount-category-schema'
 
 export function TESTAmountCategoryDTOSchema() {
+   const uuid = randomUUID()
+
    describe('amount category dto schema', () => {
       test('validation needs to pass', () => {
          const testData = {
             name: 'teste',
-            id: '1'
+            id: uuid
          }
 
          const validatedData = AmountCategoryDTOSchema.parse(testData)
 
          expect(validatedData).toHaveProperty('name', 'teste')
-         expect(validatedData).toHaveProperty('id', '1')
+         expect(validatedData).toHaveProperty('id', uuid)
       })
 
       test('cannot pass because have a name with numbers', () => {
          const testData = {
             name: 'teste2',
-            id: '1'
+            id: uuid
          }
 
          expect(() => {
@@ -41,7 +44,7 @@ export function TESTAmountCategoryDTOSchema() {
       test('cannot pass because name is less than 1 character', () => {
          const testData = {
             name: '',
-            id: '1'
+            id: uuid
          }
 
          expect(() => {
@@ -62,7 +65,7 @@ export function TESTAmountCategoryDTOSchema() {
       test('cannot pass because name has more than 1 character', () => {
          const testData = {
             name: 'este_texto_e_longo',
-            id: '1'
+            id: uuid
          }
 
          expect(() => {
@@ -92,12 +95,12 @@ export function TESTAmountCategoryDTOSchema() {
    
       test('must have at least an id', () => {
          const testData = {
-            id: '1'
+            id: uuid
          }
 
          const validatedData = AmountCategoryDTOSchema.parse(testData)
 
-         expect(validatedData).toHaveProperty('id', '1')
+         expect(validatedData).toHaveProperty('id', uuid)
       })
    })
 }

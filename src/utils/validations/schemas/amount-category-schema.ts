@@ -6,7 +6,7 @@ export const AmountCategoryDTOSchema = z.object({
       .min(1, 'The minimum name length is 1')
       .max(6, 'The maximum name length is 6')
       .optional(),
-   id: string().optional(),
+   id: string().uuid().optional(),
 })
 
 export const AmountCategoryResponseSchema = z.object({
@@ -14,7 +14,7 @@ export const AmountCategoryResponseSchema = z.object({
       .regex(/^[^\d]*$/, "The name must not contain a number in the string")
       .min(1, 'The minimum name length is 1')
       .max(6, 'The maximum name length is 6'),
-   id: string(),
+   id: string().uuid(),
    createdAt: date(),
 })
 

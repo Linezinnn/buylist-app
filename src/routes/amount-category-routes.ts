@@ -19,4 +19,10 @@ export class AmountCategoryRoutes implements IAmountCategoryRoutes {
          this.controller.getAll(res)
       })
    }
+
+   deleteAmountCategory(prefix: string): void {
+      this.serverInstance.delete(`${prefix}/:id`, (req, res) => {
+         this.controller.delete(req, res)
+      })
+   }
 }

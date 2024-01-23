@@ -5,6 +5,7 @@ import { IAmountCategoryController } from "./interfaces/controllers-interfaces";
 import { AmountCategoryDTOType, AmountCategoryType } from "../types/amount-category-types";
 import { 
    ICreateAmountCategoryUseCase, 
+   IDeleteAmountCategoryUseCase, 
    IGetAllAmountCategoriesUsecase 
 } from "../usecases/interfaces/usecases-interfaces";
 
@@ -14,6 +15,7 @@ export class AmountCategoryController implements IAmountCategoryController {
    constructor(
       private createAmountCategoryUseCase: ICreateAmountCategoryUseCase,
       private getAllAmountCategoriesUseCase: IGetAllAmountCategoriesUsecase,
+      private deleteAmountCategoryUseCase: IDeleteAmountCategoryUseCase,
    ) {}
 
    async create(request: ServerRequest, response: ServerResponse): Promise<void> {
@@ -48,6 +50,30 @@ export class AmountCategoryController implements IAmountCategoryController {
          response
          .status(statusCode.OK)
          .send(result)
+      } catch(error: unknown) {
+         if(error instanceof UpError) {
+            response
+            .status(error.statusCode || statusCode.BAD_REQUEST)
+            .send(error)
+
+            return 
+         }
+
+         response
+         .status(statusCode.INTERNAL_ERROR)
+         .send(`Unxpected error: the error shoulds be instance of UpError. Received error data: ${error}`)
+      }
+   }
+
+   async delete(request: ServerRequest, response: ServerResponse): Promise<void> {
+      try {
+         const { id } = request.params as AmountCategoryDTOType
+
+         await this.deleteAmountCategoryUseCase.execute(id ?? '')
+
+         response
+         .status(statusCode.NO_CONTENT)
+         .send()
       } catch(error: unknown) {
          if(error instanceof UpError) {
             response

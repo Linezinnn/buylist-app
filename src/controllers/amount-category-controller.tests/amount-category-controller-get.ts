@@ -2,12 +2,12 @@ import { describe, test, expect } from "vitest"
 
 import { AmountCategoryType } from "../../types/amount-category-types"
 import { IGetAllAmountCategoriesUsecase } from "../../usecases/interfaces/usecases-interfaces"
-
 import { TESTServerInstanceType } from "./index.spec"
+
 import { AmountCategoryController } from "../amount-category-controller"
 import { UpError } from "../../errors/up-error"
 
-export function AmountCategoryControllerGet(serverInstance: TESTServerInstanceType) {
+export function AmountCategoryControllerGetTest(serverInstance: TESTServerInstanceType) {
    const createdAt = new Date()
    const unusedUsecase = null
    
@@ -23,7 +23,11 @@ export function AmountCategoryControllerGet(serverInstance: TESTServerInstanceTy
             }
          }
 
-         const controller = new AmountCategoryController(unusedUsecase as any, usecase)
+         const controller = new AmountCategoryController(
+            unusedUsecase as any,
+            usecase,
+            unusedUsecase as any,
+         )
 
          await controller.getAll(serverInstance.response)
 
@@ -45,7 +49,11 @@ export function AmountCategoryControllerGet(serverInstance: TESTServerInstanceTy
             }
          }
 
-         const controller = new AmountCategoryController(unusedUsecase as any, usecase)
+         const controller = new AmountCategoryController(
+            unusedUsecase as any,
+            usecase,
+            unusedUsecase as any,
+         )
 
          expect(async () => {
             await controller.getAll(serverInstance.response)
@@ -60,7 +68,11 @@ export function AmountCategoryControllerGet(serverInstance: TESTServerInstanceTy
             }
          }
 
-         const controller = new AmountCategoryController(unusedUsecase as any, usecase)
+         const controller = new AmountCategoryController(
+            unusedUsecase as any,
+            usecase,
+            unusedUsecase as any,
+         )
 
          expect(async () => {
             await controller.create(serverInstance.request, serverInstance.response)

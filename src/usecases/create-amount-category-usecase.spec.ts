@@ -1,23 +1,28 @@
 import { describe, expect, test } from "vitest";
-import { CreateAmountCategoryUseCase } from "./create-amount-category-usecase";
+import { randomUUID } from "crypto";
+
 import { IAmountCategoryRepository } from "../repositories/interfaces/repositories-interfaces";
+
+import { CreateAmountCategoryUseCase } from "./create-amount-category-usecase";
 import { UpError } from "../errors/up-error";
 
 describe('create amount category usecase', () => {
    const createdAt = new Date()
+   const uuid = randomUUID()
 
    const repository: IAmountCategoryRepository = {
       create(name) {
          return Promise.resolve({
             name: name,
-            id: 'id_test',
+            id: uuid,
             createdAt,
          })
       },
       getByName(name) {
          return Promise.resolve(null)
       },
-      getAll(): any {}
+      getAll(): any {},
+      delete(): any {}
    }
 
    test('must pass', async () => {
@@ -29,7 +34,7 @@ describe('create amount category usecase', () => {
 
       expect(result).toStrictEqual({
          name: 'test',
-         id: 'id_test',
+         id: uuid,
          createdAt,
       })
    })
@@ -39,7 +44,7 @@ describe('create amount category usecase', () => {
 
       repositoryClone.getByName = (name) => Promise.resolve({
          name: name,
-         id: 'id_test',
+         id: uuid,
          createdAt,
       })
 

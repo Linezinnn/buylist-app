@@ -2,12 +2,12 @@ import { describe, test, expect } from "vitest"
 
 import { AmountCategoryType } from "../../types/amount-category-types"
 import { ICreateAmountCategoryUseCase } from "../../usecases/interfaces/usecases-interfaces"
-
 import { TESTServerInstanceType } from "./index.spec"
+
 import { AmountCategoryController } from "../amount-category-controller"
 import { UpError } from "../../errors/up-error"
 
-export function AmountCategoryControllerCreate(serverInstance: TESTServerInstanceType) {
+export function AmountCategoryControllerCreateTest(serverInstance: TESTServerInstanceType) {
    const createdAt = new Date()
    const unusedUsecase = null
    
@@ -23,7 +23,11 @@ export function AmountCategoryControllerCreate(serverInstance: TESTServerInstanc
             }
          }
 
-         const controller = new AmountCategoryController(usecase, unusedUsecase as any)
+         const controller = new AmountCategoryController(
+            usecase, 
+            unusedUsecase as any, 
+            unusedUsecase as any
+         )
 
          await controller.create(serverInstance.request, serverInstance.response)
 
@@ -46,7 +50,11 @@ export function AmountCategoryControllerCreate(serverInstance: TESTServerInstanc
             }
          }
 
-         const controller = new AmountCategoryController(usecase, unusedUsecase as any)
+         const controller = new AmountCategoryController(
+            usecase, 
+            unusedUsecase as any, 
+            unusedUsecase as any
+         )
 
          expect(async () => {
             await controller.create(serverInstance.request, serverInstance.response)
@@ -61,7 +69,11 @@ export function AmountCategoryControllerCreate(serverInstance: TESTServerInstanc
             }
          }
 
-         const controller = new AmountCategoryController(usecase, unusedUsecase as any)
+         const controller = new AmountCategoryController(
+            usecase, 
+            unusedUsecase as any, 
+            unusedUsecase as any
+         )
 
          expect(async () => {
             await controller.create(serverInstance.request, serverInstance.response)
