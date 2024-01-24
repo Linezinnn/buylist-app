@@ -4,11 +4,11 @@ import { AmountCategoryRoutes } from "./amount-category-routes";
 
 import { AmountCategoryController } from "../controllers/amount-category-controller";
 
-import { CreateAmountCategoryUseCase } from "../usecases/create-amount-category-usecase";
+import { CreateAmountCategoryUseCase } from "../usecases/amount-category/create-amount-category-usecase";
+import { GetAllAmountCategoriesUsecase } from "../usecases/amount-category/get-all-amount-categories-usecase";
+import { DeleteAmountCategoryUseCase } from "../usecases/amount-category/delete-amount-category-usecase";
 
 import { AmountCategoryRepositoryPrisma } from "../repositories/amount-category-repo-prisma";
-import { GetAllAmountCategoriesUsecase } from "../usecases/get-all-amount-categories-usecase";
-import { DeleteAmountCategoryUseCase } from "../usecases/delete-amount-category-usecase";
 
 export async function Routes(serverInstance: ServerInstance) {
    const amountCategoryRoutes = new AmountCategoryRoutes(

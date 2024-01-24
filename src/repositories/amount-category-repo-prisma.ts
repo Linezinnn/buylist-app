@@ -1,6 +1,5 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { prismaClient } from "../database/prisma-client";
-import { UpError } from "../errors/up-error";
 
 import { AmountCategoryType } from "../types/amount-category-types";
 import { IAmountCategoryRepository } from "./interfaces/repositories-interfaces";

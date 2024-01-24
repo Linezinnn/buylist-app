@@ -21,10 +21,6 @@ export function validateFunction<T>({schema, data}: validateFunctionProps<T>) {
          })
       }
 
-      throw new UpError({
-         statusCode: 500,
-         message: 'Unxpected error: The error instance is incompatible',
-         error,
-      })
+      throw new Error('Unxpected zod validation error')
    }
 }

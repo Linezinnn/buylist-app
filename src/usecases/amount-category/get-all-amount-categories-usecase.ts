@@ -1,9 +1,9 @@
-import { IAmountCategoryRepository } from "../repositories/interfaces/repositories-interfaces";
-import { AmountCategoryType } from "../types/amount-category-types";
-import { IGetAllAmountCategoriesUsecase } from "./interfaces/usecases-interfaces";
+import { IAmountCategoryRepository } from "../../repositories/interfaces/repositories-interfaces";
+import { AmountCategoryType } from "../../types/amount-category-types";
+import { IGetAllAmountCategoriesUsecase } from "../interfaces/amount-category-usecases-interfaces";
 
-import { AmountCategoryResponseSchema } from "../utils/validations/schemas/amount-category-schema";
-import { validateFunction } from "../utils/validations/zod-validate-function";
+import { AmountCategoryResponseSchema } from "../../utils/validations/schemas/amount-category-schema";
+import { validateFunction } from "../../utils/validations/zod-validate-function";
 
 export class GetAllAmountCategoriesUsecase implements IGetAllAmountCategoriesUsecase {
    constructor(

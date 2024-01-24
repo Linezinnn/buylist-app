@@ -1,7 +1,7 @@
 import { describe, test, expect } from "vitest"
 
 import { AmountCategoryType } from "../../types/amount-category-types"
-import { ICreateAmountCategoryUseCase } from "../../usecases/interfaces/usecases-interfaces"
+import { ICreateAmountCategoryUseCase } from "../../usecases/interfaces/amount-category-usecases-interfaces"
 import { TESTServerInstanceType } from "./index.spec"
 
 import { AmountCategoryController } from "../amount-category-controller"
@@ -11,26 +11,28 @@ export function AmountCategoryControllerCreateTest(serverInstance: TESTServerIns
    const createdAt = new Date()
    const unusedUsecase = null
    
+   const usecase: ICreateAmountCategoryUseCase = { 
+      execute: (): Promise<AmountCategoryType> => {
+         return Promise.resolve({ 
+            name: 'test',
+            id: 'test',
+            createdAt,
+         })
+      }
+   }
+
    describe('create', () => {
       test('must pass', async () => {
-         const usecase: ICreateAmountCategoryUseCase = { 
-            execute: (data): Promise<AmountCategoryType> => {
-               return Promise.resolve({ 
-                  name: 'test',
-                  id: 'test',
-                  createdAt,
-               })
-            }
-         }
-
+         const usecaseClone = { ...usecase }
+         
          const controller = new AmountCategoryController(
-            usecase, 
+            usecaseClone, 
             unusedUsecase as any, 
             unusedUsecase as any
          )
-
+            
          await controller.create(serverInstance.request, serverInstance.response)
-
+         
          expect(serverInstance.getResponse.status).toBe(201)
          expect(serverInstance.getResponse.header).toStrictEqual(['location', '/amount-category/test'])
          expect(serverInstance.getResponse.send).toStrictEqual({ 
@@ -39,46 +41,44 @@ export function AmountCategoryControllerCreateTest(serverInstance: TESTServerIns
             createdAt,
          })
       })
-
+      
       test('with an error, should handle it', () => {
-         const usecase: ICreateAmountCategoryUseCase = { 
-            execute: (data): Promise<AmountCategoryType> => {
-               throw new UpError({
-                  message: 'erro de teste',
-                  statusCode: 400,
-               })
-            }
+         let usecaseClone = { ...usecase }
+         usecaseClone.execute = () => {
+            throw new UpError({
+               message: 'erro de teste',
+               statusCode: 400,
+            })
          }
 
          const controller = new AmountCategoryController(
-            usecase, 
+            usecaseClone, 
             unusedUsecase as any, 
             unusedUsecase as any
          )
 
          expect(async () => {
             await controller.create(serverInstance.request, serverInstance.response)
+            expect(serverInstance.getResponse.status).toEqual(400)
          }).not.toThrow()
-         expect(serverInstance.getResponse.status).toEqual(400)
       })
 
       test('with an unxpect error, should handle it', () => {
-         const usecase: ICreateAmountCategoryUseCase = { 
-            execute: (data): Promise<AmountCategoryType> => {
-               throw new Error('unxpected error')
-            }
+         let usecaseClone = { ...usecase }
+         usecaseClone.execute = () => {
+            throw new Error('unxpected error')
          }
 
          const controller = new AmountCategoryController(
-            usecase, 
+            usecaseClone, 
             unusedUsecase as any, 
             unusedUsecase as any
          )
 
          expect(async () => {
             await controller.create(serverInstance.request, serverInstance.response)
+            expect(serverInstance.getResponse.status).toEqual(500)
          }).not.toThrow()
-         expect(serverInstance.getResponse.status).toEqual(500)
       })
    })
 }

@@ -1,17 +1,14 @@
 import { describe, test, expect } from "vitest";
 import { randomUUID } from "crypto";
 
-import { IAmountCategoryRepository } from "../repositories/interfaces/repositories-interfaces";
+import { IAmountCategoryRepository } from "../../repositories/interfaces/repositories-interfaces";
 
 import { DeleteAmountCategoryUseCase } from "./delete-amount-category-usecase";
-import { UpError } from "../errors/up-error";
+import { UpError } from "../../errors/up-error";
 
 describe('delete amount category usecase', () => {
-   const repository: IAmountCategoryRepository = {
-      create(): any {},
-      getAll(): any {},
-      getByName(): any {},
-      delete(id): Promise<boolean>{
+   const repository: Partial<IAmountCategoryRepository> = {
+      delete(): Promise<boolean>{
          return Promise.resolve(true)
       }
    }
@@ -19,7 +16,7 @@ describe('delete amount category usecase', () => {
    test('must pass', () => {
       const repositoryClone = { ...repository }
 
-      const usecase = new DeleteAmountCategoryUseCase(repositoryClone)
+      const usecase = new DeleteAmountCategoryUseCase(repositoryClone as IAmountCategoryRepository)
 
       expect(() => {
          usecase.execute(randomUUID())
@@ -29,7 +26,7 @@ describe('delete amount category usecase', () => {
    test('cannot pass if the id is invalid', () => {
       const repositoryClone = { ...repository }
 
-      const usecase = new DeleteAmountCategoryUseCase(repositoryClone)
+      const usecase = new DeleteAmountCategoryUseCase(repositoryClone as IAmountCategoryRepository)
 
       expect(async () => {
          await usecase.execute('id_invalido')
@@ -41,7 +38,7 @@ describe('delete amount category usecase', () => {
 
       repository.delete = (id: string): Promise<boolean> => Promise.resolve(false)
 
-      const usecase = new DeleteAmountCategoryUseCase(repositoryClone)
+      const usecase = new DeleteAmountCategoryUseCase(repositoryClone as IAmountCategoryRepository)
 
       expect(async () => {
          await usecase.execute('id_invalido')

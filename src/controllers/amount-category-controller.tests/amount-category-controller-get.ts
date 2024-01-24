@@ -1,7 +1,7 @@
 import { describe, test, expect } from "vitest"
 
 import { AmountCategoryType } from "../../types/amount-category-types"
-import { IGetAllAmountCategoriesUsecase } from "../../usecases/interfaces/usecases-interfaces"
+import { IGetAllAmountCategoriesUsecase } from "../../usecases/interfaces/amount-category-usecases-interfaces"
 import { TESTServerInstanceType } from "./index.spec"
 
 import { AmountCategoryController } from "../amount-category-controller"
@@ -10,19 +10,18 @@ import { UpError } from "../../errors/up-error"
 export function AmountCategoryControllerGetTest(serverInstance: TESTServerInstanceType) {
    const createdAt = new Date()
    const unusedUsecase = null
+   const usecase: IGetAllAmountCategoriesUsecase = { 
+      execute: (): Promise<AmountCategoryType[]> => {
+         return Promise.resolve([{ 
+            name: 'test',
+            id: 'test',
+            createdAt,
+         }])
+      }
+   }
    
    describe('get', () => {
       test('must pass', async () => {
-         const usecase: IGetAllAmountCategoriesUsecase = { 
-            execute: (): Promise<AmountCategoryType[]> => {
-               return Promise.resolve([{ 
-                  name: 'test',
-                  id: 'test',
-                  createdAt,
-               }])
-            }
-         }
-
          const controller = new AmountCategoryController(
             unusedUsecase as any,
             usecase,
@@ -40,44 +39,42 @@ export function AmountCategoryControllerGetTest(serverInstance: TESTServerInstan
       })
 
       test('with an error, should handle it', () => {
-         const usecase: IGetAllAmountCategoriesUsecase = { 
-            execute: (): Promise<AmountCategoryType[]> => {
-               throw new UpError({
-                  message: 'erro de teste',
-                  statusCode: 400,
-               })
-            }
+         let usecaseClone = { ...usecase }
+         usecaseClone.execute = () => {
+            throw new UpError({
+               message: 'erro de teste',
+               statusCode: 400,
+            })
          }
 
          const controller = new AmountCategoryController(
             unusedUsecase as any,
-            usecase,
+            usecaseClone,
             unusedUsecase as any,
          )
 
          expect(async () => {
             await controller.getAll(serverInstance.response)
+            expect(serverInstance.getResponse.status).toEqual(400)
          }).not.toThrow()
-         expect(serverInstance.getResponse.status).toEqual(400)
       })
 
       test('with an unxpect error, should handle it', () => {
-         const usecase: IGetAllAmountCategoriesUsecase = { 
-            execute: (): Promise<AmountCategoryType[]> => {
-               throw new Error('unxpected error')
-            }
+         let usecaseClone = { ...usecase }
+         usecaseClone.execute = () => {
+            throw new Error('unxpected error')
          }
 
          const controller = new AmountCategoryController(
             unusedUsecase as any,
-            usecase,
+            usecaseClone,
             unusedUsecase as any,
          )
 
          expect(async () => {
             await controller.create(serverInstance.request, serverInstance.response)
+            expect(serverInstance.getResponse.status).toEqual(500)
          }).not.toThrow()
-         expect(serverInstance.getResponse.status).toEqual(500)
       })
    })
 }

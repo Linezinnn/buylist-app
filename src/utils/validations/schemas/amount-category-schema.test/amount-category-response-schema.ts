@@ -6,15 +6,15 @@ import { AmountCategoryResponseSchema } from '../amount-category-schema'
 
 export function TESTAmountCategoryResponseSchema() {
    const uuid = randomUUID()
+   const date = new Date()
+   const testData = {
+      name: 'teste',
+      id: uuid,
+      createdAt: date,
+   }
 
    describe('amount category response schema', () => {
       test('validation needs to pass', () => {
-         const testData = {
-            name: 'teste',
-            id: uuid,
-            createdAt: new Date(),
-         }
-
          const validatedData = AmountCategoryResponseSchema.parse(testData)
 
          expect(validatedData).toHaveProperty('name', 'teste')
@@ -22,16 +22,12 @@ export function TESTAmountCategoryResponseSchema() {
       })
 
       test('cannot pass because have a name with numbers', () => {
-         const testData = {
-            name: 'teste2',
-            id: uuid,
-            createdAt: new Date()
-         }
+         let testDataClone = { ...testData }
+         testDataClone.name = 'teste2'
 
          expect(() => {
             try {
-               AmountCategoryResponseSchema.parse(testData)
-               
+               AmountCategoryResponseSchema.parse(testDataClone)
             } catch (error) {
                if(error instanceof ZodError){
                   const { message } = error.issues[0]
@@ -44,16 +40,12 @@ export function TESTAmountCategoryResponseSchema() {
       })
 
       test('cannot pass because name is less than 1 character', () => {
-         const testData = {
-            name: '',
-            id: uuid,
-            createdAt: new Date(),
-         }
+         let testDataClone = { ...testData }
+         testDataClone.name = ''
 
          expect(() => {
             try {
-               AmountCategoryResponseSchema.parse(testData)
-               
+               AmountCategoryResponseSchema.parse(testDataClone)
             } catch (error) {
                if(error instanceof ZodError){
                   const { message } = error.issues[0]
@@ -66,16 +58,12 @@ export function TESTAmountCategoryResponseSchema() {
       })
 
       test('cannot pass because name has more than 1 character', () => {
-         const testData = {
-            name: 'este_texto_e_longo',
-            id: uuid,
-            createdAt: new Date(),
-         }
+         let testDataClone = { ...testData }
+         testDataClone.name = 'this_text_is_long'
 
          expect(() => {
             try {
-               AmountCategoryResponseSchema.parse(testData)
-               
+               AmountCategoryResponseSchema.parse(testDataClone)
             } catch (error) {
                if(error instanceof ZodError){
                   const { message } = error.issues[0]
@@ -87,16 +75,15 @@ export function TESTAmountCategoryResponseSchema() {
          }).toThrow('test pass')
       })
 
-      test('cannot pass because it does not have a name', () => {
+      test('cannot pass because it does not have an id', () => {
          const testData = {
             name: 'teste',
-            createdAt: new Date(),
+            createdAt: date,
          }
 
          expect(() => {
             try {
                AmountCategoryResponseSchema.parse(testData)
-               
             } catch (error) {
                if(error instanceof ZodError){
                   const { message } = error.issues[0]
@@ -108,16 +95,15 @@ export function TESTAmountCategoryResponseSchema() {
          }).toThrow('test pass')
       })
 
-      test('cannot pass because it does not have an id', () => {
+      test('cannot pass because it does not have a name', () => {
          const testData = {
             id: uuid,
-            createdAt: new Date(),
+            createdAt: date,
          }
 
          expect(() => {
             try {
-               AmountCategoryResponseSchema.parse(testData)
-               
+               AmountCategoryResponseSchema.parse(testData)     
             } catch (error) {
                if(error instanceof ZodError){
                   const { message } = error.issues[0]
@@ -130,16 +116,12 @@ export function TESTAmountCategoryResponseSchema() {
       })
 
       test('cannot pass because it does not have a valid date', () => {
-         const testData = {
-            name: 'test',
-            id: uuid,
-            createdAt: 'qualquer_valor',
-         }
+         let testDataClone = { ...testData }
+         testDataClone.createdAt = 'any_value' as any
 
          expect(() => {
             try {
-               AmountCategoryResponseSchema.parse(testData)
-               
+               AmountCategoryResponseSchema.parse(testDataClone)
             } catch (error) {
                if(error instanceof ZodError){
                   const { message } = error.issues[0]

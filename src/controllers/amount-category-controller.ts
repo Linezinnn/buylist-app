@@ -7,9 +7,9 @@ import {
    ICreateAmountCategoryUseCase, 
    IDeleteAmountCategoryUseCase, 
    IGetAllAmountCategoriesUsecase 
-} from "../usecases/interfaces/usecases-interfaces";
+} from "../usecases/interfaces/amount-category-usecases-interfaces";
 
-import { UpError } from "../errors/up-error";
+import { controllerHandlingFastify } from "./controller-handlings/controller-handling-fastify";
 
 export class AmountCategoryController implements IAmountCategoryController {
    constructor(
@@ -19,73 +19,46 @@ export class AmountCategoryController implements IAmountCategoryController {
    ) {}
 
    async create(request: ServerRequest, response: ServerResponse): Promise<void> {
-      try {
-         const data = request.body as AmountCategoryDTOType
+      controllerHandlingFastify({
+         response,
+         callback: async () => {
+            const data = request.body as AmountCategoryDTOType
 
-         const result: AmountCategoryType = await this.createAmountCategoryUseCase.execute(data)
+            const result: AmountCategoryType = await this.createAmountCategoryUseCase.execute(data)
 
-         response
-         .status(statusCode.CREATED)
-         .header('location', `/amount-category/${result.id}`)
-         .send(result)
-      } catch(error: unknown) {
-         if(error instanceof UpError) {
             response
-            .status(error.statusCode || statusCode.BAD_REQUEST)
-            .send(error)
-
-            return 
+            .status(statusCode.CREATED)
+            .header('location', `/amount-category/${result.id}`)
+            .send(result)
          }
-
-         response
-         .status(statusCode.INTERNAL_ERROR)
-         .send(`Unxpected error: the error shoulds be instance of UpError. Received error data: ${error}`)
-      }
+      })
    }
 
    async getAll(response: ServerResponse): Promise<void> {
-      try {
-         const result: AmountCategoryType[] = await this.getAllAmountCategoriesUseCase.execute()
+      controllerHandlingFastify({
+         response,
+         callback: async () => {
+            const result: AmountCategoryType[] = await this.getAllAmountCategoriesUseCase.execute()
 
-         response
-         .status(statusCode.OK)
-         .send(result)
-      } catch(error: unknown) {
-         if(error instanceof UpError) {
             response
-            .status(error.statusCode || statusCode.BAD_REQUEST)
-            .send(error)
-
-            return 
+            .status(statusCode.OK)
+            .send(result)
          }
-
-         response
-         .status(statusCode.INTERNAL_ERROR)
-         .send(`Unxpected error: the error shoulds be instance of UpError. Received error data: ${error}`)
-      }
+      })
    }
 
    async delete(request: ServerRequest, response: ServerResponse): Promise<void> {
-      try {
-         const { id } = request.params as AmountCategoryDTOType
+      controllerHandlingFastify({
+         response,
+         callback: async () => {
+            const { id } = request.params as AmountCategoryDTOType
 
-         await this.deleteAmountCategoryUseCase.execute(id ?? '')
+            await this.deleteAmountCategoryUseCase.execute(id ?? '')
 
-         response
-         .status(statusCode.NO_CONTENT)
-         .send()
-      } catch(error: unknown) {
-         if(error instanceof UpError) {
             response
-            .status(error.statusCode || statusCode.BAD_REQUEST)
-            .send(error)
-
-            return 
+            .status(statusCode.NO_CONTENT)
+            .send()
          }
-
-         response
-         .status(statusCode.INTERNAL_ERROR)
-         .send(`Unxpected error: the error shoulds be instance of UpError. Received error data: ${error}`)
-      }
+      })
    }
 }

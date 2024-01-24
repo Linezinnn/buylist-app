@@ -1,16 +1,16 @@
 import { describe, expect, test } from "vitest";
 import { randomUUID } from "crypto";
 
-import { IAmountCategoryRepository } from "../repositories/interfaces/repositories-interfaces";
+import { IAmountCategoryRepository } from "../../repositories/interfaces/repositories-interfaces";
 
 import { CreateAmountCategoryUseCase } from "./create-amount-category-usecase";
-import { UpError } from "../errors/up-error";
+import { UpError } from "../../errors/up-error";
 
 describe('create amount category usecase', () => {
    const createdAt = new Date()
    const uuid = randomUUID()
 
-   const repository: IAmountCategoryRepository = {
+   const repository: Partial<IAmountCategoryRepository> = {
       create(name) {
          return Promise.resolve({
             name: name,
@@ -21,14 +21,12 @@ describe('create amount category usecase', () => {
       getByName(name) {
          return Promise.resolve(null)
       },
-      getAll(): any {},
-      delete(): any {}
    }
 
    test('must pass', async () => {
       const repositoryClone = { ...repository }
-
-      const usecase = new CreateAmountCategoryUseCase(repositoryClone)
+      
+      const usecase = new CreateAmountCategoryUseCase(repositoryClone as IAmountCategoryRepository)
 
       const result = await usecase.execute({ name: 'test' })
 
@@ -48,7 +46,7 @@ describe('create amount category usecase', () => {
          createdAt,
       })
 
-      const usecase = new CreateAmountCategoryUseCase(repositoryClone)
+      const usecase = new CreateAmountCategoryUseCase(repositoryClone as IAmountCategoryRepository)
 
       expect(async () => {
          await usecase.execute({ name: 'test' })
@@ -62,7 +60,7 @@ describe('create amount category usecase', () => {
          name: name,
       })
 
-      const usecase = new CreateAmountCategoryUseCase(repositoryClone)
+      const usecase = new CreateAmountCategoryUseCase(repositoryClone as IAmountCategoryRepository)
 
       expect(async () => {
          await usecase.execute({ name: 'test' })
@@ -72,7 +70,7 @@ describe('create amount category usecase', () => {
    test('cannot pass because name contains numbers', () => {
       const repositoryClone = { ...repository }
 
-      const usecase = new CreateAmountCategoryUseCase(repositoryClone)
+      const usecase = new CreateAmountCategoryUseCase(repositoryClone as IAmountCategoryRepository)
 
       expect(async () => {
          try {
@@ -90,7 +88,7 @@ describe('create amount category usecase', () => {
    test('cannot pass because it has less than 1 character', () => {
       const repositoryClone = { ...repository }
 
-      const usecase = new CreateAmountCategoryUseCase(repositoryClone)
+      const usecase = new CreateAmountCategoryUseCase(repositoryClone as IAmountCategoryRepository)
 
       expect(async () => {
          try {
@@ -108,7 +106,7 @@ describe('create amount category usecase', () => {
    test('cannot pass because it has more than 6 character', () => {
       const repositoryClone = { ...repository }
 
-      const usecase = new CreateAmountCategoryUseCase(repositoryClone)
+      const usecase = new CreateAmountCategoryUseCase(repositoryClone as IAmountCategoryRepository)
 
       expect(async () => {
          try {

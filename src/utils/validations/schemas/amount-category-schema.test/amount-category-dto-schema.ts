@@ -6,14 +6,13 @@ import { AmountCategoryDTOSchema } from '../amount-category-schema'
 
 export function TESTAmountCategoryDTOSchema() {
    const uuid = randomUUID()
+   const testData = {
+      name: 'teste',
+      id: uuid
+   }
 
    describe('amount category dto schema', () => {
       test('validation needs to pass', () => {
-         const testData = {
-            name: 'teste',
-            id: uuid
-         }
-
          const validatedData = AmountCategoryDTOSchema.parse(testData)
 
          expect(validatedData).toHaveProperty('name', 'teste')
@@ -21,15 +20,12 @@ export function TESTAmountCategoryDTOSchema() {
       })
 
       test('cannot pass because have a name with numbers', () => {
-         const testData = {
-            name: 'teste2',
-            id: uuid
-         }
+         const testDataClone = { ...testData }
+         testDataClone.name = 'teste2'
 
          expect(() => {
             try {
-               AmountCategoryDTOSchema.parse(testData)
-               
+               AmountCategoryDTOSchema.parse(testDataClone)
             } catch (error) {
                if(error instanceof ZodError){
                   const { message } = error.issues[0]
@@ -42,15 +38,12 @@ export function TESTAmountCategoryDTOSchema() {
       })
 
       test('cannot pass because name is less than 1 character', () => {
-         const testData = {
-            name: '',
-            id: uuid
-         }
+         const testDataClone = { ...testData }
+         testDataClone.name = ''
 
          expect(() => {
             try {
-               AmountCategoryDTOSchema.parse(testData)
-               
+               AmountCategoryDTOSchema.parse(testDataClone)   
             } catch (error) {
                if(error instanceof ZodError){
                   const { message } = error.issues[0]
@@ -63,15 +56,12 @@ export function TESTAmountCategoryDTOSchema() {
       })
 
       test('cannot pass because name has more than 1 character', () => {
-         const testData = {
-            name: 'este_texto_e_longo',
-            id: uuid
-         }
+         const testDataClone = { ...testData }
+         testDataClone.name = 'this_text_is_long'
 
          expect(() => {
             try {
-               AmountCategoryDTOSchema.parse(testData)
-               
+               AmountCategoryDTOSchema.parse(testDataClone)
             } catch (error) {
                if(error instanceof ZodError){
                   const { message } = error.issues[0]
@@ -89,7 +79,6 @@ export function TESTAmountCategoryDTOSchema() {
          }
 
          const validatedData = AmountCategoryDTOSchema.parse(testData)
-
          expect(validatedData).toHaveProperty('name', 'teste')
       })
    
@@ -99,7 +88,6 @@ export function TESTAmountCategoryDTOSchema() {
          }
 
          const validatedData = AmountCategoryDTOSchema.parse(testData)
-
          expect(validatedData).toHaveProperty('id', uuid)
       })
    })

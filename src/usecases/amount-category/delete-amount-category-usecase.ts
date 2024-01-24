@@ -1,12 +1,12 @@
-import { statusCode } from "../constants/http-status-codes";
+import { statusCode } from "../../constants/http-status-codes";
 
-import { IAmountCategoryRepository } from "../repositories/interfaces/repositories-interfaces";
-import { IDeleteAmountCategoryUseCase } from "./interfaces/usecases-interfaces";
+import { IAmountCategoryRepository } from "../../repositories/interfaces/repositories-interfaces";
+import { IDeleteAmountCategoryUseCase } from "../interfaces/amount-category-usecases-interfaces";
 
-import { UpError } from "../errors/up-error";
+import { UpError } from "../../errors/up-error";
 
-import { AmountCategoryDTOSchema } from "../utils/validations/schemas/amount-category-schema";
-import { validateFunction } from "../utils/validations/zod-validate-function";
+import { AmountCategoryDTOSchema } from "../../utils/validations/schemas/amount-category-schema";
+import { validateFunction } from "../../utils/validations/zod-validate-function";
 
 export class DeleteAmountCategoryUseCase implements IDeleteAmountCategoryUseCase {
    constructor(
