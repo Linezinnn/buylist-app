@@ -7,4 +7,4 @@ import {
 export type ItemCategoryDTOGetType = ItemCategoryDTOGetSchemaType
 export type ItemCategoryDTOMutationType = ItemCategoryDTOMutationSchemaType
 
-export type ItemCAtegoryResponseType = ItemCategoryResponseSchemaType
+export type ItemCategoryType = ItemCategoryResponseSchemaType

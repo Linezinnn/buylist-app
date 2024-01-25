@@ -1,7 +1,7 @@
 import { statusCode } from "../../constants/http-status-codes";
 
 import { IAmountCategoryRepository } from "../../repositories/interfaces/repositories-interfaces";
-import { IDeleteAmountCategoryUseCase } from "../interfaces/amount-category-usecases-interfaces";
+import { IDeleteAmountCategoryUseCase } from "../amount-category/interfaces/amount-category-usecases-interfaces";
 
 import { UpError } from "../../errors/up-error";
 

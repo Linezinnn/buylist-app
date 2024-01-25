@@ -3,3 +3,7 @@ export interface IAmountCategoryRoutes {
    getAllAmountCategories(prefix: string): void
    deleteAmountCategory(prefix: string): void
 }
+
+export interface IItemCategoryRoutes {
+   createItemCategory(prefix: string): void
+}

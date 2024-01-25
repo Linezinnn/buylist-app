@@ -1,7 +1,7 @@
 import { describe, test, expect } from "vitest"
 
 import { AmountCategoryType } from "../../types/amount-category-types"
-import { IGetAllAmountCategoriesUsecase } from "../../usecases/interfaces/amount-category-usecases-interfaces"
+import { IGetAllAmountCategoriesUsecase } from "../../usecases/amount-category/interfaces/amount-category-usecases-interfaces"
 import { TESTServerInstanceType } from "./index.spec"
 
 import { AmountCategoryController } from "../amount-category-controller"

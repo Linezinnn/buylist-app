@@ -2,7 +2,7 @@ import { statusCode } from "../../constants/http-status-codes";
 
 import { IAmountCategoryRepository } from "../../repositories/interfaces/repositories-interfaces";
 import { AmountCategoryDTOType, AmountCategoryType } from "../../types/amount-category-types";
-import { ICreateAmountCategoryUseCase } from "../interfaces/amount-category-usecases-interfaces";
+import { ICreateAmountCategoryUseCase } from "../amount-category/interfaces/amount-category-usecases-interfaces";
 
 import { UpError } from "../../errors/up-error";
 

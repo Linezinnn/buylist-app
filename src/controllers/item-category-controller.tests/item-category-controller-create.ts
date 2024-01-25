@@ -1,20 +1,20 @@
 import { describe, test, expect } from "vitest"
 
-import { AmountCategoryType } from "../../types/amount-category-types"
-import { ICreateAmountCategoryUseCase } from "../../usecases/amount-category/interfaces/amount-category-usecases-interfaces"
+import { ItemCategoryType } from "../../types/item-category-types"
+import { ICreateItemCategoryUseCase } from "../../usecases/item-category/interfaces/item-category-usecase-interfaces"
 import { TESTServerInstanceType } from "./index.spec"
 
-import { AmountCategoryController } from "../amount-category-controller"
 import { UpError } from "../../errors/up-error"
+import { ItemCategoryController } from "../item-category-controller"
 
-export function AmountCategoryControllerCreateTest(serverInstance: TESTServerInstanceType) {
+export function ItemCategoryControllerCreateTest(serverInstance: TESTServerInstanceType) {
    const createdAt = new Date()
-   const unusedUsecase = null
    
-   const usecase: ICreateAmountCategoryUseCase = { 
-      execute: (): Promise<AmountCategoryType> => {
+   const usecase: ICreateItemCategoryUseCase = { 
+      execute: (): Promise<ItemCategoryType> => {
          return Promise.resolve({ 
             name: 'test',
+            color: '#fff',
             id: 'test',
             createdAt,
          })
@@ -25,18 +25,17 @@ export function AmountCategoryControllerCreateTest(serverInstance: TESTServerIns
       test('must pass', async () => {
          const usecaseClone = { ...usecase }
          
-         const controller = new AmountCategoryController(
-            usecaseClone, 
-            unusedUsecase as any, 
-            unusedUsecase as any
-         )
+         const controller = new ItemCategoryController(
+            usecaseClone,
+         ) 
             
          await controller.create(serverInstance.request, serverInstance.response)
          
          expect(serverInstance.getResponse.status).toBe(201)
-         expect(serverInstance.getResponse.header).toStrictEqual(['location', '/amount-category/test'])
+         expect(serverInstance.getResponse.header).toStrictEqual(['location', '/item-category/test'])
          expect(serverInstance.getResponse.send).toStrictEqual({ 
             name: 'test',
+            color: '#fff',
             id: 'test',
             createdAt,
          })
@@ -51,10 +50,8 @@ export function AmountCategoryControllerCreateTest(serverInstance: TESTServerIns
             })
          }
 
-         const controller = new AmountCategoryController(
+         const controller = new ItemCategoryController(
             usecaseClone, 
-            unusedUsecase as any, 
-            unusedUsecase as any
          )
 
          expect(async () => {
@@ -69,10 +66,8 @@ export function AmountCategoryControllerCreateTest(serverInstance: TESTServerIns
             throw new Error('unxpected error')
          }
 
-         const controller = new AmountCategoryController(
+         const controller = new ItemCategoryController(
             usecaseClone, 
-            unusedUsecase as any, 
-            unusedUsecase as any
          )
 
          expect(async () => {

@@ -9,7 +9,7 @@ export function TESTItemCategoryResponseSchema() {
    const createdAt = new Date()
    const testData = {
       name: 'name_test',
-      color: '#fff',
+      color: '#FFF',
       id: uuid,
       createdAt,
    }
@@ -19,7 +19,7 @@ export function TESTItemCategoryResponseSchema() {
          const validatedData = ItemCategoryResponseSchema.parse(testData)
    
          expect(validatedData).toHaveProperty('name', 'name_test')
-         expect(validatedData).toHaveProperty('color', '#fff')
+         expect(validatedData).toHaveProperty('color', '#FFF')
          expect(validatedData).toHaveProperty('id', uuid)
          expect(validatedData).toHaveProperty('createdAt', createdAt)
       })
@@ -64,7 +64,7 @@ export function TESTItemCategoryResponseSchema() {
          test('correct value', () => {
             const validatedData = ItemCategoryResponseSchema.parse(testData)
    
-            expect(validatedData).toHaveProperty('color', '#fff')
+            expect(validatedData).toHaveProperty('color', '#FFF')
          })
    
          const testDataClone = { ...testData }

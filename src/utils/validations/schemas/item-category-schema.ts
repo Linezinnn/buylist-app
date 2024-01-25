@@ -1,7 +1,6 @@
 import { date, string, z } from "zod";
 
-const RGBCodeRegex = /^(rgb)?\(?([01]?\d\d?|2[0-4]\d|25[0-5])(\W+)([01]?\d\d?|2[0-4]\d|25[0-5])\W+(([01]?\d\d?|2[0-4]\d|25[0-5])\)?)$/
-const HEXCodeRegex = /^#(?:[0-9a-fA-F]{3}){1,2}$/
+import { HEXCodeRegex, RGBCodeRegex } from "../../regex";
 
 export const ItemCategoryDTOMutationSchema = z.object({
    name: string()
@@ -22,7 +21,7 @@ export const ItemCategoryResponseSchema = z.object({
       .min(3, 'The minimum name length is 3')
       .max(30, 'The maximum name length is 30'),
    color: string()
-      .regex(/^#?([a-f0-9]{6}|[a-f0-9]{3})$/, 'The color must be a HEX code'),
+      .regex(HEXCodeRegex, 'The color must be a HEX code'),
    id: string().uuid('This uuid is invalid'),
    createdAt: date(),
 })

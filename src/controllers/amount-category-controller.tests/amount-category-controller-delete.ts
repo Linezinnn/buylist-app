@@ -1,6 +1,6 @@
 import { describe, test, expect } from "vitest";
 
-import { IDeleteAmountCategoryUseCase } from "../../usecases/interfaces/amount-category-usecases-interfaces";
+import { IDeleteAmountCategoryUseCase } from "../../usecases/amount-category/interfaces/amount-category-usecases-interfaces";
 import { TESTServerInstanceType } from "./index.spec";
 
 import { AmountCategoryController } from "../amount-category-controller";

@@ -7,7 +7,7 @@ import {
    ICreateAmountCategoryUseCase, 
    IDeleteAmountCategoryUseCase, 
    IGetAllAmountCategoriesUsecase 
-} from "../usecases/interfaces/amount-category-usecases-interfaces";
+} from "../usecases/amount-category/interfaces/amount-category-usecases-interfaces";
 
 import { controllerHandlingFastify } from "./controller-handlings/controller-handling-fastify";
 
