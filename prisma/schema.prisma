@@ -15,3 +15,10 @@ model AmountCategory {
   id        String   @unique @default(uuid())
   createdAt DateTime @default(now())
 }
+
+model ItemCategory {
+  name      String   @unique
+  color     String
+  id        String   @unique @default(uuid())
+  createdAt DateTime @default(now())
+}
