@@ -26,6 +26,7 @@ export function ItemCategoryControllerGetAllTest(serverInstance: TESTServerInsta
          const controller = new ItemCategoryController(
             unusedUsecase as any,
             usecase,
+            unusedUsecase as any,
          )
 
          await controller.getAll(serverInstance.response)
@@ -51,6 +52,7 @@ export function ItemCategoryControllerGetAllTest(serverInstance: TESTServerInsta
          const controller = new ItemCategoryController(
             unusedUsecase as any,
             usecaseClone,
+            unusedUsecase as any,
          )
 
          expect(async () => {
@@ -68,6 +70,7 @@ export function ItemCategoryControllerGetAllTest(serverInstance: TESTServerInsta
          const controller = new ItemCategoryController(
             unusedUsecase as any,
             usecaseClone,
+            unusedUsecase as any,
          )
 
          expect(async () => {

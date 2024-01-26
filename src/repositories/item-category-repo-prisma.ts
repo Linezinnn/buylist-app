@@ -1,4 +1,5 @@
 import { prismaClient } from "../database/prisma-client";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 import { IItemCategoryRepository } from "./interfaces/repositories-interfaces";
 import { ItemCategoryType } from "../types/item-category-types";
@@ -24,5 +25,19 @@ export class ItemCategoryRepositoryPrisma implements IItemCategoryRepository {
       const result = await prismaClient.itemCategory.findMany()
 
       return result 
+   }
+
+   async delete(id: string): Promise<boolean> {
+      try {
+         await prismaClient.itemCategory.delete({
+            where: { id }
+         })
+
+         return true
+      } catch (err) {
+         if(err instanceof PrismaClientKnownRequestError) return false
+
+         throw err
+      }
    }
 }

@@ -9,4 +9,5 @@ export interface IAmountCategoryController {
 export interface IItemCategoryController {
    create(request: ServerRequest, response: ServerResponse): Promise<void>
    getAll(response: ServerResponse): Promise<void>
+   delete(request: ServerRequest, response: ServerResponse): Promise<void>
 }

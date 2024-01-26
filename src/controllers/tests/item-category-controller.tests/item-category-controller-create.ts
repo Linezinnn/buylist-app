@@ -29,6 +29,7 @@ export function ItemCategoryControllerCreateTest(serverInstance: TESTServerInsta
          const controller = new ItemCategoryController(
             usecaseClone,
             unusedUsecase as any,
+            unusedUsecase as any,
          ) 
             
          await controller.create(serverInstance.request, serverInstance.response)
@@ -55,6 +56,7 @@ export function ItemCategoryControllerCreateTest(serverInstance: TESTServerInsta
          const controller = new ItemCategoryController(
             usecaseClone, 
             unusedUsecase as any,
+            unusedUsecase as any,
          )
 
          expect(async () => {
@@ -71,6 +73,7 @@ export function ItemCategoryControllerCreateTest(serverInstance: TESTServerInsta
 
          const controller = new ItemCategoryController(
             usecaseClone, 
+            unusedUsecase as any,
             unusedUsecase as any,
          )
 

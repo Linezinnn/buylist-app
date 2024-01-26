@@ -19,4 +19,10 @@ export class ItemCategoryRoutes implements IItemCategoryRoutes {
          this.controller.getAll(res)
       })
    }
+
+   deleteItemCategory(prefix: string): void {
+      this.serverInstance.delete(`${prefix}/:id`, (req, res) => {
+         this.controller.delete(req, res)
+      })
+   }
 }

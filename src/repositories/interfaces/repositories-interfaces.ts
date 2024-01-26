@@ -12,4 +12,5 @@ export interface IItemCategoryRepository {
    create: (name: string, color: string) => Promise<ItemCategoryType>
    getByName: (name: string) => Promise<ItemCategoryType | null>
    getAll: () => Promise<ItemCategoryType[]>
+   delete: (id: string) => Promise<boolean>
 }

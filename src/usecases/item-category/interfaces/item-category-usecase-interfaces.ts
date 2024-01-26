@@ -7,3 +7,7 @@ export interface ICreateItemCategoryUseCase {
 export interface IGetAllItemCategoriesUseCase {
    execute(): Promise<ItemCategoryType[]>
 }
+
+export interface IDeleteItemCategoryUseCase {
+   execute(id: string): Promise<void>
+}
