@@ -1,14 +1,15 @@
 import { describe, test, expect } from "vitest"
 
-import { ItemCategoryType } from "../../types/item-category-types"
-import { ICreateItemCategoryUseCase } from "../../usecases/item-category/interfaces/item-category-usecase-interfaces"
+import { ItemCategoryType } from "../../../types/item-category-types"
+import { ICreateItemCategoryUseCase } from "../../../usecases/item-category/interfaces/item-category-usecase-interfaces"
 import { TESTServerInstanceType } from "./index.spec"
 
-import { UpError } from "../../errors/up-error"
-import { ItemCategoryController } from "../item-category-controller"
+import { UpError } from "../../../errors/up-error"
+import { ItemCategoryController } from "../../item-category-controller"
 
 export function ItemCategoryControllerCreateTest(serverInstance: TESTServerInstanceType) {
    const createdAt = new Date()
+   const unusedUsecase = null
    
    const usecase: ICreateItemCategoryUseCase = { 
       execute: (): Promise<ItemCategoryType> => {
@@ -27,6 +28,7 @@ export function ItemCategoryControllerCreateTest(serverInstance: TESTServerInsta
          
          const controller = new ItemCategoryController(
             usecaseClone,
+            unusedUsecase as any,
          ) 
             
          await controller.create(serverInstance.request, serverInstance.response)
@@ -52,6 +54,7 @@ export function ItemCategoryControllerCreateTest(serverInstance: TESTServerInsta
 
          const controller = new ItemCategoryController(
             usecaseClone, 
+            unusedUsecase as any,
          )
 
          expect(async () => {
@@ -68,6 +71,7 @@ export function ItemCategoryControllerCreateTest(serverInstance: TESTServerInsta
 
          const controller = new ItemCategoryController(
             usecaseClone, 
+            unusedUsecase as any,
          )
 
          expect(async () => {

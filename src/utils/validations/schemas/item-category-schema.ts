@@ -9,7 +9,7 @@ export const ItemCategoryDTOMutationSchema = z.object({
    color: string()
       .refine((color) => {
          return RGBCodeRegex.test(color) || HEXCodeRegex.test(color)
-      }, 'The color must be a valid HEX, RGB, or HSL code')
+      }, 'The color must be a valid HEX or RGB code')
 })
 
 export const ItemCategoryDTOGetSchema = z.object({

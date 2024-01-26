@@ -14,6 +14,7 @@ import { CreateItemCategoryUseCase } from "../usecases/item-category/create-item
 
 import { AmountCategoryRepositoryPrisma } from "../repositories/amount-category-repo-prisma";
 import { ItemCategoryRepositoryPrisma } from "../repositories/item-category-repo-prisma";
+import { GetAllItemCategoriesUsecase } from "../usecases/item-category/get-all-item-categories-usecase";
 
 export async function Routes(serverInstance: ServerInstance) {
    const amountCategoryRoutes = new AmountCategoryRoutes(
@@ -28,6 +29,7 @@ export async function Routes(serverInstance: ServerInstance) {
       serverInstance,
       new ItemCategoryController(
          new CreateItemCategoryUseCase(new ItemCategoryRepositoryPrisma()),
+         new GetAllItemCategoriesUsecase(new ItemCategoryRepositoryPrisma()),
       )
    )
 
@@ -36,4 +38,5 @@ export async function Routes(serverInstance: ServerInstance) {
    amountCategoryRoutes.deleteAmountCategory('/amount-category')
 
    itemCategoryRoutes.createItemCategory('/item-category')
+   itemCategoryRoutes.getAllItemCategories('/all-item-categories')
 }

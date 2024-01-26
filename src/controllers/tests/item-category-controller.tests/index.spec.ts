@@ -1,8 +1,9 @@
 import { describe } from "vitest"
 
-import { TESTServerRequest, TESTServerResponse } from "../../types/server-types"
+import { TESTServerRequest, TESTServerResponse } from "../../../types/server-types"
 
 import { ItemCategoryControllerCreateTest } from "./item-category-controller-create"
+import { ItemCategoryControllerGetAllTest } from "./item-category-controller-get-all"
 
 class ServerInstance {
    public getResponse = {
@@ -35,4 +36,5 @@ export type TESTServerInstanceType = ServerInstance
 
 describe('item category controller', () => {
    ItemCategoryControllerCreateTest(new ServerInstance())
+   ItemCategoryControllerGetAllTest(new ServerInstance())
 })

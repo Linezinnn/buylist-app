@@ -1,6 +1,6 @@
 import { describe } from "vitest"
 
-import { TESTServerRequest, TESTServerResponse } from "../../types/server-types"
+import { TESTServerRequest, TESTServerResponse } from "../../../types/server-types"
 
 import { AmountCategoryControllerCreateTest } from "./amount-category-controller-create"
 import { AmountCategoryControllerGetTest } from "./amount-category-controller-get"

@@ -1,10 +1,10 @@
 import { describe, test, expect } from "vitest";
 
-import { IDeleteAmountCategoryUseCase } from "../../usecases/amount-category/interfaces/amount-category-usecases-interfaces";
+import { IDeleteAmountCategoryUseCase } from "../../../usecases/amount-category/interfaces/amount-category-usecases-interfaces";
 import { TESTServerInstanceType } from "./index.spec";
 
-import { AmountCategoryController } from "../amount-category-controller";
-import { UpError } from "../../errors/up-error";
+import { AmountCategoryController } from "../../amount-category-controller";
+import { UpError } from "../../../errors/up-error";
 
 export function AmountCategoryControllerDeleteTest(serverInstance: TESTServerInstanceType) {
    const unusedUsecase = null

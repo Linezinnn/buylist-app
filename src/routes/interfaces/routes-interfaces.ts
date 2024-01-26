@@ -6,4 +6,5 @@ export interface IAmountCategoryRoutes {
 
 export interface IItemCategoryRoutes {
    createItemCategory(prefix: string): void
+   getAllItemCategories(prefix: string): void
 }

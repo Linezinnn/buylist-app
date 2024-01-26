@@ -14,4 +14,9 @@ export class ItemCategoryRoutes implements IItemCategoryRoutes {
       })
    }
 
+   getAllItemCategories(prefix: string): void {
+      this.serverInstance.get(prefix, (_, res) => {
+         this.controller.getAll(res)
+      })
+   }
 }

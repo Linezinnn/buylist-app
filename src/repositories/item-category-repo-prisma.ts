@@ -19,4 +19,10 @@ export class ItemCategoryRepositoryPrisma implements IItemCategoryRepository {
 
       return result
    }
+   
+   async getAll(): Promise<ItemCategoryType[]> {
+      const result = await prismaClient.itemCategory.findMany()
+
+      return result 
+   }
 }

@@ -1,11 +1,11 @@
 import { describe, test, expect } from "vitest"
 
-import { AmountCategoryType } from "../../types/amount-category-types"
-import { IGetAllAmountCategoriesUsecase } from "../../usecases/amount-category/interfaces/amount-category-usecases-interfaces"
+import { AmountCategoryType } from "../../../types/amount-category-types"
+import { IGetAllAmountCategoriesUsecase } from "../../../usecases/amount-category/interfaces/amount-category-usecases-interfaces"
 import { TESTServerInstanceType } from "./index.spec"
 
-import { AmountCategoryController } from "../amount-category-controller"
-import { UpError } from "../../errors/up-error"
+import { AmountCategoryController } from "../../amount-category-controller"
+import { UpError } from "../../../errors/up-error"
 
 export function AmountCategoryControllerGetTest(serverInstance: TESTServerInstanceType) {
    const createdAt = new Date()
