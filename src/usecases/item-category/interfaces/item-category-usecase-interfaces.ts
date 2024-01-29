@@ -11,3 +11,7 @@ export interface IGetAllItemCategoriesUseCase {
 export interface IDeleteItemCategoryUseCase {
    execute(id: string): Promise<void>
 }
+
+export interface IGetItemCategoryByIdUseCase {
+   execute(id: string): Promise<ItemCategoryType>
+}

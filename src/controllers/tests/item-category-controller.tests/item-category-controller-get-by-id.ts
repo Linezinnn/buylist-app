@@ -1,46 +1,51 @@
 import { describe, test, expect } from "vitest"
 
-import { TESTServerInstanceType } from "./index.spec"
-import { IGetAllItemCategoriesUseCase } from "../../../usecases/item-category/interfaces/item-category-usecase-interfaces"
 import { ItemCategoryType } from "../../../types/item-category-types"
-import { ItemCategoryController } from "../../item-category-controller"
+import { IGetItemCategoryByIdUseCase } from "../../../usecases/item-category/interfaces/item-category-usecase-interfaces"
+import { TESTServerInstanceType } from "./index.spec"
 
 import { UpError } from "../../../errors/up-error"
+import { ItemCategoryController } from "../../item-category-controller"
 
-export function ItemCategoryControllerGetAllTest(serverInstance: TESTServerInstanceType) {
+export function ItemCategoryControllerGetByIdTest(serverInstance: TESTServerInstanceType) {
    const createdAt = new Date()
    const unusedUsecase = null
-   const usecase: IGetAllItemCategoriesUseCase = { 
-      execute: (): Promise<ItemCategoryType[]> => {
-         return Promise.resolve([{ 
+   
+   const usecase: IGetItemCategoryByIdUseCase = { 
+      execute: (): Promise<ItemCategoryType> => {
+         return Promise.resolve({ 
             name: 'test',
             color: '#fff',
-            id: 'test',
+            id: 'id_test',
             createdAt,
-         }])
+         })
       }
    }
-   
-   describe('get all', () => {
+
+   describe('get by id', () => {
       test('must pass', async () => {
+         const usecaseClone = { ...usecase }
+
+         serverInstance.request.params = { id: 'id_test' }
+         
          const controller = new ItemCategoryController(
             unusedUsecase as any,
-            usecase,
             unusedUsecase as any,
             unusedUsecase as any,
-         )
-
-         await controller.getAll(serverInstance.response)
-
+            usecaseClone,
+         ) 
+            
+         await controller.getById(serverInstance.request, serverInstance.response)
+         
          expect(serverInstance.getResponse.status).toBe(200)
-         expect(serverInstance.getResponse.send).toStrictEqual([{ 
+         expect(serverInstance.getResponse.send).toStrictEqual({ 
             name: 'test',
             color: '#fff',
-            id: 'test',
+            id: 'id_test',
             createdAt,
-         }])
+         })
       })
-
+      
       test('with an error, should handle it', () => {
          let usecaseClone = { ...usecase }
          usecaseClone.execute = () => {
@@ -52,13 +57,13 @@ export function ItemCategoryControllerGetAllTest(serverInstance: TESTServerInsta
 
          const controller = new ItemCategoryController(
             unusedUsecase as any,
-            usecaseClone,
             unusedUsecase as any,
             unusedUsecase as any,
+            usecaseClone, 
          )
 
          expect(async () => {
-            await controller.getAll(serverInstance.response)
+            await controller.getById(serverInstance.request, serverInstance.response)
             expect(serverInstance.getResponse.status).toEqual(400)
          }).not.toThrow()
       })
@@ -71,13 +76,13 @@ export function ItemCategoryControllerGetAllTest(serverInstance: TESTServerInsta
 
          const controller = new ItemCategoryController(
             unusedUsecase as any,
-            usecaseClone,
             unusedUsecase as any,
             unusedUsecase as any,
+            usecaseClone, 
          )
 
          expect(async () => {
-            await controller.create(serverInstance.request, serverInstance.response)
+            await controller.getById(serverInstance.request, serverInstance.response)
             expect(serverInstance.getResponse.status).toEqual(500)
          }).not.toThrow()
       })

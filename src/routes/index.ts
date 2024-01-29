@@ -13,6 +13,7 @@ import { DeleteAmountCategoryUseCase } from "../usecases/amount-category/delete-
 import { CreateItemCategoryUseCase } from "../usecases/item-category/create-item-category-usecase";
 import { GetAllItemCategoriesUsecase } from "../usecases/item-category/get-all-item-categories-usecase";
 import { DeleteItemCategoryUseCase } from "../usecases/item-category/delete-item-category-usecase";
+import { GetItemCategoryByIdUseCase } from "../usecases/item-category/get-item-category-by-id-usecase";
 
 import { AmountCategoryRepositoryPrisma } from "../repositories/amount-category-repo-prisma";
 import { ItemCategoryRepositoryPrisma } from "../repositories/item-category-repo-prisma";
@@ -32,6 +33,7 @@ export async function Routes(serverInstance: ServerInstance) {
          new CreateItemCategoryUseCase(new ItemCategoryRepositoryPrisma()),
          new GetAllItemCategoriesUsecase(new ItemCategoryRepositoryPrisma()),
          new DeleteItemCategoryUseCase(new ItemCategoryRepositoryPrisma()),
+         new GetItemCategoryByIdUseCase(new ItemCategoryRepositoryPrisma()),
       )
    )
 
@@ -42,4 +44,5 @@ export async function Routes(serverInstance: ServerInstance) {
    itemCategoryRoutes.createItemCategory('/item-category')
    itemCategoryRoutes.getAllItemCategories('/all-item-categories')
    itemCategoryRoutes.deleteItemCategory('/item-category')
+   itemCategoryRoutes.getItemCategoryById('/item-category')
 }

@@ -114,7 +114,7 @@ describe('create item category usecase', () => {
             await usecase.execute({ name: 'test', color: 'hsl(100%, 0%, 53%)' })
          } catch (error) {
             if(error instanceof UpError) {
-               expect(error.message).toBe('The color must be a valid HEX, RGB, or HSL code')
+               expect(error.message).toBe('The color must be a valid HEX or RGB code')
             }
    
             throw 'test pass'

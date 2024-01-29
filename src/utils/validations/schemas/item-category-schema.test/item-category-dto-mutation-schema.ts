@@ -81,7 +81,7 @@ export function TESTItemCategoryDTOMutationSchema() {
             } catch (error) {
                if(error instanceof ZodError){
                   const { message } = error.issues[0]
-                  expect(message).toEqual("The color must be a valid HEX, RGB, or HSL code")
+                  expect(message).toEqual("The color must be a valid HEX or RGB code")
    
                   throw 'test pass' 
                }

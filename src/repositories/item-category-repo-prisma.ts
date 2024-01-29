@@ -40,4 +40,12 @@ export class ItemCategoryRepositoryPrisma implements IItemCategoryRepository {
          throw err
       }
    }
+  
+   async getById(id: string): Promise<ItemCategoryType | null> {
+      const result = await prismaClient.itemCategory.findFirst({
+         where: { id }
+      })
+
+      return result
+   }
 }

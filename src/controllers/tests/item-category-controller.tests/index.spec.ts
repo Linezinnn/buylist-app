@@ -5,6 +5,7 @@ import { TESTServerRequest, TESTServerResponse } from "../../../types/server-typ
 import { ItemCategoryControllerCreateTest } from "./item-category-controller-create"
 import { ItemCategoryControllerGetAllTest } from "./item-category-controller-get-all"
 import { ItemCategoryControllerDeleteTest } from "./item-category-controller-delete"
+import { ItemCategoryControllerGetByIdTest } from "./item-category-controller-get-by-id"
 
 class ServerInstance {
    public getResponse = {
@@ -39,4 +40,5 @@ describe('item category controller', () => {
    ItemCategoryControllerCreateTest(new ServerInstance())
    ItemCategoryControllerGetAllTest(new ServerInstance())
    ItemCategoryControllerDeleteTest(new ServerInstance())
+   ItemCategoryControllerGetByIdTest(new ServerInstance())
 })

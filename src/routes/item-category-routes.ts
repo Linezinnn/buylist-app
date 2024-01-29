@@ -25,4 +25,10 @@ export class ItemCategoryRoutes implements IItemCategoryRoutes {
          this.controller.delete(req, res)
       })
    }
+   
+   getItemCategoryById(prefix: string): void {
+      this.serverInstance.get(`${prefix}/:id`, (req, res) => {
+         this.controller.getById(req, res)
+      })
+   }
 }

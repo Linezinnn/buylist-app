@@ -21,7 +21,8 @@ export function ItemCategoryControllerDeleteTest(serverInstance: TESTServerInsta
          const controller = new ItemCategoryController(
             unusedUsecase as any, 
             unusedUsecase as any, 
-            usecaseClone
+            usecaseClone,
+            unusedUsecase as any,
          )  
          
          serverInstance.request.params = { id: 'id_test' }
@@ -38,7 +39,8 @@ export function ItemCategoryControllerDeleteTest(serverInstance: TESTServerInsta
          const controller = new ItemCategoryController(
             unusedUsecase as any, 
             unusedUsecase as any, 
-            usecaseClone
+            usecaseClone,
+            unusedUsecase as any,
          )
 
          expect(async () => {
@@ -59,7 +61,8 @@ export function ItemCategoryControllerDeleteTest(serverInstance: TESTServerInsta
          const controller = new ItemCategoryController(
             unusedUsecase as any, 
             unusedUsecase as any, 
-            usecaseClone
+            usecaseClone,
+            unusedUsecase as any,
          )
 
          expect(async () => {
@@ -77,7 +80,8 @@ export function ItemCategoryControllerDeleteTest(serverInstance: TESTServerInsta
          const controller = new ItemCategoryController(
             unusedUsecase as any, 
             unusedUsecase as any, 
-            usecaseClone
+            usecaseClone,
+            unusedUsecase as any,
          )
 
          expect(async () => {
