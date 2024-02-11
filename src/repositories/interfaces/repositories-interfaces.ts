@@ -22,4 +22,5 @@ export interface IItemRepository {
    create: (data: ItemDTOMutationType) => Promise<ItemType>
    getByName: (name: string) => Promise<ItemType | null>
    getById: (id: string) => Promise<ItemType | null>
+   getAll: () => Promise<ItemType[]>
 }

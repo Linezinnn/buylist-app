@@ -10,18 +10,31 @@ describe('get item by id usecase', () => {
    const date = new Date()
    const uuid = randomUUID()
 
+   const itemMock = {
+      name: "TESTE",
+      amount: 200,
+      isChecked: false,
+      amountCategoryId: uuid,
+      itemCategoryId: uuid,
+      id: uuid,
+      updatedAt: date,
+      createdAt: date,
+      amountCategory: {
+        name: "Litros",
+        id: uuid,
+        createdAt: date
+      },
+      ItemCategory: {
+        name: "teste",
+        color: "#fff",
+        id: uuid,
+        createdAt: date
+      }
+    }
+
    const repository: Partial<IItemRepository> = {
       getById(name) {
-         return Promise.resolve({
-            name: 'TEST',
-            id: uuid,
-            amount: 200,
-            isChecked: false,
-            amountCategoryId: uuid,
-            itemCategoryId: uuid,
-            createdAt: date,
-            updatedAt: date,
-         })
+         return Promise.resolve(itemMock)
       },
    }
 
@@ -30,16 +43,7 @@ describe('get item by id usecase', () => {
 
       const result = await usecase.execute(uuid)
 
-      expect(result).toStrictEqual({
-            name: 'TEST',
-            id: uuid,
-            amount: 200,
-            isChecked: false,
-            amountCategoryId: uuid,
-            itemCategoryId: uuid,
-            createdAt: date,
-            updatedAt: date,
-      })
+      expect(result).toStrictEqual(itemMock)
    })
 
    test('should throw an error if the database schema is invalid', () => {

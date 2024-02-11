@@ -7,3 +7,7 @@ export interface ICreateItemUseCase {
 export interface IGetItemByIdUseCase {
    execute(id: string): Promise<ItemType>
 }
+
+export interface IGetAllItemsUseCase {
+   execute(): Promise<ItemType[]>
+}

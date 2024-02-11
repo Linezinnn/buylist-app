@@ -16,4 +16,5 @@ export interface IItemCategoryController {
 export interface IItemController {
    create(request: ServerRequest, response: ServerResponse): Promise<void>
    getById(request: ServerRequest, response: ServerResponse): Promise<void>
+   getAll(response: ServerResponse): Promise<void>
 }

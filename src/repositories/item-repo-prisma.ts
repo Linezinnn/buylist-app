@@ -8,7 +8,11 @@ export class ItemRepositoryPrisma implements IItemRepository {
       name, amount, amountCategoryId, itemCategoryId 
    }: ItemDTOMutationType): Promise<ItemType> {
       const result = await prismaClient.item.create({
-         data: { name, amount, amountCategoryId, itemCategoryId }
+         data: { name, amount, amountCategoryId, itemCategoryId },
+         include: {
+            amountCategory: true,
+            ItemCategory: true,
+         }
       })
 
       return result
@@ -16,7 +20,11 @@ export class ItemRepositoryPrisma implements IItemRepository {
 
    async getByName(name: string): Promise<ItemType | null> {
       const result = await prismaClient.item.findFirst({
-         where: { name }
+         where: { name },
+         include: {
+            amountCategory: true,
+            ItemCategory: true,
+         }
       })
 
       return result
@@ -24,9 +32,25 @@ export class ItemRepositoryPrisma implements IItemRepository {
 
    async getById(id: string): Promise<ItemType | null> {
       const result = await prismaClient.item.findUnique({
-         where: { id }
+         where: { id },
+         include: {
+            amountCategory: true,
+            ItemCategory: true,
+         }
+      })
+ 
+      return result 
+   }
+
+   async getAll(): Promise<ItemType[]> {
+      const result = await prismaClient.item.findMany({
+         include: {
+            amountCategory: true,
+            ItemCategory: true,
+         }
       })
 
-      return result
+      return result 
    }
 }
+

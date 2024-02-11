@@ -14,18 +14,31 @@ describe('create item usecase', () => {
    const date = new Date()
    const uuid = randomUUID()
 
+   const itemMock = {
+      name: "TESTE",
+      amount: 200,
+      isChecked: false,
+      amountCategoryId: uuid,
+      itemCategoryId: uuid,
+      id: uuid,
+      updatedAt: date,
+      createdAt: date,
+      amountCategory: {
+        name: "Litros",
+        id: uuid,
+        createdAt: date
+      },
+      ItemCategory: {
+        name: "teste",
+        color: "#fff",
+        id: uuid,
+        createdAt: date
+      }
+    }
+
    const itemRepository: Partial<IItemRepository> = {
       create(name) {
-         return Promise.resolve({
-            name: 'test',
-            id: uuid,
-            amount: 200,
-            isChecked: false,
-            amountCategoryId: uuid,
-            itemCategoryId: uuid,
-            createdAt: date,
-            updatedAt: date,
-         })
+         return Promise.resolve(itemMock)
       },
       getByName: (name) => {
          return Promise.resolve(null)
@@ -67,32 +80,14 @@ describe('create item usecase', () => {
          itemCategoryId: uuid,
       })
 
-      expect(result).toStrictEqual({
-         name: 'TEST',
-         id: uuid,
-         amount: 200,
-         isChecked: false,
-         amountCategoryId: uuid,
-         itemCategoryId: uuid,
-         createdAt: date,
-         updatedAt: date,
-      })
+      expect(result).toStrictEqual(itemMock)
    })
 
    test('cannot pass if name already exists', () => {
       let repositoryClone = { ...itemRepository }
 
       repositoryClone.getByName = (name: string) => {
-         return Promise.resolve({
-            name,
-            id: uuid,
-            amount: 200,
-            isChecked: false,
-            amountCategoryId: uuid,
-            itemCategoryId: uuid,
-            createdAt: date,
-            updatedAt: date,
-         })
+         return Promise.resolve(itemMock)
       }
 
       const usecase = new CreateItemUseCase(

@@ -20,4 +20,10 @@ export class ItemRoutes implements IItemRoutes {
          this.controller.getById(req, res)
       })
    }
+
+   getAllItems(prefix: string): void {
+      this.serverInstance.get(prefix, (_, res) => {
+         this.controller.getAll(res)
+      })
+   }
 }

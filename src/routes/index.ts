@@ -23,6 +23,7 @@ import { AmountCategoryRepositoryPrisma } from "../repositories/amount-category-
 import { ItemCategoryRepositoryPrisma } from "../repositories/item-category-repo-prisma";
 import { ItemRepositoryPrisma } from "../repositories/item-repo-prisma";
 import { GetItemByIdUseCase } from "../usecases/item/get-item-by-id-usecase";
+import { GetAllItemsUsecase } from "../usecases/item/get-all-items-usecase";
 
 export async function Routes(serverInstance: ServerInstance) {
    const amountCategoryRoutes = new AmountCategoryRoutes(
@@ -52,6 +53,7 @@ export async function Routes(serverInstance: ServerInstance) {
             new ItemCategoryRepositoryPrisma, 
          ),
          new GetItemByIdUseCase(new ItemRepositoryPrisma()),
+         new GetAllItemsUsecase(new ItemRepositoryPrisma()),
       )
    )
 
@@ -66,4 +68,5 @@ export async function Routes(serverInstance: ServerInstance) {
 
    itemRoutes.createItem('/item')
    itemRoutes.getItemById('/item')
+   itemRoutes.getAllItems('/all-items')
 }

@@ -8,16 +8,28 @@ import { ItemResponseSchema } from "../item-schema";
 export function TESTItemResponseSchema() {
    const uuid = randomUUID()
    const date = new Date()
+
    const testData = {
-      name: 'name_test',
+      name: "name_test",
       amount: 200,
       isChecked: false,
       amountCategoryId: uuid,
       itemCategoryId: uuid,
       id: uuid,
-      createdAt: date,
       updatedAt: date,
-   }
+      createdAt: date,
+      amountCategory: {
+        name: "Litros",
+        id: uuid,
+        createdAt: date
+      },
+      ItemCategory: {
+        name: "teste",
+        color: "#fff",
+        id: uuid,
+        createdAt: date
+      }
+    }
    
    describe('item response schema', () => {
       test('the validation needs to pass', () => {

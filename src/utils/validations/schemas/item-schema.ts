@@ -1,5 +1,8 @@
 import { boolean, date, number, string, z } from "zod";
 
+import { AmountCategoryResponseSchema } from "./amount-category-schema";
+import { ItemCategoryResponseSchema } from "./item-category-schema";
+
 export const ItemDTOMutationSchema = z.object({
    name: string()
       .max(30, 'The maximium name length is 30')
@@ -34,6 +37,9 @@ export const ItemResponseSchema = z.object({
    id: string().uuid('This uuid is invalid'),
    createdAt: date(),
    updatedAt: date(),
+   
+   amountCategory: AmountCategoryResponseSchema,
+   ItemCategory: ItemCategoryResponseSchema,
 })
 
 export type ItemDTOMutationSchemaType = z.infer<typeof ItemDTOMutationSchema>

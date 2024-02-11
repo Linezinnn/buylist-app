@@ -4,6 +4,7 @@ import { TESTServerRequest, TESTServerResponse } from "../../../types/server-typ
 
 import { ItemControllerCreateTest } from "./item-controller-create"
 import { ItemControllerGetByIdTest } from "./item-controller-get-by-id"
+import { ItemControllerGetAllTest } from "./item-controller-get-all"
 
 class ServerInstance {
    public getResponse = {
@@ -37,4 +38,5 @@ export type TESTServerInstanceType = ServerInstance
 describe('item controller', () => {
    ItemControllerCreateTest(new ServerInstance())
    ItemControllerGetByIdTest(new ServerInstance())
+   ItemControllerGetAllTest(new ServerInstance())
 })
