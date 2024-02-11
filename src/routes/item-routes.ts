@@ -26,4 +26,10 @@ export class ItemRoutes implements IItemRoutes {
          this.controller.getAll(res)
       })
    }
+
+   deleteItem(prefix: string): void {
+      this.serverInstance.delete(`${prefix}/:id`, (req, res) => {
+         this.controller.delete(req, res)
+      })
+   }
 }

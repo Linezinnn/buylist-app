@@ -33,10 +33,10 @@ describe('delete item category usecase', () => {
       }).rejects.toThrow(UpError)
    })
 
-   test('should throw an error if the amount category not exists with this id', () => {
+   test('should throw an error if the item category not exists with this id', () => {
       const repositoryClone = { ...repository }
 
-      repository.delete = (id: string): Promise<boolean> => Promise.resolve(false)
+      repositoryClone.delete = (id: string): Promise<boolean> => Promise.resolve(false)
 
       const usecase = new DeleteItemCategoryUseCase(repositoryClone as IItemCategoryRepository)
 

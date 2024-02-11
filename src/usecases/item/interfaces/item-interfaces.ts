@@ -11,3 +11,7 @@ export interface IGetItemByIdUseCase {
 export interface IGetAllItemsUseCase {
    execute(): Promise<ItemType[]>
 }
+
+export interface IDeleteItemUseCase {
+   execute(id: string): Promise<void>
+}

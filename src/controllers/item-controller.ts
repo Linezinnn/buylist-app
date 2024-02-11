@@ -5,13 +5,14 @@ import { ItemDTOGetType, ItemDTOMutationType, ItemType } from "../types/item-typ
 import { IItemController } from "./interfaces/controllers-interfaces";
 
 import { controllerHandlingFastify } from "./controller-handlings/controller-handling-fastify";
-import { ICreateItemUseCase, IGetAllItemsUseCase, IGetItemByIdUseCase } from "../usecases/item/interfaces/item-interfaces";
+import { ICreateItemUseCase, IDeleteItemUseCase, IGetAllItemsUseCase, IGetItemByIdUseCase } from "../usecases/item/interfaces/item-interfaces";
 
 export class ItemController implements IItemController {
    constructor(
       private createItemUseCase: ICreateItemUseCase,
       private getItemByIdUseCase: IGetItemByIdUseCase,
       private getAllItemsUseCase: IGetAllItemsUseCase,
+      private deleteItemUseCase: IDeleteItemUseCase,
    ) {}
 
    async create(request: ServerRequest, response: ServerResponse): Promise<void> {
@@ -54,6 +55,21 @@ export class ItemController implements IItemController {
             response
             .status(statusCode.OK)
             .send(result)
+         }
+      })
+   }
+
+   async delete(request: ServerRequest, response: ServerResponse): Promise<void> {
+      controllerHandlingFastify({
+         response,
+         callback: async () => {
+            const { id } = request.params as ItemDTOGetType
+
+            await this.deleteItemUseCase.execute(id ?? '')
+
+            response
+            .status(statusCode.NO_CONTENT)
+            .send()
          }
       })
    }

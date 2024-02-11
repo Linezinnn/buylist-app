@@ -1,3 +1,5 @@
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+
 import { prismaClient } from "../database/prisma-client";
 
 import { IItemRepository } from "./interfaces/repositories-interfaces";
@@ -51,6 +53,20 @@ export class ItemRepositoryPrisma implements IItemRepository {
       })
 
       return result 
+   }
+
+   async delete(id: string): Promise<boolean> {
+      try {
+         await prismaClient.item.delete({
+            where: { id }
+         })
+
+         return true
+      } catch (err) {
+         if(err instanceof PrismaClientKnownRequestError) return false
+
+         throw err
+      }
    }
 }
 

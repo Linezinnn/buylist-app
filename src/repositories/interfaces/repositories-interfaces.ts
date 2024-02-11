@@ -23,4 +23,5 @@ export interface IItemRepository {
    getByName: (name: string) => Promise<ItemType | null>
    getById: (id: string) => Promise<ItemType | null>
    getAll: () => Promise<ItemType[]>
+   delete: (id: string) => Promise<boolean>
 }
