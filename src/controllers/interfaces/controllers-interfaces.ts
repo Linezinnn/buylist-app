@@ -12,3 +12,8 @@ export interface IItemCategoryController {
    delete(request: ServerRequest, response: ServerResponse): Promise<void>
    getById(request: ServerRequest, response: ServerResponse): Promise<void>
 }
+
+export interface IItemController {
+   create(request: ServerRequest, response: ServerResponse): Promise<void>
+   getById(request: ServerRequest, response: ServerResponse): Promise<void>
+}

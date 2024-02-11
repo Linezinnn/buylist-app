@@ -2,9 +2,11 @@ import { ServerInstance } from "../types/server-types";
 
 import { AmountCategoryRoutes } from "./amount-category-routes";
 import { ItemCategoryRoutes } from "./item-category-routes";
+import { ItemRoutes } from "./item-routes";
 
 import { AmountCategoryController } from "../controllers/amount-category-controller";
 import { ItemCategoryController } from "../controllers/item-category-controller";
+import { ItemController } from "../controllers/item-controller";
 
 import { CreateAmountCategoryUseCase } from "../usecases/amount-category/create-amount-category-usecase";
 import { GetAllAmountCategoriesUsecase } from "../usecases/amount-category/get-all-amount-categories-usecase";
@@ -15,8 +17,12 @@ import { GetAllItemCategoriesUsecase } from "../usecases/item-category/get-all-i
 import { DeleteItemCategoryUseCase } from "../usecases/item-category/delete-item-category-usecase";
 import { GetItemCategoryByIdUseCase } from "../usecases/item-category/get-item-category-by-id-usecase";
 
+import { CreateItemUseCase } from "../usecases/item/create-item-usecase";
+
 import { AmountCategoryRepositoryPrisma } from "../repositories/amount-category-repo-prisma";
 import { ItemCategoryRepositoryPrisma } from "../repositories/item-category-repo-prisma";
+import { ItemRepositoryPrisma } from "../repositories/item-repo-prisma";
+import { GetItemByIdUseCase } from "../usecases/item/get-item-by-id-usecase";
 
 export async function Routes(serverInstance: ServerInstance) {
    const amountCategoryRoutes = new AmountCategoryRoutes(
@@ -36,6 +42,18 @@ export async function Routes(serverInstance: ServerInstance) {
          new GetItemCategoryByIdUseCase(new ItemCategoryRepositoryPrisma()),
       )
    )
+   
+   const itemRoutes = new ItemRoutes(
+      serverInstance,
+      new ItemController(
+         new CreateItemUseCase(
+            new ItemRepositoryPrisma(), 
+            new AmountCategoryRepositoryPrisma,
+            new ItemCategoryRepositoryPrisma, 
+         ),
+         new GetItemByIdUseCase(new ItemRepositoryPrisma()),
+      )
+   )
 
    amountCategoryRoutes.createAmountCategory('/amount-category')
    amountCategoryRoutes.getAllAmountCategories('/all-amount-categories')
@@ -45,4 +63,7 @@ export async function Routes(serverInstance: ServerInstance) {
    itemCategoryRoutes.getAllItemCategories('/all-item-categories')
    itemCategoryRoutes.deleteItemCategory('/item-category')
    itemCategoryRoutes.getItemCategoryById('/item-category')
+
+   itemRoutes.createItem('/item')
+   itemRoutes.getItemById('/item')
 }

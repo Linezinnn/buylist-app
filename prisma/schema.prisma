@@ -27,7 +27,7 @@ model ItemCategory {
 model Item {
   name      String
   amount    Int
-  isChecked Boolean
+  isChecked Boolean @default(false)
 
   amountCategoryId String
   itemCategoryId   String

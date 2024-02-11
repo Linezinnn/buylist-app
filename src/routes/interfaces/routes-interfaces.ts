@@ -10,3 +10,8 @@ export interface IItemCategoryRoutes {
    deleteItemCategory(prefix: string): void
    getItemCategoryById(prefix: string): void
 }
+
+export interface IItemRoutes {
+   createItem(prefix: string): void
+   getItemById(prefix: string): void
+}
