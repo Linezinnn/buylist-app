@@ -6,6 +6,7 @@ import { ItemControllerCreateTest } from "./item-controller-create"
 import { ItemControllerGetByIdTest } from "./item-controller-get-by-id"
 import { ItemControllerGetAllTest } from "./item-controller-get-all"
 import { ItemControllerDeleteTest } from "./item-controller-delete"
+import { ItemControllerCheckTest } from "./item-controller-check"
 
 class ServerInstance {
    public getResponse = {
@@ -41,4 +42,5 @@ describe('item controller', () => {
    ItemControllerGetByIdTest(new ServerInstance())
    ItemControllerGetAllTest(new ServerInstance())
    ItemControllerDeleteTest(new ServerInstance())
+   ItemControllerCheckTest(new ServerInstance())
 })

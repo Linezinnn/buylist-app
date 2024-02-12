@@ -18,4 +18,5 @@ export interface IItemController {
    getById(request: ServerRequest, response: ServerResponse): Promise<void>
    getAll(response: ServerResponse): Promise<void>
    delete(request: ServerRequest, response: ServerResponse): Promise<void>
+   checkItem(request: ServerRequest, response: ServerResponse): Promise<void>
 }

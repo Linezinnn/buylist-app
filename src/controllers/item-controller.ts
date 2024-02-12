@@ -1,11 +1,17 @@
 import { statusCode } from "../constants/http-status-codes";
 
 import { ServerRequest, ServerResponse } from "../types/server-types";
-import { ItemDTOGetType, ItemDTOMutationType, ItemType } from "../types/item-types";
+import { ItemDTOCheckType, ItemDTOGetType, ItemDTOMutationType, ItemType } from "../types/item-types";
 import { IItemController } from "./interfaces/controllers-interfaces";
 
 import { controllerHandlingFastify } from "./controller-handlings/controller-handling-fastify";
-import { ICreateItemUseCase, IDeleteItemUseCase, IGetAllItemsUseCase, IGetItemByIdUseCase } from "../usecases/item/interfaces/item-interfaces";
+import { 
+   ICheckItemUseCase, 
+   ICreateItemUseCase, 
+   IDeleteItemUseCase, 
+   IGetAllItemsUseCase, 
+   IGetItemByIdUseCase 
+} from "../usecases/item/interfaces/item-interfaces";
 
 export class ItemController implements IItemController {
    constructor(
@@ -13,6 +19,7 @@ export class ItemController implements IItemController {
       private getItemByIdUseCase: IGetItemByIdUseCase,
       private getAllItemsUseCase: IGetAllItemsUseCase,
       private deleteItemUseCase: IDeleteItemUseCase,
+      private checkItemUseCase: ICheckItemUseCase,
    ) {}
 
    async create(request: ServerRequest, response: ServerResponse): Promise<void> {
@@ -20,7 +27,6 @@ export class ItemController implements IItemController {
          response,
          callback: async () => {
             const data = request.body as ItemDTOMutationType
-
             const result: ItemType = await this.createItemUseCase.execute(data)
 
             response
@@ -70,6 +76,22 @@ export class ItemController implements IItemController {
             response
             .status(statusCode.NO_CONTENT)
             .send()
+         }
+      })
+   }
+   
+   async checkItem(request: ServerRequest, response: ServerResponse): Promise<void> {
+      controllerHandlingFastify({
+         response,
+         callback: async () => {
+            const { id } = request.params as ItemDTOGetType
+            const data = request.body as ItemDTOCheckType
+
+            const result = await this.checkItemUseCase.execute(id ?? '', data)
+
+            response
+            .status(statusCode.OK)
+            .send(result)
          }
       })
    }

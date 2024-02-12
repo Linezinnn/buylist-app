@@ -1,6 +1,6 @@
 import { AmountCategoryType } from "../../types/amount-category-types";
 import { ItemCategoryType } from "../../types/item-category-types";
-import { ItemDTOMutationType, ItemType } from "../../types/item-types";
+import { ItemDTOCheckType, ItemDTOMutationType, ItemType } from "../../types/item-types";
 
 export interface IAmountCategoryRepository {
    create: (name: string) => Promise<AmountCategoryType>
@@ -24,4 +24,5 @@ export interface IItemRepository {
    getById: (id: string) => Promise<ItemType | null>
    getAll: () => Promise<ItemType[]>
    delete: (id: string) => Promise<boolean>
+   checkItem: (id: string, data: ItemDTOCheckType) => Promise<ItemType | null>
 }

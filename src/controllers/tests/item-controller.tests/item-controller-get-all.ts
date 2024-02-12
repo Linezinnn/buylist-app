@@ -49,6 +49,7 @@ export function ItemControllerGetAllTest(serverInstance: TESTServerInstanceType)
             unusedUsecase as any,
             usecase,
             unusedUsecase as any,
+            unusedUsecase as any,
          )
 
          await controller.getAll(serverInstance.response)
@@ -71,6 +72,7 @@ export function ItemControllerGetAllTest(serverInstance: TESTServerInstanceType)
             unusedUsecase as any,
             usecaseClone,
             unusedUsecase as any,
+            unusedUsecase as any,
          )
 
          expect(async () => {
@@ -89,6 +91,7 @@ export function ItemControllerGetAllTest(serverInstance: TESTServerInstanceType)
             unusedUsecase as any,
             unusedUsecase as any,
             usecaseClone,
+            unusedUsecase as any,
             unusedUsecase as any,
          )
 

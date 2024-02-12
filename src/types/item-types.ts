@@ -1,4 +1,5 @@
 import { 
+   ItemDTOCheckSchemaType,
    ItemDTOGetSchemaType, 
    ItemDTOMutationSchemaType, 
    ItemResponseSchemaType,
@@ -6,5 +7,6 @@ import {
 
 export type ItemDTOGetType = ItemDTOGetSchemaType
 export type ItemDTOMutationType = ItemDTOMutationSchemaType
+export type ItemDTOCheckType = ItemDTOCheckSchemaType
 
 export type ItemType = ItemResponseSchemaType

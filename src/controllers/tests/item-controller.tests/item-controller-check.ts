@@ -1,22 +1,22 @@
 import { describe, test, expect } from "vitest"
 import { randomUUID } from "crypto"
 
-import { TESTServerInstanceType } from "./index.spec"
+import { ICheckItemUseCase, ICreateItemUseCase } from "../../../usecases/item/interfaces/item-interfaces"
 import { ItemType } from "../../../types/item-types"
-import { IGetItemByIdUseCase } from "../../../usecases/item/interfaces/item-interfaces"
+import { TESTServerInstanceType } from "./index.spec"
 
 import { UpError } from "../../../errors/up-error"
 import { ItemController } from "../../item-controller"
 
-export function ItemControllerGetByIdTest(serverInstance: TESTServerInstanceType) {
+export function ItemControllerCheckTest(serverInstance: TESTServerInstanceType) {
    const date = new Date()
-   const uuid = randomUUID()
    const unusedUsecase = null
+   const uuid = randomUUID()
    
    const itemMock = {
       name: "TESTE",
       amount: 200,
-      isChecked: false,
+      isChecked: true,
       amountCategoryId: uuid,
       itemCategoryId: uuid,
       id: 'id_test',
@@ -35,27 +35,28 @@ export function ItemControllerGetByIdTest(serverInstance: TESTServerInstanceType
       }
     }
 
-   const usecase: IGetItemByIdUseCase = { 
+   const usecase: ICheckItemUseCase = { 
       execute: (): Promise<ItemType> => {
          return Promise.resolve(itemMock)
       }
    }
 
-   describe('get by id', () => {
+   describe('check item', () => {
       test('must pass', async () => {
          const usecaseClone = { ...usecase }
-
-         serverInstance.request.params = { id: 'id_test' }
          
          const controller = new ItemController(
             unusedUsecase as any,
+            unusedUsecase as any,
+            unusedUsecase as any,
+            unusedUsecase as any,
             usecaseClone,
-            unusedUsecase as any,
-            unusedUsecase as any,
-            unusedUsecase as any,
-         ) 
+         )
             
-         await controller.getById(serverInstance.request, serverInstance.response)
+         serverInstance.request.params = { id: 'id_test' }
+         serverInstance.request.body = { checked: true }
+         
+         await controller.checkItem(serverInstance.request, serverInstance.response)
          
          expect(serverInstance.getResponse.status).toBe(200)
          expect(serverInstance.getResponse.send).toStrictEqual(itemMock)
@@ -72,14 +73,17 @@ export function ItemControllerGetByIdTest(serverInstance: TESTServerInstanceType
 
          const controller = new ItemController(
             unusedUsecase as any,
+            unusedUsecase as any,
+            unusedUsecase as any,
+            unusedUsecase as any,
             usecaseClone, 
-            unusedUsecase as any,
-            unusedUsecase as any,
-            unusedUsecase as any,
          )
 
+         serverInstance.request.params = { id: 'id_test' }
+         serverInstance.request.body = { checked: true }
+
          expect(async () => {
-            await controller.getById(serverInstance.request, serverInstance.response)
+            await controller.checkItem(serverInstance.request, serverInstance.response)
             expect(serverInstance.getResponse.status).toEqual(400)
          }).not.toThrow()
       })
@@ -92,14 +96,14 @@ export function ItemControllerGetByIdTest(serverInstance: TESTServerInstanceType
 
          const controller = new ItemController(
             unusedUsecase as any,
+            unusedUsecase as any,
+            unusedUsecase as any,
+            unusedUsecase as any,
             usecaseClone, 
-            unusedUsecase as any,
-            unusedUsecase as any,
-            unusedUsecase as any,
          )
 
          expect(async () => {
-            await controller.getById(serverInstance.request, serverInstance.response)
+            await controller.checkItem(serverInstance.request, serverInstance.response)
             expect(serverInstance.getResponse.status).toEqual(500)
          }).not.toThrow()
       })

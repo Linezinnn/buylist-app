@@ -3,7 +3,7 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { prismaClient } from "../database/prisma-client";
 
 import { IItemRepository } from "./interfaces/repositories-interfaces";
-import { ItemDTOMutationType, ItemType } from "../types/item-types";
+import { ItemDTOCheckType, ItemDTOMutationType, ItemType } from "../types/item-types";
 
 export class ItemRepositoryPrisma implements IItemRepository {
    async create({ 
@@ -64,6 +64,27 @@ export class ItemRepositoryPrisma implements IItemRepository {
          return true
       } catch (err) {
          if(err instanceof PrismaClientKnownRequestError) return false
+
+         throw err
+      }
+   }
+
+   async checkItem(id: string, data: ItemDTOCheckType): Promise<ItemType | null> {
+      try {
+         const result = await prismaClient.item.update({
+            where: { id },
+            data: {
+               isChecked: data.checked
+            },
+            include: {
+               amountCategory: true,
+               ItemCategory: true,
+            }
+         })
+
+         return result
+      } catch (err) {
+         if(err instanceof PrismaClientKnownRequestError) return null
 
          throw err
       }

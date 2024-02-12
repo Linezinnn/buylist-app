@@ -42,6 +42,11 @@ export const ItemResponseSchema = z.object({
    ItemCategory: ItemCategoryResponseSchema,
 })
 
+export const ItemDTOCheckSchema = z.object({
+   checked: z.boolean()
+})
+
 export type ItemDTOMutationSchemaType = z.infer<typeof ItemDTOMutationSchema>
 export type ItemDTOGetSchemaType = z.infer<typeof ItemDTOGetSchema>
 export type ItemResponseSchemaType = z.infer<typeof ItemResponseSchema>
+export type ItemDTOCheckSchemaType = z.infer<typeof ItemDTOCheckSchema>

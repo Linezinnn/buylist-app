@@ -21,6 +21,7 @@ import { CreateItemUseCase } from "../usecases/item/create-item-usecase";
 import { GetItemByIdUseCase } from "../usecases/item/get-item-by-id-usecase";
 import { GetAllItemsUsecase } from "../usecases/item/get-all-items-usecase";
 import { DeleteItemUseCase } from "../usecases/item/delete-item-usecase";
+import { CheckItemUseCase } from "../usecases/item/check-item-usecase";
 
 import { AmountCategoryRepositoryPrisma } from "../repositories/amount-category-repo-prisma";
 import { ItemCategoryRepositoryPrisma } from "../repositories/item-category-repo-prisma";
@@ -55,7 +56,8 @@ export async function Routes(serverInstance: ServerInstance) {
          ),
          new GetItemByIdUseCase(new ItemRepositoryPrisma()),
          new GetAllItemsUsecase(new ItemRepositoryPrisma()),
-         new DeleteItemUseCase(new ItemRepositoryPrisma())
+         new DeleteItemUseCase(new ItemRepositoryPrisma()),
+         new CheckItemUseCase(new ItemRepositoryPrisma()),
       )
    )
 
@@ -72,4 +74,5 @@ export async function Routes(serverInstance: ServerInstance) {
    itemRoutes.getItemById('/item')
    itemRoutes.getAllItems('/all-items')
    itemRoutes.deleteItem('/item')
+   itemRoutes.checkItem('/check-item')
 }

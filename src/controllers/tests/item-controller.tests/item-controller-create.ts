@@ -50,7 +50,15 @@ export function ItemControllerCreateTest(serverInstance: TESTServerInstanceType)
             unusedUsecase as any,
             unusedUsecase as any,
             unusedUsecase as any,
+            unusedUsecase as any,
          )
+
+         serverInstance.request.body = {
+            name: "TESTE",
+            amount: 200,
+            amountCategoryId: uuid,
+            itemCategoryId: uuid,
+         }
             
          await controller.create(serverInstance.request, serverInstance.response)
          
@@ -73,7 +81,15 @@ export function ItemControllerCreateTest(serverInstance: TESTServerInstanceType)
             unusedUsecase as any,
             unusedUsecase as any,
             unusedUsecase as any,
+            unusedUsecase as any,
          )
+
+         serverInstance.request.body = {
+            name: "TESTE",
+            amount: 200,
+            amountCategoryId: uuid,
+            itemCategoryId: uuid,
+         }
 
          expect(async () => {
             await controller.create(serverInstance.request, serverInstance.response)
@@ -89,6 +105,7 @@ export function ItemControllerCreateTest(serverInstance: TESTServerInstanceType)
 
          const controller = new ItemController(
             usecaseClone, 
+            unusedUsecase as any,
             unusedUsecase as any,
             unusedUsecase as any,
             unusedUsecase as any,
