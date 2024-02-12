@@ -5,7 +5,7 @@ import { Routes } from './routes'
 import { Database } from './database/prisma-client'
 
 const server: FastifyInstance = fastify({ logger: true })
-const port: number = 8080
+const port: number = Number(process.env.PORT) || 3333
 
 Database.connect()
 

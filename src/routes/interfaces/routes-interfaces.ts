@@ -16,4 +16,5 @@ export interface IItemRoutes {
    getItemById(prefix: string): void
    getAllItems(prefix: string): void
    deleteItem(prefix: string): void
+   checkItem(prefix: string): void
 }

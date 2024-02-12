@@ -34,7 +34,7 @@ describe('create item usecase', () => {
         id: uuid,
         createdAt: date
       }
-    }
+   }
 
    const itemRepository: Partial<IItemRepository> = {
       create(name) {

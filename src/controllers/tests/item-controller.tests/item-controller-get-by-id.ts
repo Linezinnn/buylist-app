@@ -52,6 +52,7 @@ export function ItemControllerGetByIdTest(serverInstance: TESTServerInstanceType
             usecaseClone,
             unusedUsecase as any,
             unusedUsecase as any,
+            unusedUsecase as any,
          ) 
             
          await controller.getById(serverInstance.request, serverInstance.response)
@@ -74,6 +75,7 @@ export function ItemControllerGetByIdTest(serverInstance: TESTServerInstanceType
             usecaseClone, 
             unusedUsecase as any,
             unusedUsecase as any,
+            unusedUsecase as any,
          )
 
          expect(async () => {
@@ -91,6 +93,7 @@ export function ItemControllerGetByIdTest(serverInstance: TESTServerInstanceType
          const controller = new ItemController(
             unusedUsecase as any,
             usecaseClone, 
+            unusedUsecase as any,
             unusedUsecase as any,
             unusedUsecase as any,
          )

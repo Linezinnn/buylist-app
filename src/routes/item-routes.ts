@@ -32,4 +32,10 @@ export class ItemRoutes implements IItemRoutes {
          this.controller.delete(req, res)
       })
    }
+
+   checkItem(prefix: string): void {
+      this.serverInstance.patch(`${prefix}/:id`, (req, res) => {
+         this.controller.checkItem(req, res)
+      })
+   }
 }

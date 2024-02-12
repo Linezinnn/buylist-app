@@ -23,6 +23,7 @@ export function ItemControllerDeleteTest(serverInstance: TESTServerInstanceType)
             unusedUsecase as any, 
             unusedUsecase as any,
             usecaseClone,
+            unusedUsecase as any,
          )  
          
          serverInstance.request.params = { id: 'id_test' }
@@ -41,6 +42,7 @@ export function ItemControllerDeleteTest(serverInstance: TESTServerInstanceType)
             unusedUsecase as any, 
             unusedUsecase as any,
             usecaseClone,
+            unusedUsecase as any,
          )
 
          expect(async () => {
@@ -63,6 +65,7 @@ export function ItemControllerDeleteTest(serverInstance: TESTServerInstanceType)
             unusedUsecase as any, 
             unusedUsecase as any,
             usecaseClone,
+            unusedUsecase as any,
          )
 
          expect(async () => {
@@ -82,6 +85,7 @@ export function ItemControllerDeleteTest(serverInstance: TESTServerInstanceType)
             unusedUsecase as any, 
             unusedUsecase as any,
             usecaseClone,
+            unusedUsecase as any,
          )
 
          expect(async () => {
