@@ -1,7 +1,12 @@
 import { 
-   AmountCategoryDTOSchemaType, 
-   AmountCategoryResponseSchemaType 
-} from "../utils/validations/schemas/amount-category-schema";
+   AmountCategoryDTOGetSchemaType,
+   AmountCategoryDTOPostSchemaType,
+   AmountCategoryDTODeleteSchemaType,
+   AmountCategoryResponseSchemaType
+} from "../packages/@buylist-api/schemas/amount-category-schema";
 
-export type AmountCategoryType = AmountCategoryResponseSchemaType
-export type AmountCategoryDTOType = AmountCategoryDTOSchemaType
+export type AmountCategoryDTOGetType = AmountCategoryDTOGetSchemaType
+export type AmountCategoryDTOPostType = AmountCategoryDTOPostSchemaType
+export type AmountCategoryDTODeleteType = AmountCategoryDTODeleteSchemaType
+
+export type AmountCategoryResponseType = AmountCategoryResponseSchemaType

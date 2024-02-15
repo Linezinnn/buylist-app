@@ -5,23 +5,23 @@ import { IDeleteAmountCategoryUseCase } from "../amount-category/interfaces/amou
 
 import { UpError } from "../../errors/up-error";
 
-import { AmountCategoryDTOSchema } from "../../utils/validations/schemas/amount-category-schema";
+import { AmountCategoryDTODeleteType } from "../../types/amount-category-types";
+
 import { validateFunction } from "../../utils/validations/zod-validate-function";
+import { AmountCategoryDTODeleteSchema } from "../../packages/@buylist-api/schemas/amount-category-schema";
 
 export class DeleteAmountCategoryUseCase implements IDeleteAmountCategoryUseCase {
    constructor(
       private repository: IAmountCategoryRepository
    ) {}
 
-   async execute(id: string): Promise<void> {
-      const { id: idValidated } = validateFunction({
-         schema: AmountCategoryDTOSchema,
-         data: { id },
+   async execute(data: AmountCategoryDTODeleteType): Promise<void> {
+      const validatedId = validateFunction({
+         schema: AmountCategoryDTODeleteSchema,
+         data,
       })
 
-      if(!idValidated) return
-
-      const amountCategory = await this.repository.delete(idValidated)
+      const amountCategory = await this.repository.delete(validatedId)
       
       if(!amountCategory) {
          throw new UpError({

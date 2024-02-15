@@ -1,10 +1,12 @@
 import { 
+   ItemCategoryDTODeleteSchemaType,
    ItemCategoryDTOGetSchemaType, 
-   ItemCategoryDTOMutationSchemaType, 
-   ItemCategoryResponseSchemaType 
-} from "../utils/validations/schemas/item-category-schema";
+   ItemCategoryDTOPostSchemaType,
+   ItemCategoryResponseSchemaType,
+} from "../packages/@buylist-api/schemas/item-category-schema"
 
 export type ItemCategoryDTOGetType = ItemCategoryDTOGetSchemaType
-export type ItemCategoryDTOMutationType = ItemCategoryDTOMutationSchemaType
+export type ItemCategoryDTOPostType = ItemCategoryDTOPostSchemaType
+export type ItemCategoryDTODeleteType = ItemCategoryDTODeleteSchemaType
 
-export type ItemCategoryType = ItemCategoryResponseSchemaType
+export type ItemCategoryResponseType = ItemCategoryResponseSchemaType

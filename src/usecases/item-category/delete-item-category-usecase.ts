@@ -2,26 +2,25 @@ import { statusCode } from "../../constants/http-status-codes";
 
 import { IItemCategoryRepository } from "../../repositories/interfaces/repositories-interfaces";
 import { IDeleteItemCategoryUseCase } from "./interfaces/item-category-usecase-interfaces";
+import { ItemCategoryDTODeleteType } from "../../types/item-category-types";
 
 import { UpError } from "../../errors/up-error";
 
 import { validateFunction } from "../../utils/validations/zod-validate-function";
-import { ItemCategoryDTOGetSchema } from "../../utils/validations/schemas/item-category-schema";
+import { ItemCategoryDTODeleteSchema } from "../../packages/@buylist-api/schemas/item-category-schema";
 
 export class DeleteItemCategoryUseCase implements IDeleteItemCategoryUseCase {
    constructor(
       private repository: IItemCategoryRepository
    ) {}
 
-   async execute(id: string): Promise<void> {
-      const { id: idValidated } = validateFunction({
-         schema: ItemCategoryDTOGetSchema,
-         data: { id },
+   async execute(data: ItemCategoryDTODeleteType): Promise<void> {
+      const validatedId = validateFunction({
+         schema: ItemCategoryDTODeleteSchema,
+         data,
       })
 
-      if(!idValidated) return
-
-      const itemCategory = await this.repository.delete(idValidated)
+      const itemCategory = await this.repository.delete(validatedId)
       
       if(!itemCategory) {
          throw new UpError({

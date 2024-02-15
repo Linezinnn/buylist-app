@@ -1,35 +1,35 @@
 import { statusCode } from "../../constants/http-status-codes";
 
 import { IItemRepository } from "../../repositories/interfaces/repositories-interfaces";
-import { ICheckItemUseCase } from "./interfaces/item-interfaces";
-import { ItemDTOCheckType, ItemType } from "../../types/item-types";
+import { CheckItemUseCaseDataType, ICheckItemUseCase } from "./interfaces/item-interfaces";
+import { ItemResponseType } from "../../types/item-types";
 
 import { validateFunction } from "../../utils/validations/zod-validate-function";
-import { 
-   ItemDTOCheckSchema,
-   ItemDTOGetSchema,
-   ItemResponseSchema 
-} from "../../utils/validations/schemas/item-schema";
+
 
 import { UpError } from "../../errors/up-error";
+import { ItemDTOCheckSchema, ItemDTOGetSchema, ItemResponseSchema } from "../../packages/@buylist-api/schemas/item-schema";
 
 export class CheckItemUseCase implements ICheckItemUseCase {
    constructor(
       private repository: IItemRepository,
    ) {}
 
-   async execute(id: string, data: ItemDTOCheckType): Promise<ItemType> {
-      const { id: idValidated } = validateFunction({
+   async execute({ id, isChecked }: CheckItemUseCaseDataType): Promise<ItemResponseType> {
+      const { id: validatedId } = validateFunction({
          schema: ItemDTOGetSchema,
          data: { id },
       })
       
-      let checkedValited = validateFunction({
+      const { isChecked: valitedIsChecked } = validateFunction({
          schema: ItemDTOCheckSchema,
-         data,
+         data: { isChecked },
       })
 
-      const item = await this.repository.checkItem(idValidated, checkedValited) 
+      const item = await this.repository.checkItem({ 
+         id: validatedId,
+         isChecked: valitedIsChecked,
+      }) 
 
       if(!item) {
          throw new UpError({

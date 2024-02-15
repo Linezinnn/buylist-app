@@ -25,7 +25,7 @@ model ItemCategory {
 }
 
 model Item {
-  name      String
+  name      String  @unique
   amount    Int
   isChecked Boolean @default(false)
 
@@ -37,5 +37,5 @@ model Item {
   createdAt DateTime @default(now())
 
   amountCategory AmountCategory @relation(fields: [amountCategoryId], references: [id])
-  ItemCategory   ItemCategory   @relation(fields: [itemCategoryId], references: [id])
+  itemCategory   ItemCategory   @relation(fields: [itemCategoryId], references: [id])
 }

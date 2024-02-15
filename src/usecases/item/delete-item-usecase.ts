@@ -2,26 +2,25 @@ import { statusCode } from "../../constants/http-status-codes";
 
 import { IItemRepository } from "../../repositories/interfaces/repositories-interfaces";
 import { IDeleteItemUseCase } from "./interfaces/item-interfaces";
+import { ItemDTODeleteType } from "../../types/item-types";
 
 import { UpError } from "../../errors/up-error";
 
-import { ItemDTOGetSchema } from "../../utils/validations/schemas/item-schema";
 import { validateFunction } from "../../utils/validations/zod-validate-function";
+import { ItemDTOGetSchema } from "../../packages/@buylist-api/schemas/item-schema";
 
 export class DeleteItemUseCase implements IDeleteItemUseCase {
    constructor(
       private repository: IItemRepository
    ) {}
 
-   async execute(id: string): Promise<void> {
-      const { id: idValidated } = validateFunction({
+   async execute(data: ItemDTODeleteType): Promise<void> {
+      const validatedId = validateFunction({
          schema: ItemDTOGetSchema,
-         data: { id },
+         data,
       })
 
-      if(!idValidated) return
-
-      const item = await this.repository.delete(idValidated)
+      const item = await this.repository.delete(validatedId)
       
       if(!item) {
          throw new UpError({

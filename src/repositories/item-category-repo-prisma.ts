@@ -2,32 +2,35 @@ import { prismaClient } from "../database/prisma-client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 import { IItemCategoryRepository } from "./interfaces/repositories-interfaces";
-import { ItemCategoryType } from "../types/item-category-types";
+import { 
+   ItemCategoryDTODeleteType, 
+   ItemCategoryDTOGetType, 
+   ItemCategoryDTOPostType, 
+   ItemCategoryResponseType 
+} from "../types/item-category-types";
 
 export class ItemCategoryRepositoryPrisma implements IItemCategoryRepository {
-   async create(name: string, color: string): Promise<ItemCategoryType> {
-      const result = await prismaClient.itemCategory.create({
-         data: { name, color }
-      })
+   async create(data: ItemCategoryDTOPostType): Promise<ItemCategoryResponseType> {
+      const result = await prismaClient.itemCategory.create({ data })
 
       return result
    }
 
-   async getByName(name: string): Promise<ItemCategoryType | null> {
-      const result = await prismaClient.itemCategory.findFirst({
-         where: { name }
+   async getByName(name: string): Promise<ItemCategoryResponseType | null> {
+      const result = await prismaClient.itemCategory.findUnique({
+         where: { name },
       })
 
       return result
    }
    
-   async getAll(): Promise<ItemCategoryType[]> {
+   async getAll(): Promise<ItemCategoryResponseType[]> {
       const result = await prismaClient.itemCategory.findMany()
 
       return result 
    }
 
-   async delete(id: string): Promise<boolean> {
+   async delete({ id }: ItemCategoryDTODeleteType): Promise<boolean> {
       try {
          await prismaClient.itemCategory.delete({
             where: { id }
@@ -41,7 +44,7 @@ export class ItemCategoryRepositoryPrisma implements IItemCategoryRepository {
       }
    }
   
-   async getById(id: string): Promise<ItemCategoryType | null> {
+   async getById({ id }: ItemCategoryDTOGetType): Promise<ItemCategoryResponseType | null> {
       const result = await prismaClient.itemCategory.findFirst({
          where: { id }
       })

@@ -1,21 +1,29 @@
-import { ItemDTOCheckType, ItemDTOMutationType, ItemType } from "../../../types/item-types";
+import { 
+   ItemDTOCheckType, 
+   ItemDTODeleteType, 
+   ItemDTOGetType, 
+   ItemDTOPostType, 
+   ItemResponseType 
+} from "../../../types/item-types"
 
 export interface ICreateItemUseCase {
-   execute(data: ItemDTOMutationType): Promise<ItemType>
+   execute(data: ItemDTOPostType): Promise<ItemResponseType>
 }
 
 export interface IGetItemByIdUseCase {
-   execute(id: string): Promise<ItemType>
+   execute(data: ItemDTOGetType): Promise<ItemResponseType>
 }
 
 export interface IGetAllItemsUseCase {
-   execute(): Promise<ItemType[]>
+   execute(): Promise<ItemResponseType[]>
 }
 
 export interface IDeleteItemUseCase {
-   execute(id: string): Promise<void>
+   execute(data: ItemDTODeleteType): Promise<void>
 }
 
+export type CheckItemUseCaseDataType = ItemDTOGetType & ItemDTOCheckType
+
 export interface ICheckItemUseCase {
-   execute(id: string, data: ItemDTOCheckType): Promise<ItemType>
+   execute(data: CheckItemUseCaseDataType): Promise<ItemResponseType>
 }

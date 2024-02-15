@@ -2,15 +2,12 @@ import { statusCode } from "../../constants/http-status-codes";
 
 import { IAmountCategoryRepository, IItemCategoryRepository, IItemRepository } from "../../repositories/interfaces/repositories-interfaces";
 import { ICreateItemUseCase } from "./interfaces/item-interfaces";
-import { ItemDTOMutationType, ItemType } from "../../types/item-types";
+import { ItemDTOPostType, ItemResponseType } from "../../types/item-types";
 
 import { validateFunction } from "../../utils/validations/zod-validate-function";
-import { 
-   ItemDTOMutationSchema, 
-   ItemResponseSchema 
-} from "../../utils/validations/schemas/item-schema";
 
 import { UpError } from "../../errors/up-error";
+import { ItemDTOPostSchema, ItemResponseSchema } from "../../packages/@buylist-api/schemas/item-schema";
 
 export class CreateItemUseCase implements ICreateItemUseCase {
    constructor(
@@ -19,9 +16,9 @@ export class CreateItemUseCase implements ICreateItemUseCase {
       private itemCategoryRepository: IItemCategoryRepository,
    ) {}
 
-   async execute(data: ItemDTOMutationType): Promise<ItemType> {
-      let validatedData = validateFunction({
-         schema: ItemDTOMutationSchema,
+   async execute(data: ItemDTOPostType): Promise<ItemResponseType> {
+      const validatedData = validateFunction({
+         schema: ItemDTOPostSchema,
          data,
       })
 
@@ -34,7 +31,9 @@ export class CreateItemUseCase implements ICreateItemUseCase {
          })
       }
 
-      const checkIfAmountCategoryIdExists = await this.amountCategoryRepository.getById(validatedData.amountCategoryId)
+      const checkIfAmountCategoryIdExists = await this.amountCategoryRepository.getById({ 
+         id: validatedData.amountCategoryId,
+      })
       
       if(!checkIfAmountCategoryIdExists) {
          throw new UpError({
@@ -43,7 +42,9 @@ export class CreateItemUseCase implements ICreateItemUseCase {
          })
       }
 
-      const checkIfItemCategoryIdExists = await this.itemCategoryRepository.getById(validatedData.itemCategoryId)
+      const checkIfItemCategoryIdExists = await this.itemCategoryRepository.getById({ 
+         id: validatedData.itemCategoryId,
+      })
       
       if(!checkIfItemCategoryIdExists) {
          throw new UpError({

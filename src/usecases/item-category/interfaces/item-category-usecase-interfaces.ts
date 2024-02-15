@@ -1,17 +1,22 @@
-import { ItemCategoryDTOMutationType, ItemCategoryType } from "../../../types/item-category-types";
+import { 
+   ItemCategoryDTODeleteType, 
+   ItemCategoryDTOGetType, 
+   ItemCategoryDTOPostType, 
+   ItemCategoryResponseType 
+} from "../../../types/item-category-types"
 
 export interface ICreateItemCategoryUseCase {
-   execute(data: ItemCategoryDTOMutationType): Promise<ItemCategoryType>
+   execute(data: ItemCategoryDTOPostType): Promise<ItemCategoryResponseType>
 }
 
 export interface IGetAllItemCategoriesUseCase {
-   execute(): Promise<ItemCategoryType[]>
+   execute(): Promise<ItemCategoryResponseType[]>
 }
 
 export interface IDeleteItemCategoryUseCase {
-   execute(id: string): Promise<void>
+   execute(data: ItemCategoryDTODeleteType): Promise<void>
 }
 
 export interface IGetItemCategoryByIdUseCase {
-   execute(id: string): Promise<ItemCategoryType>
+   execute(data: ItemCategoryDTOGetType): Promise<ItemCategoryResponseType>
 }

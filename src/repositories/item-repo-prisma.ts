@@ -3,59 +3,62 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { prismaClient } from "../database/prisma-client";
 
 import { IItemRepository } from "./interfaces/repositories-interfaces";
-import { ItemDTOCheckType, ItemDTOMutationType, ItemType } from "../types/item-types";
+import {
+   ItemDTODeleteType, 
+   ItemDTOGetType, 
+   ItemDTOPostType, 
+   ItemResponseType 
+} from "../types/item-types";
+import { CheckItemUseCaseDataType } from "../usecases/item/interfaces/item-interfaces";
 
 export class ItemRepositoryPrisma implements IItemRepository {
-   async create({ 
-      name, amount, amountCategoryId, itemCategoryId 
-   }: ItemDTOMutationType): Promise<ItemType> {
+   private selectVariables = {
+      name: true,
+      amount: true,
+      isChecked: true,
+      id: true,
+      createdAt: true,
+      updatedAt: true,
+      amountCategory: true,
+      itemCategory: true,
+   }
+   
+   async create(data: ItemDTOPostType): Promise<ItemResponseType> {
       const result = await prismaClient.item.create({
-         data: { name, amount, amountCategoryId, itemCategoryId },
-         include: {
-            amountCategory: true,
-            ItemCategory: true,
-         }
+         data,
+         select: this.selectVariables,
       })
 
       return result
    }
 
-   async getByName(name: string): Promise<ItemType | null> {
-      const result = await prismaClient.item.findFirst({
+   async getByName(name: string): Promise<ItemResponseType | null> {
+      const result = await prismaClient.item.findUnique({
          where: { name },
-         include: {
-            amountCategory: true,
-            ItemCategory: true,
-         }
+         select: this.selectVariables,
       })
 
       return result
    }
 
-   async getById(id: string): Promise<ItemType | null> {
+   async getById({ id }: ItemDTOGetType): Promise<ItemResponseType | null> {
       const result = await prismaClient.item.findUnique({
          where: { id },
-         include: {
-            amountCategory: true,
-            ItemCategory: true,
-         }
+         select: this.selectVariables,
       })
  
       return result 
    }
 
-   async getAll(): Promise<ItemType[]> {
+   async getAll(): Promise<ItemResponseType[]> {
       const result = await prismaClient.item.findMany({
-         include: {
-            amountCategory: true,
-            ItemCategory: true,
-         }
+         select: this.selectVariables
       })
 
       return result 
    }
 
-   async delete(id: string): Promise<boolean> {
+   async delete({ id }: ItemDTODeleteType): Promise<boolean> {
       try {
          await prismaClient.item.delete({
             where: { id }
@@ -69,17 +72,14 @@ export class ItemRepositoryPrisma implements IItemRepository {
       }
    }
 
-   async checkItem(id: string, data: ItemDTOCheckType): Promise<ItemType | null> {
+   async checkItem({ id, isChecked }: CheckItemUseCaseDataType): Promise<ItemResponseType | null> {
       try {
          const result = await prismaClient.item.update({
             where: { id },
             data: {
-               isChecked: data.checked
+               isChecked,
             },
-            include: {
-               amountCategory: true,
-               ItemCategory: true,
-            }
+            select: this.selectVariables
          })
 
          return result

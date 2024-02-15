@@ -2,7 +2,11 @@ import { statusCode } from "../constants/http-status-codes";
 
 import { ServerRequest, ServerResponse } from "../types/server-types";
 import { IAmountCategoryController } from "./interfaces/controllers-interfaces";
-import { AmountCategoryDTOType, AmountCategoryType } from "../types/amount-category-types";
+import { 
+   AmountCategoryDTODeleteType,
+   AmountCategoryDTOPostType, 
+   AmountCategoryResponseType 
+} from "../types/amount-category-types";
 import { 
    ICreateAmountCategoryUseCase, 
    IDeleteAmountCategoryUseCase, 
@@ -22,9 +26,9 @@ export class AmountCategoryController implements IAmountCategoryController {
       controllerHandlingFastify({
          response,
          callback: async () => {
-            const data = request.body as AmountCategoryDTOType
+            const data = request.body as AmountCategoryDTOPostType
 
-            const result: AmountCategoryType = await this.createAmountCategoryUseCase.execute(data)
+            const result: AmountCategoryResponseType = await this.createAmountCategoryUseCase.execute(data)
 
             response
             .status(statusCode.CREATED)
@@ -38,7 +42,7 @@ export class AmountCategoryController implements IAmountCategoryController {
       controllerHandlingFastify({
          response,
          callback: async () => {
-            const result: AmountCategoryType[] = await this.getAllAmountCategoriesUseCase.execute()
+            const result: AmountCategoryResponseType[] = await this.getAllAmountCategoriesUseCase.execute()
 
             response
             .status(statusCode.OK)
@@ -51,9 +55,9 @@ export class AmountCategoryController implements IAmountCategoryController {
       controllerHandlingFastify({
          response,
          callback: async () => {
-            const { id } = request.params as AmountCategoryDTOType
+            const paramsData = request.params as AmountCategoryDTODeleteType
 
-            await this.deleteAmountCategoryUseCase.execute(id ?? '')
+            await this.deleteAmountCategoryUseCase.execute(paramsData)
 
             response
             .status(statusCode.NO_CONTENT)

@@ -2,8 +2,17 @@ import { statusCode } from "../constants/http-status-codes";
 
 import { ServerRequest, ServerResponse } from "../types/server-types";
 import { IItemCategoryController } from "./interfaces/controllers-interfaces";
-import { ItemCategoryDTOGetType, ItemCategoryDTOMutationType, ItemCategoryType } from "../types/item-category-types";
-import { ICreateItemCategoryUseCase, IDeleteItemCategoryUseCase, IGetAllItemCategoriesUseCase, IGetItemCategoryByIdUseCase } from "../usecases/item-category/interfaces/item-category-usecase-interfaces";
+import { 
+   ItemCategoryDTODeleteType, 
+   ItemCategoryDTOGetType, 
+   ItemCategoryDTOPostType, 
+   ItemCategoryResponseType, 
+} from "../types/item-category-types";
+import { ICreateItemCategoryUseCase, 
+   IDeleteItemCategoryUseCase, 
+   IGetAllItemCategoriesUseCase, 
+   IGetItemCategoryByIdUseCase 
+} from "../usecases/item-category/interfaces/item-category-usecase-interfaces";
 
 import { controllerHandlingFastify } from "./controller-handlings/controller-handling-fastify";
 
@@ -19,9 +28,9 @@ export class ItemCategoryController implements IItemCategoryController {
       controllerHandlingFastify({
          response,
          callback: async () => {
-            const data = request.body as ItemCategoryDTOMutationType
+            const data = request.body as ItemCategoryDTOPostType
 
-            const result: ItemCategoryType = await this.createItemCategoryUseCase.execute(data)
+            const result: ItemCategoryResponseType = await this.createItemCategoryUseCase.execute(data)
 
             response
             .status(statusCode.CREATED)
@@ -35,7 +44,7 @@ export class ItemCategoryController implements IItemCategoryController {
       controllerHandlingFastify({
          response,
          callback: async () => {
-            const result: ItemCategoryType[] = await this.getAllItemCategoriesUseCase.execute()
+            const result: ItemCategoryResponseType[] = await this.getAllItemCategoriesUseCase.execute()
 
             response
             .status(statusCode.OK)
@@ -48,9 +57,9 @@ export class ItemCategoryController implements IItemCategoryController {
       controllerHandlingFastify({
          response,
          callback: async () => {
-            const { id } = request.params as ItemCategoryDTOGetType
+            const paramsData = request.params as ItemCategoryDTODeleteType
 
-            await this.deleteItemCategoryUseCase.execute(id ?? '')
+            await this.deleteItemCategoryUseCase.execute(paramsData)
 
             response
             .status(statusCode.NO_CONTENT)
@@ -63,9 +72,9 @@ export class ItemCategoryController implements IItemCategoryController {
       controllerHandlingFastify({
          response,
          callback: async () => {
-            const { id } = request.params as ItemCategoryDTOGetType
+            const paramsData = request.params as ItemCategoryDTOGetType
 
-            const result = await this.getItemCategoryByIdUseCase.execute(id ?? '')
+            const result = await this.getItemCategoryByIdUseCase.execute(paramsData)
 
             response
             .status(statusCode.OK)

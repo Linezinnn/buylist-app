@@ -1,7 +1,13 @@
 import { statusCode } from "../constants/http-status-codes";
 
 import { ServerRequest, ServerResponse } from "../types/server-types";
-import { ItemDTOCheckType, ItemDTOGetType, ItemDTOMutationType, ItemType } from "../types/item-types";
+import { 
+   ItemDTOCheckType, 
+   ItemDTODeleteType, 
+   ItemDTOGetType, 
+   ItemDTOPostType, 
+   ItemResponseType 
+} from "../types/item-types";
 import { IItemController } from "./interfaces/controllers-interfaces";
 
 import { controllerHandlingFastify } from "./controller-handlings/controller-handling-fastify";
@@ -26,8 +32,8 @@ export class ItemController implements IItemController {
       controllerHandlingFastify({
          response,
          callback: async () => {
-            const data = request.body as ItemDTOMutationType
-            const result: ItemType = await this.createItemUseCase.execute(data)
+            const data = request.body as ItemDTOPostType
+            const result: ItemResponseType = await this.createItemUseCase.execute(data)
 
             response
             .status(statusCode.CREATED)
@@ -41,9 +47,9 @@ export class ItemController implements IItemController {
       controllerHandlingFastify({
          response,
          callback: async () => {
-            const { id } = request.params as ItemDTOGetType
+            const paramsData = request.params as ItemDTOGetType
 
-            const result = await this.getItemByIdUseCase.execute(id ?? '')
+            const result = await this.getItemByIdUseCase.execute(paramsData)
 
             response
             .status(statusCode.OK)
@@ -56,7 +62,7 @@ export class ItemController implements IItemController {
       controllerHandlingFastify({
          response,
          callback: async () => {
-            const result: ItemType[] = await this.getAllItemsUseCase.execute()
+            const result = await this.getAllItemsUseCase.execute()
 
             response
             .status(statusCode.OK)
@@ -69,9 +75,9 @@ export class ItemController implements IItemController {
       controllerHandlingFastify({
          response,
          callback: async () => {
-            const { id } = request.params as ItemDTOGetType
+            const paramsData = request.params as ItemDTODeleteType
 
-            await this.deleteItemUseCase.execute(id ?? '')
+            await this.deleteItemUseCase.execute(paramsData)
 
             response
             .status(statusCode.NO_CONTENT)
@@ -85,9 +91,9 @@ export class ItemController implements IItemController {
          response,
          callback: async () => {
             const { id } = request.params as ItemDTOGetType
-            const data = request.body as ItemDTOCheckType
+            const { isChecked } = request.body as ItemDTOCheckType
 
-            const result = await this.checkItemUseCase.execute(id ?? '', data)
+            const result = await this.checkItemUseCase.execute({ id, isChecked })
 
             response
             .status(statusCode.OK)

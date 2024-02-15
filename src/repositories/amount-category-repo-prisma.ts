@@ -1,19 +1,22 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { prismaClient } from "../database/prisma-client";
 
-import { AmountCategoryType } from "../types/amount-category-types";
+import { 
+   AmountCategoryDTODeleteType, 
+   AmountCategoryDTOGetType, 
+   AmountCategoryDTOPostType, 
+   AmountCategoryResponseType 
+} from "../types/amount-category-types";
 import { IAmountCategoryRepository } from "./interfaces/repositories-interfaces";
 
 export class AmountCategoryRepositoryPrisma implements IAmountCategoryRepository {
-   async create(name: string): Promise<AmountCategoryType> {
-      const result = await prismaClient.amountCategory.create({
-         data: { name }
-      })
+   async create(data: AmountCategoryDTOPostType): Promise<AmountCategoryResponseType> {
+      const result = await prismaClient.amountCategory.create({ data })
 
       return result
    }
 
-   async getByName(name: string): Promise<AmountCategoryType | null> {
+   async getByName(name: string): Promise<AmountCategoryResponseType | null> {
       const result = await prismaClient.amountCategory.findFirst({
          where: { name }
       })
@@ -21,13 +24,13 @@ export class AmountCategoryRepositoryPrisma implements IAmountCategoryRepository
       return result
    }
 
-   async getAll(): Promise<AmountCategoryType[]> {
+   async getAll(): Promise<AmountCategoryResponseType[]> {
       const result = await prismaClient.amountCategory.findMany()
 
       return result 
    }
 
-   async delete(id: string): Promise<boolean> {
+   async delete({ id }: AmountCategoryDTODeleteType): Promise<boolean> {
       try {
          await prismaClient.amountCategory.delete({
             where: { id }
@@ -41,8 +44,8 @@ export class AmountCategoryRepositoryPrisma implements IAmountCategoryRepository
       }
    }
 
-   async getById(id: string): Promise<AmountCategoryType | null> {
-      const result = await prismaClient.amountCategory.findFirst({
+   async getById({ id }: AmountCategoryDTOGetType): Promise<AmountCategoryResponseType | null> {
+      const result = await prismaClient.amountCategory.findUnique({
          where: { id }
       })
 

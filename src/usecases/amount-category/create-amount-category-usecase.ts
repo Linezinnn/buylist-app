@@ -1,35 +1,24 @@
 import { statusCode } from "../../constants/http-status-codes";
 
 import { IAmountCategoryRepository } from "../../repositories/interfaces/repositories-interfaces";
-import { AmountCategoryDTOType, AmountCategoryType } from "../../types/amount-category-types";
+import { AmountCategoryDTOPostType, AmountCategoryResponseType } from "../../types/amount-category-types";
 import { ICreateAmountCategoryUseCase } from "../amount-category/interfaces/amount-category-usecases-interfaces";
 
 import { UpError } from "../../errors/up-error";
 
-import { 
-   AmountCategoryDTOSchema,
-   AmountCategoryResponseSchema, 
-} from "../../utils/validations/schemas/amount-category-schema";
 import { validateFunction } from "../../utils/validations/zod-validate-function";
+import { AmountCategoryDTOPostSchema, AmountCategoryResponseSchema } from "../../packages/@buylist-api/schemas/amount-category-schema";
 
 export class CreateAmountCategoryUseCase implements ICreateAmountCategoryUseCase {
    constructor(
       private repository: IAmountCategoryRepository
    ) {}
 
-   async execute(data: AmountCategoryDTOType): Promise<AmountCategoryType> {
-
+   async execute(data: AmountCategoryDTOPostType): Promise<AmountCategoryResponseType> {
       const validatedData = validateFunction({
-         schema: AmountCategoryDTOSchema,
+         schema: AmountCategoryDTOPostSchema,
          data,
       })
-
-      if(!validatedData.name) {
-         throw new UpError({
-            statusCode: statusCode.BAD_REQUEST,
-            message: 'Bad Request: The payload need a name for creation'
-         })
-      }
 
       const checkIfNameAlreadyExists = await this.repository.getByName(validatedData.name) 
 
@@ -40,7 +29,7 @@ export class CreateAmountCategoryUseCase implements ICreateAmountCategoryUseCase
          })
       }
       
-      const amountCategory = await this.repository.create(validatedData.name)
+      const amountCategory = await this.repository.create(validatedData)
 
       const amountCategoryValidated = validateFunction({
          schema: AmountCategoryResponseSchema,
