@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Checkbox } from "../ui/checkbox";
-import { TableCell, TableRow } from "../ui/table";
+import { Checkbox } from "../../../../components/ui/checkbox";
+import { TableCell, TableRow } from "../../../../components/ui/table";
 
 interface ItemCellProps {
   name: string,

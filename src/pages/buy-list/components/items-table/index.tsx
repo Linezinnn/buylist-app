@@ -4,7 +4,7 @@ import {
   TableHead, 
   TableHeader, 
   TableRow 
-} from "../ui/table"
+} from "../../../../components/ui/table"
 import { ItemCell } from "./item-cell"
 
 const mock = [

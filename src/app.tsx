@@ -1,7 +1,7 @@
 import { ToggleThemeMenu } from "./components/toggle-theme-menu"
 
-import { CreateItemForm } from "./components/create-item-form"
-import { ItemsTable } from "./components/items-table"
+import { CreateItemForm } from "./pages/buy-list/components/create-item-form"
+import { ItemsTable } from "./pages/buy-list/components/items-table"
 
 function App() {
   return (
