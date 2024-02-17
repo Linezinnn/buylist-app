@@ -6,77 +6,52 @@ import {
   TableRow 
 } from "../../../../components/ui/table"
 import { ItemCell } from "./item-cell"
-
-const mock = [
-  {
-    name: 'SABÃO EM PÓ',
-    amount: 2,
-    amountCategory: {
-      name: 'Unidades',
-    },
-    itemCategory: {
-      name: 'Limpeza',
-      color: '#ffffff',
-    },
-    isChecked: false,
-    id: 'algum_id_ai'
-  },
-  {
-    name: 'PÃO',
-    amount: 1,
-    amountCategory: {
-      name: 'Quilograma',
-    },
-    itemCategory: {
-      name: 'Padaria',
-      color: 'yellow',
-    },
-    isChecked: true,
-    id: 'algum_id_ai'
-  },
-  {
-    name: 'PÃO',
-    amount: 1,
-    amountCategory: {
-      name: 'Quilograma',
-    },
-    itemCategory: {
-      name: 'Padaria',
-      color: 'black',
-    },
-    isChecked: true,
-    id: 'algum_id_ai'
-  }
-]
-
+import { Loading } from "../loading"
+import { useGetItems } from "@/http/get-items"
 
 export function ItemsTable() {
+  const { itemsData, isLoading } = useGetItems()
+
   return (
-    <div className="rounded-lg p-2 border">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-1"></TableHead>
-            <TableHead>Item</TableHead>
-            <TableHead>Quantidade</TableHead>
-            <TableHead>Categoria</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {
-            mock.map(item => (
-              <ItemCell 
-                name={item.name}
-                amount={item.amount}
-                amountCategory={item.amountCategory}
-                itemCategory={item.itemCategory}
-                isChecked={item.isChecked}
-                key={item.id}
-              />
-            ))
-          }
-        </TableBody>
-      </Table>
-    </div>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : <> 
+        {itemsData ? (
+          <div className="rounded-lg p-2 border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-1"></TableHead>
+                  <TableHead>Item</TableHead>
+                  <TableHead>Quantidade</TableHead>
+                  <TableHead>Categoria</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {
+                  itemsData?.sort((a, b) => {
+                    return a.isChecked === b.isChecked ? 0 : a.isChecked ? 1 : -1
+                  }).map((item) => (
+                    <ItemCell 
+                      name={item.name}
+                      amount={item.amount}
+                      amountCategory={{ name: item.amountCategory.name }}
+                      itemCategory={{ name: item.itemCategory.name, color: item.itemCategory.color }}
+                      isChecked={item.isChecked}
+                      id={item.id}
+                      key={item.id}
+                    />
+                  ))
+                }
+              </TableBody>
+            </Table>
+          </div>
+        ) : (
+          <p className="self-center py-4">Nenhum item foi encontrado.</p>
+        )}
+        </>
+      }
+    </>
   )
 }

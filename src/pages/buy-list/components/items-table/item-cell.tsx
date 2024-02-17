@@ -1,6 +1,10 @@
 import { useState } from "react";
+
+import { useCheckItem } from "@/http/check-item";
+
 import { Checkbox } from "../../../../components/ui/checkbox";
 import { TableCell, TableRow } from "../../../../components/ui/table";
+import { Loading } from "../loading";
 
 interface ItemCellProps {
   name: string,
@@ -13,47 +17,65 @@ interface ItemCellProps {
     color: string,
   },
   isChecked: boolean,
+  id: string,
 }
 
-export function ItemCell({ name, amount, amountCategory, itemCategory, isChecked }: ItemCellProps) {
-  const [ check, setCheck ] = useState<boolean>(isChecked)
+export function ItemCell({ name, amount, amountCategory, itemCategory, isChecked, id }: ItemCellProps) {
+  const [ checked, setChecked ] = useState<boolean>(isChecked)
   const [ loading, setLoading ] = useState<boolean>(false)
+
+  const { itemCheckUpdate } = useCheckItem()
   
+  function handleCheckItem() {
+    const updatedCheck = !checked
+
+    setLoading(true)
+    
+    itemCheckUpdate.mutate({
+      params: {
+        id,
+      },
+      data: {
+        isChecked: updatedCheck,
+      }}, {
+        onSuccess: () => {
+          setChecked(updatedCheck)
+          setLoading(false)
+        },
+        onError: () => {
+          setTimeout(() => {
+            setLoading(false)
+          }, 200);
+        }
+      })
+  }
+
   return (
-    <TableRow className={check ? 'dark:bg-[#070707] bg-[#f3f3f3]' : ''}>
+    <TableRow className={checked ? 'dark:bg-[#070707] bg-[#f3f3f3]' : ''}>
       <TableCell className="line-through text-zinc-600">
         {loading ? (
-          <div 
-            className={`
-                w-4 h-4
-                -mr-8
-                rounded-full
-                border-l-white border-gray-600 border
-                animate-spin
-                ease-linear
-            `}
-          />
+          <Loading className="-mr-8"/>
         ) : (
           <Checkbox 
-            checked={check} 
-            onClick={() => setCheck(!check)} 
+            checked={checked} 
+            onClick={handleCheckItem} 
           />
         )}
 
       </TableCell>
 
-      <TableCell className={check ? 'line-through text-zinc-600' : ''}>
+      <TableCell className={checked ? 'line-through text-zinc-600' : ''}>
         {name}
       </TableCell>
 
-      <TableCell className={check ? "line-through text-zinc-600" : ''}>
-        {amount} {amountCategory.name}
+      <TableCell className={checked ? "line-through text-zinc-600" : ''}>
+        {amount} / {amountCategory.name}
       </TableCell>
       
       <TableCell 
         className={`
           flex gap-2 items-center
-          ${check ? 'line-through text-zinc-600' : ''}
+          ${checked ? 'line-through text-zinc-600' : ''}
         `}
       >
         <div 
@@ -61,7 +83,7 @@ export function ItemCell({ name, amount, amountCategory, itemCategory, isChecked
           className={`
             h-4 w-4 rounded-sm 
             ring-1 ring-border dark:ring-1 dark:ring-zinc-600
-            ${check ? 'opacity-50' : ''}
+            ${checked ? 'opacity-50' : ''}
           `}
         />
         {itemCategory.name}
