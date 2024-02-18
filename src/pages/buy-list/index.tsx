@@ -1,4 +1,4 @@
-import { ToggleThemeMenu } from "../../components/toggle-theme-menu"
+import { ToggleThemeMenu } from "@/components/toggle-theme-menu"
 
 import { CreateItemForm } from "./components/create-item-form"
 import { ItemsTable } from "./components/items-table"

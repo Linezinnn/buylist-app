@@ -4,13 +4,13 @@ import {
   TableHead, 
   TableHeader, 
   TableRow 
-} from "../../../../components/ui/table"
-import { ItemCell } from "./item-cell"
-import { Loading } from "../loading"
+} from "@/components/ui/table"
+import { Loading } from "@/components/loading"
 import { useGetItems } from "@/http/get-items"
+import { ItemCell } from "./item-cell"
 
 export function ItemsTable() {
-  const { itemsData, isLoading } = useGetItems()
+  const { data: itemsData, isLoading } = useGetItems()
 
   return (
     <>

@@ -20,5 +20,9 @@ export const messages = {
          EN: `This regex is invalid: ${reason}`,
          PT: `Este regex é invalido: ${reason}`,
       }
+  },
+  NAME_ALREADY_EXISTS: {
+      EN: 'This name already exists',
+      PT: 'Este nome já existe',
   }
 }

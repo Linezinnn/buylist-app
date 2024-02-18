@@ -2,9 +2,10 @@ import { useState } from "react";
 
 import { useCheckItem } from "@/http/check-item";
 
-import { Checkbox } from "../../../../components/ui/checkbox";
-import { TableCell, TableRow } from "../../../../components/ui/table";
-import { Loading } from "../loading";
+import { Checkbox } from "@/components/ui/checkbox";
+import { TableCell, TableRow } from "@/components/ui/table";
+import { Loading } from "@/components/loading";
+import { ColorDisplay } from "@/components/color-display";
 
 interface ItemCellProps {
   name: string,
@@ -78,13 +79,9 @@ export function ItemCell({ name, amount, amountCategory, itemCategory, isChecked
           ${checked ? 'line-through text-zinc-600' : ''}
         `}
       >
-        <div 
-          style={{backgroundColor: itemCategory.color}}
-          className={`
-            h-4 w-4 rounded-sm 
-            ring-1 ring-border dark:ring-1 dark:ring-zinc-600
-            ${checked ? 'opacity-50' : ''}
-          `}
+        <ColorDisplay 
+          color={itemCategory.color} 
+          className={checked ? 'opacity-50' : ''}
         />
         {itemCategory.name}
       </TableCell>
