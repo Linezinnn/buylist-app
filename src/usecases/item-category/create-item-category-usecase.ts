@@ -11,6 +11,7 @@ import { HEXCodeRegex } from "../../packages/@buylist-api/regex";
 
 import { UpError } from "../../errors/up-error";
 import { ItemCategoryDTOPostSchema, ItemCategoryResponseSchema } from "../../packages/@buylist-api/schemas/item-category-schema";
+import { responseMessages } from "../../packages/@buylist-api/response-messages";
 
 export class CreateItemCategoryUseCase implements ICreateItemCategoryUseCase {
    constructor(

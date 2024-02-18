@@ -8,6 +8,7 @@ import { UpError } from "../../errors/up-error";
 
 import { validateFunction } from "../../utils/validations/zod-validate-function";
 import { AmountCategoryDTOPostSchema, AmountCategoryResponseSchema } from "../../packages/@buylist-api/schemas/amount-category-schema";
+import { responseMessages } from "../../packages/@buylist-api/response-messages";
 
 export class CreateAmountCategoryUseCase implements ICreateAmountCategoryUseCase {
    constructor(

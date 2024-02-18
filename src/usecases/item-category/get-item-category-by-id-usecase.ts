@@ -8,6 +8,7 @@ import { UpError } from "../../errors/up-error";
 
 import { validateFunction } from "../../utils/validations/zod-validate-function";
 import { ItemCategoryDTOGetSchema, ItemCategoryResponseSchema } from "../../packages/@buylist-api/schemas/item-category-schema";
+import { responseMessages } from "../../packages/@buylist-api/response-messages";
 
 export class GetItemCategoryByIdUseCase implements IGetItemCategoryByIdUseCase {
    constructor(

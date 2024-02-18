@@ -9,6 +9,7 @@ import { validateFunction } from "../../utils/validations/zod-validate-function"
 
 import { UpError } from "../../errors/up-error";
 import { ItemDTOCheckSchema, ItemDTOGetSchema, ItemResponseSchema } from "../../packages/@buylist-api/schemas/item-schema";
+import { responseMessages } from "../../packages/@buylist-api/response-messages";
 
 export class CheckItemUseCase implements ICheckItemUseCase {
    constructor(
