@@ -5,16 +5,16 @@ import { messages } from "./messages";
 
 const itemCategoryVariables = {
    name: z.string()
-      .min(1, messages.REQUIRED.EN)
-      .min(3, messages.MAX_LENGTH(3).EN)
-      .max(16, messages.MIN_LENGTH(16).EN),
+      .min(1, messages.REQUIRED.PT)
+      .min(3, messages.MIN_LENGTH(3).PT)
+      .max(16, messages.MAX_LENGTH(16).PT),
    color: z.string()
       .refine((color) => {
          return RGBCodeRegex.test(color) || HEXCodeRegex.test(color)
-      }, messages.REGEX("not is a HEX or RGB code").EN),
+      }, messages.REGEX("not is a HEX or RGB code").PT),
    id: z.string()
-      .min(1, messages.REQUIRED.EN)
-      .uuid(messages.UUID.EN),
+      .min(1, messages.REQUIRED.PT)
+      .uuid(messages.UUID.PT),
    createdAt: z.date(),
 }
 

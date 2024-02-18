@@ -5,13 +5,13 @@ import { messages } from './messages'
 
 const amountCategoryVariables = {
    name: z.string()
-      .min(1, messages.REQUIRED.EN)
-      .min(1, messages.MAX_LENGTH(1).EN)
-      .max(16, messages.MIN_LENGTH(16).EN)
-      .regex(StringNotContainsANumberRegex, messages.REGEX("cannot contain numbers").EN),
+      .min(1, messages.REQUIRED.PT)
+      .min(1, messages.MIN_LENGTH(1).PT)
+      .max(16, messages.MAX_LENGTH(16).PT)
+      .regex(StringNotContainsANumberRegex, messages.REGEX("cannot contain numbers").PT),
    id: z.string()
-      .min(1, messages.REQUIRED.EN)
-      .uuid(messages.UUID.EN),
+      .min(1, messages.REQUIRED.PT)
+      .uuid(messages.UUID.PT),
    createdAt: z.date(),
 }
 

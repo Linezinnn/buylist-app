@@ -28,7 +28,7 @@ export class CreateItemCategoryUseCase implements ICreateItemCategoryUseCase {
       if(checkIfNameAlreadyExists) {
          throw new UpError({
             statusCode: statusCode.BAD_REQUEST,
-            message: 'Bad Request: The name already exists'
+            message: responseMessages.NAME_ALREADY_EXISTS,
          })
       }
 

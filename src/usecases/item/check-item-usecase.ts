@@ -34,7 +34,7 @@ export class CheckItemUseCase implements ICheckItemUseCase {
       if(!item) {
          throw new UpError({
             statusCode: statusCode.NOT_FOUND,
-            message: 'Not found: The item with this id does not exists'
+            message: responseMessages.ID_NOT_FOUND
          })
       }
 

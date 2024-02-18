@@ -27,7 +27,7 @@ export class CreateItemUseCase implements ICreateItemUseCase {
       if(checkIfNameAlreadyExists) {
          throw new UpError({
             statusCode: statusCode.BAD_REQUEST,
-            message: 'Bad Request: The name already exists'
+            message: responseMessages.NAME_ALREADY_EXISTS,
          })
       }
 
@@ -38,7 +38,7 @@ export class CreateItemUseCase implements ICreateItemUseCase {
       if(!checkIfAmountCategoryIdExists) {
          throw new UpError({
             statusCode: statusCode.BAD_REQUEST,
-            message: 'Bad Request: The amount category id is not exists'
+            message: responseMessages.AMOUNT_CATEGORY_ID_NOT_EXISTS,
          })
       }
 
@@ -49,7 +49,7 @@ export class CreateItemUseCase implements ICreateItemUseCase {
       if(!checkIfItemCategoryIdExists) {
          throw new UpError({
             statusCode: statusCode.BAD_REQUEST,
-            message: 'Bad Request: The item category id is not exists'
+            message: responseMessages.ITEM_CATEGORY_ID_NOT_EXISTS,
          })
       }
 

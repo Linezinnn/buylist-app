@@ -25,7 +25,7 @@ export class DeleteItemCategoryUseCase implements IDeleteItemCategoryUseCase {
       if(!itemCategory) {
          throw new UpError({
             statusCode: statusCode.NOT_FOUND,
-            message: 'Not found: The item category with this id does not exists'
+            message: responseMessages.ID_NOT_FOUND,
          })
       }
    }

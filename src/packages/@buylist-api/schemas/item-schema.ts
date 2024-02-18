@@ -7,24 +7,24 @@ import { messages } from "./messages"
 
 const itemVariables = {
    name: z.string()
-      .min(1, messages.REQUIRED.EN)
-      .min(3, messages.MAX_LENGTH(3).EN)
-      .max(30, messages.MIN_LENGTH(30).EN)
+      .min(1, messages.REQUIRED.PT)
+      .min(3, messages.MIN_LENGTH(3).PT)
+      .max(30, messages.MAX_LENGTH(30).PT)
       .transform(name => {
          return name.toUpperCase()
       }),
-   amount: z.number()
-      .min(1, messages.MAX_LENGTH(1).EN)
-      .max(100000, messages.MIN_LENGTH(100.000).EN),
+   amount: z.coerce.number()
+      .min(1, messages.MIN_LENGTH(1).PT)
+      .max(100000, messages.MAX_LENGTH(100.000).PT),
    amountCategoryId: z.string()
-      .min(1, messages.REQUIRED.EN)
-      .uuid(messages.UUID.EN),
+      .min(1, messages.REQUIRED.PT)
+      .uuid(messages.UUID.PT),
    itemCategoryId: z.string()
-      .min(1, messages.REQUIRED.EN)
-      .uuid(messages.UUID.EN),
+      .min(1, messages.REQUIRED.PT)
+      .uuid(messages.UUID.PT),
    id: z.string()
-      .min(1, messages.REQUIRED.EN)
-      .uuid(messages.UUID.EN),
+      .min(1, messages.REQUIRED.PT)
+      .uuid(messages.UUID.PT),
    isChecked: z.boolean(),
    createdAt: z.date(),
    updatedAt: z.date(),
