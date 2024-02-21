@@ -1,4 +1,5 @@
-import { ControllerRenderProps } from "react-hook-form";
+import { useEffect } from "react";
+import { ControllerRenderProps, useFormContext } from "react-hook-form";
 
 import { ItemPostType } from "@/types/item-types";
 
@@ -14,10 +15,20 @@ interface SelectProps {
 
 export function AmountCategorySelect({ field }: SelectProps) {
   const { data: amountCategoriesData, isLoading } = useGetAmountCategories()
+  
+  const { setValue } = useFormContext()
+
+  useEffect(() => {
+    const defaultValue = amountCategoriesData?.find(amountCategory => amountCategory.name === 'Unidades')
     
+    if(defaultValue) {
+      setValue("amountCategoryId", defaultValue.id)
+    }
+  }, [setValue, amountCategoriesData])
+
   return (
     <FormItem className="w-full">             
-      <Select onValueChange={field.onChange} defaultValue={field.value}>
+      <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
         <FormControl>
           <SelectTrigger>
             {isLoading ? (
@@ -30,7 +41,6 @@ export function AmountCategorySelect({ field }: SelectProps) {
           </SelectTrigger>
         </FormControl>
         <SelectContent>
-          <SelectItem value="aaa" >AAAA</SelectItem>
           {amountCategoriesData?.map(amountCategory => (
             <SelectItem value={amountCategory.id} key={amountCategory.id}>
               {amountCategory.name}
@@ -38,7 +48,7 @@ export function AmountCategorySelect({ field }: SelectProps) {
           ))}   
         </SelectContent>
       </Select>
-      <FormMessage />
+      <FormMessage className="px-1" />
     </FormItem>
   )
 }

@@ -31,7 +31,9 @@ export function ItemsTable() {
               <TableBody>
                 {
                   itemsData?.sort((a, b) => {
-                    return a.isChecked === b.isChecked ? 0 : a.isChecked ? 1 : -1
+                    return a.isChecked === b.isChecked ? 
+                      new Date(a.createdAt) > new Date(b.createdAt) ?
+                        -1 : 1 : a.isChecked ? 1 : -1
                   }).map((item) => (
                     <ItemCell 
                       name={item.name}

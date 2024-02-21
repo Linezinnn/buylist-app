@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
@@ -6,30 +7,45 @@ import { ItemPostType } from "@/types/item-types"
 import { useCreateItem } from "@/http/create-item"
 import { ItemDTOPostSchema } from "@/packages/@buylist-api/schemas/item-schema"
 import { messages } from "@/packages/@buylist-api/schemas/messages"
+import { DefaultErrorType } from "@/packages/@buylist-api/response-data-formats"
+import { responseMessages } from "@/packages/@buylist-api/response-messages"
 
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { ItemCategorySelect } from "./item-category-select"
 import { AmountCategorySelect } from "./amount-category-select"
+import { Loading } from "@/components/loading"
 
 export function CreateItemForm() { 
+  const [ isLoading, setIsLoading ] = useState<boolean>(false)
+
   const createItemForm = useForm<ItemPostType>({
     resolver: zodResolver(ItemDTOPostSchema),
     defaultValues: {
       name: '',
       amount: 0,
+      itemCategoryId: '',
+      amountCategoryId: '',
     }
   })
 
   const { createItem } = useCreateItem()
 
+  useEffect(() => {
+    setIsLoading(createItem.isLoading)
+  }, [createItem])
+
   function handleSubmit(data: ItemPostType) {
     createItem.mutate({ data }, {
-      onError: () => {
-        createItemForm.setError('name', { 
-          message: messages.NAME_ALREADY_EXISTS.PT
-        })
+      onError: (error) => {
+        const { $message } = error.response?.data as DefaultErrorType
+      
+        if($message == responseMessages.NAME_ALREADY_EXISTS) {
+          createItemForm.setError('name', { 
+            message: messages.NAME_ALREADY_EXISTS.PT
+          })
+        }
       },
       onSuccess: () => {
         createItemForm.reset()
@@ -54,7 +70,7 @@ export function CreateItemForm() {
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="px-1" />
             </FormItem>
           )}
         />
@@ -74,7 +90,7 @@ export function CreateItemForm() {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="px-1" />
                 </FormItem>
               )}
             />
@@ -96,7 +112,13 @@ export function CreateItemForm() {
           )}
           />
 
-          <Button className="px-3">Criar</Button>
+          <Button className="px-3">
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <p>Criar</p>
+            )}
+          </Button>
       </form>
     </Form>
   )

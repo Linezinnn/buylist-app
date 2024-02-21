@@ -18,7 +18,7 @@ export function ItemCategorySelect({ field }: SelectProps) {
 
   return (
     <FormItem className="col-span-2">             
-      <Select onValueChange={field.onChange} defaultValue={field.value}>
+      <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
         <FormControl>
           <SelectTrigger>
             {isLoading ? (
@@ -41,7 +41,7 @@ export function ItemCategorySelect({ field }: SelectProps) {
           ))}   
         </SelectContent>
       </Select>
-      <FormMessage />
+      <FormMessage className="px-1" />
     </FormItem>
   )
 }
