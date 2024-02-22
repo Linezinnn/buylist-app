@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model AmountCategory {
+  name      String
+  id        String   @unique @default(uuid())
+  createdAt DateTime @default(now())
+
+  itens Item[]
+}
+
+model ItemCategory {
+  name      String   @unique
+  color     String
+  id        String   @unique @default(uuid())
+  createdAt DateTime @default(now())
+
+  itens Item[]
+}
+
+model Item {
+  name      String  @unique
+  amount    Int
+  isChecked Boolean @default(false)
+
+  amountCategoryId String
+  itemCategoryId   String
+
+  id        String   @unique @default(uuid())
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  amountCategory AmountCategory @relation(fields: [amountCategoryId], references: [id])
+  itemCategory   ItemCategory   @relation(fields: [itemCategoryId], references: [id])
+}
