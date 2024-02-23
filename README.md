@@ -6,11 +6,6 @@ The purpose of the application is to manage a buy list and document them in the 
 
 ## Technologies ✔️
 
-| Col 1 | Col 2   |
-| ----- | ------- |
-| This  | is      |
-| an    | example |
-
 **API** - 
 [NodeJS](https://nodejs.org/docs/latest-v20.x/api/index.html), 
 [TypeScript](https://www.typescriptlang.org/docs/),
