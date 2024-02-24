@@ -1,42 +1,34 @@
-import { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "react-query";
 
 import { ItemPostType } from "@/types/item-types";
 
 import { useRequest } from "./hooks/useRequest";
-import { useConnectionErrorToast } from "@/components/toasts/connection-error";
-import { useRequestErrorToast } from "@/components/toasts/request-error";
-import { useCreateItemSucessToast } from "@/components/toasts/create-item-sucess";
+import { useOnError } from "./hooks/useOnError";
+import { mutationKeys, queryKeys } from "./request-keys";
+
+import { useCreateItemSucessToast } from "@/components/toasts";
 
 interface CreateItemProps {
   data: ItemPostType
 }
 
 export function useCreateItem() {
-  const { connectionErrorToast } = useConnectionErrorToast()
-  const { requestErrorToast } = useRequestErrorToast()
   const { createItemSucessToast } = useCreateItemSucessToast()
-
+  const { displayErrorToasts } = useOnError()
+  
   const queryClient = useQueryClient()
 
   const createItem = useMutation({
-    mutationKey: ['item-check-update'],
+    mutationKey: [mutationKeys.createItem],
     mutationFn: ({ data }: CreateItemProps) => useRequest({
       url: `/item`,
       method: 'post',
       data,
     }),
-    onError: (error: AxiosError) => {
-      if(error.code === 'ERR_NETWORK') {
-        connectionErrorToast()
-        return 
-      }
-      
-      requestErrorToast()
-    },
+    onError: displayErrorToasts,
     onSuccess: () => {
       queryClient.invalidateQueries({ 
-        queryKey: ['items-data']
+        queryKey: [queryKeys.itemsData]
       })
 
       createItemSucessToast()

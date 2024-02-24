@@ -1,10 +1,16 @@
-import { Toaster } from "./components/ui/toaster"
 import { BuyListPage } from "./pages/buy-list"
+import { LayoutHeader } from "./pages/layout/header"
+
+import { ConnectionErrorAlert } from "./components/alerts"
+import { Toaster } from "./components/ui/toaster"
 
 function App() {
   return (
     <>
-      <BuyListPage />
+      <LayoutHeader>
+        <ConnectionErrorAlert />
+        <BuyListPage />
+      </LayoutHeader>
       <Toaster />
     </>
   )

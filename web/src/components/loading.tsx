@@ -8,7 +8,8 @@ export function Loading({className, ...props}: LoadingProps) {
       className={`
           w-4 h-4
           rounded-full
-          border-l-white border-gray-600 border
+          border border-l-white border-gray-600 
+          dark:border-l-gray-900 dark:border-white
           animate-spin
           ease-linear
           self-center

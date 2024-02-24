@@ -1,11 +1,10 @@
-import { AxiosError } from "axios";
 import { useMutation } from "react-query";
 
 import { ItemCheckType, ItemGetType } from "@/types/item-types";
 
 import { useRequest } from "./hooks/useRequest";
-import { useConnectionErrorToast } from "@/components/toasts/connection-error";
-import { useRequestErrorToast } from "@/components/toasts/request-error";
+import { useOnError } from "./hooks/useOnError";
+import { mutationKeys } from "./request-keys";
 
 interface CheckItemProps {
   params: ItemGetType,
@@ -13,24 +12,16 @@ interface CheckItemProps {
 }
 
 export function useCheckItem() {
-  const { connectionErrorToast } = useConnectionErrorToast()
-  const { requestErrorToast } = useRequestErrorToast()
+  const { displayErrorToasts } = useOnError()
 
   const itemCheckUpdate = useMutation({
-    mutationKey: ['item-check-update'],
+    mutationKey: [mutationKeys.itemCheckUpdate],
     mutationFn: ({ params, data }: CheckItemProps) => useRequest({
       url: `/check-item/${params.id}`,
       method: 'patch',
       data,
     }),
-    onError: (error: AxiosError) => {
-      if(error.code === 'ERR_NETWORK') {
-        connectionErrorToast()
-        return 
-      }
-      
-      requestErrorToast()
-    },
+    onError: displayErrorToasts,
   })
 
   return { itemCheckUpdate }
