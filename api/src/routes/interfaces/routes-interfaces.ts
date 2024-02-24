@@ -18,3 +18,7 @@ export interface IItemRoutes {
    deleteItem(prefix: string): void
    checkItem(prefix: string): void
 }
+
+export interface IInfoRoutes {
+   status(prefix: string): void
+}

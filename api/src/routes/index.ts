@@ -3,6 +3,7 @@ import { ServerInstance } from "../types/server-types";
 import { AmountCategoryRoutes } from "./amount-category-routes";
 import { ItemCategoryRoutes } from "./item-category-routes";
 import { ItemRoutes } from "./item-routes";
+import { InfoRoutes } from "./info-routes";
 
 import { AmountCategoryController } from "../controllers/amount-category-controller";
 import { ItemCategoryController } from "../controllers/item-category-controller";
@@ -61,6 +62,8 @@ export async function Routes(serverInstance: ServerInstance) {
       )
    )
 
+   const infoRoutes = new InfoRoutes(serverInstance)
+
    amountCategoryRoutes.createAmountCategory('/amount-category')
    amountCategoryRoutes.getAllAmountCategories('/all-amount-categories')
    amountCategoryRoutes.deleteAmountCategory('/amount-category')
@@ -75,4 +78,6 @@ export async function Routes(serverInstance: ServerInstance) {
    itemRoutes.getAllItems('/all-items')
    itemRoutes.deleteItem('/item')
    itemRoutes.checkItem('/check-item')
+
+   infoRoutes.status('/api/status')
 }
