@@ -10,6 +10,7 @@ import {
    ItemResponseType 
 } from "../types/item-types";
 import { CheckItemUseCaseDataType } from "../usecases/item/interfaces/item-interfaces";
+import { ItemCategoryDTOGetType } from "../types/item-category-types";
 
 export class ItemRepositoryPrisma implements IItemRepository {
    private selectVariables = {
@@ -86,6 +87,28 @@ export class ItemRepositoryPrisma implements IItemRepository {
       } catch (err) {
          if(err instanceof PrismaClientKnownRequestError) return null
 
+         throw err
+      }
+   }
+   
+   async getFirstByItemCategoryId({ id }: ItemCategoryDTOGetType): Promise<ItemResponseType | null> {
+      const result = await prismaClient.item.findFirst({
+         where: { itemCategoryId: id },
+         select: this.selectVariables,
+      })
+
+      return result 
+   }
+
+   async deleteManyByItemCategoryId({ id }: ItemCategoryDTOGetType): Promise<boolean> {
+      try {
+         await prismaClient.item.deleteMany({
+            where: { itemCategoryId: id },
+         })
+
+         return true
+      } catch (err) {
+         if(err instanceof PrismaClientKnownRequestError) return false
          throw err
       }
    }

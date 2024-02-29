@@ -16,19 +16,25 @@ const itemCategoryVariables = {
       .min(1, messages.REQUIRED.PT)
       .uuid(messages.UUID.PT),
    createdAt: z.date(),
+   skipChecks: z.boolean(),
 }
 
 export const ItemCategoryDTOGetSchema = z.object({
-   id: itemCategoryVariables.id
+   id: itemCategoryVariables.id,
 })
 
 export const ItemCategoryDTOPostSchema = z.object({
    name: itemCategoryVariables.name,
-   color: itemCategoryVariables.color
+   color: itemCategoryVariables.color,
 })
 
 export const ItemCategoryDTODeleteSchema = z.object({
-   id: itemCategoryVariables.id
+   id: itemCategoryVariables.id,
+   skipChecks: itemCategoryVariables.skipChecks,
+})
+
+export const ItemCategoryDTODeleteOptionsSchema = z.object({
+   skipChecks: itemCategoryVariables.skipChecks,
 })
 
 export const ItemCategoryResponseSchema = z.object({
@@ -41,4 +47,5 @@ export const ItemCategoryResponseSchema = z.object({
 export type ItemCategoryDTOGetSchemaType = z.infer<typeof ItemCategoryDTOGetSchema>
 export type ItemCategoryDTOPostSchemaType = z.infer<typeof ItemCategoryDTOPostSchema>
 export type ItemCategoryDTODeleteSchemaType = z.infer<typeof ItemCategoryDTODeleteSchema>
+export type ItemCategoryDTODeleteOptionsSchemaType = z.infer<typeof ItemCategoryDTODeleteOptionsSchema>
 export type ItemCategoryResponseSchemaType = z.infer<typeof ItemCategoryResponseSchema>

@@ -3,7 +3,7 @@ import { statusCode } from "../constants/http-status-codes";
 import { ServerRequest, ServerResponse } from "../types/server-types";
 import { IItemCategoryController } from "./interfaces/controllers-interfaces";
 import { 
-   ItemCategoryDTODeleteType, 
+   ItemCategoryDTODeleteOptionsType,
    ItemCategoryDTOGetType, 
    ItemCategoryDTOPostType, 
    ItemCategoryResponseType, 
@@ -57,9 +57,10 @@ export class ItemCategoryController implements IItemCategoryController {
       controllerHandlingFastify({
          response,
          callback: async () => {
-            const paramsData = request.params as ItemCategoryDTODeleteType
-
-            await this.deleteItemCategoryUseCase.execute(paramsData)
+            const { id } = request.params as ItemCategoryDTOGetType
+            const { skipChecks } = request.body as ItemCategoryDTODeleteOptionsType ?? false
+            
+            await this.deleteItemCategoryUseCase.execute({ id, skipChecks })
 
             response
             .status(statusCode.NO_CONTENT)

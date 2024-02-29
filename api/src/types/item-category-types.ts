@@ -1,4 +1,5 @@
 import { 
+   ItemCategoryDTODeleteOptionsSchemaType,
    ItemCategoryDTODeleteSchemaType,
    ItemCategoryDTOGetSchemaType, 
    ItemCategoryDTOPostSchemaType,
@@ -8,5 +9,6 @@ import {
 export type ItemCategoryDTOGetType = ItemCategoryDTOGetSchemaType
 export type ItemCategoryDTOPostType = ItemCategoryDTOPostSchemaType
 export type ItemCategoryDTODeleteType = ItemCategoryDTODeleteSchemaType
+export type ItemCategoryDTODeleteOptionsType = ItemCategoryDTODeleteOptionsSchemaType
 
 export type ItemCategoryResponseType = ItemCategoryResponseSchemaType

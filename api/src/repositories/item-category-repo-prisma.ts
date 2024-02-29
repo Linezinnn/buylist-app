@@ -3,7 +3,6 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 import { IItemCategoryRepository } from "./interfaces/repositories-interfaces";
 import { 
-   ItemCategoryDTODeleteType, 
    ItemCategoryDTOGetType, 
    ItemCategoryDTOPostType, 
    ItemCategoryResponseType 
@@ -30,7 +29,7 @@ export class ItemCategoryRepositoryPrisma implements IItemCategoryRepository {
       return result 
    }
 
-   async delete({ id }: ItemCategoryDTODeleteType): Promise<boolean> {
+   async delete({ id }: ItemCategoryDTOGetType): Promise<boolean> {
       try {
          await prismaClient.itemCategory.delete({
             where: { id }
@@ -38,8 +37,8 @@ export class ItemCategoryRepositoryPrisma implements IItemCategoryRepository {
 
          return true
       } catch (err) {
-         if(err instanceof PrismaClientKnownRequestError) return false
 
+         if(err instanceof PrismaClientKnownRequestError) return false
          throw err
       }
    }

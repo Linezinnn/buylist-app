@@ -5,13 +5,11 @@ import {
    AmountCategoryResponseType 
 } from "../../types/amount-category-types";
 import { 
-   ItemCategoryDTODeleteType, 
    ItemCategoryDTOGetType, 
    ItemCategoryDTOPostType,
    ItemCategoryResponseType, 
 } from "../../types/item-category-types";
 import { 
-   ItemDTOCheckType, 
    ItemDTODeleteType, 
    ItemDTOGetType, 
    ItemDTOPostType, 
@@ -31,7 +29,7 @@ export interface IItemCategoryRepository {
    create: (data: ItemCategoryDTOPostType) => Promise<ItemCategoryResponseType>
    getByName: (name: string) => Promise<ItemCategoryResponseType | null>
    getAll: () => Promise<ItemCategoryResponseType[]>
-   delete: (data: ItemCategoryDTODeleteType) => Promise<boolean>
+   delete: (data: ItemCategoryDTOGetType) => Promise<boolean>
    getById: (id: ItemCategoryDTOGetType) => Promise<ItemCategoryResponseType | null>
 }
 
@@ -42,4 +40,6 @@ export interface IItemRepository {
    getAll: () => Promise<ItemResponseType[]>
    delete: (data: ItemDTODeleteType) => Promise<boolean>
    checkItem: (data: CheckItemUseCaseDataType) => Promise<ItemResponseType | null>
+   getFirstByItemCategoryId: (data: ItemCategoryDTOGetType) => Promise<ItemResponseType | null>
+   deleteManyByItemCategoryId: (data: ItemCategoryDTOGetType) => Promise<boolean>
 }

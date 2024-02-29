@@ -42,7 +42,10 @@ export async function Routes(serverInstance: ServerInstance) {
       new ItemCategoryController(
          new CreateItemCategoryUseCase(new ItemCategoryRepositoryPrisma()),
          new GetAllItemCategoriesUsecase(new ItemCategoryRepositoryPrisma()),
-         new DeleteItemCategoryUseCase(new ItemCategoryRepositoryPrisma()),
+         new DeleteItemCategoryUseCase(
+            new ItemCategoryRepositoryPrisma(),
+            new ItemRepositoryPrisma(),
+         ),
          new GetItemCategoryByIdUseCase(new ItemCategoryRepositoryPrisma()),
       )
    )
