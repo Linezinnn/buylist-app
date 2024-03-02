@@ -3,12 +3,6 @@
 @tailwind utilities;
  
 @layer base {
-  input[type="number"]::-webkit-inner-spin-button,
-  input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
@@ -81,20 +75,3 @@
   }
 }
 
-.webkit-switch-color::-webkit-color-swatch {
-  border-radius: 0.25rem;
-  border: none;
-  padding: 0;
-}
-
-.webkit-switch-color-wrapper::-webkit-color-swatch-wrapper {
-  padding: 0;
-}
-
-::-webkit-scrollbar {
-  @apply w-2 h-2 bg-white dark:bg-zinc-900 
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-slate-200 dark:bg-zinc-800
-}

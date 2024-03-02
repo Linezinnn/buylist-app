@@ -19,7 +19,7 @@ export function CreateItemCategoryForm() {
   const createItemCategoryForm = useForm<ItemCategoryPostType>({
     resolver: zodResolver(ItemCategoryDTOPostSchema),
     defaultValues: {
-      color: '#000',
+      color: '#000000',
       name: '',
     }
   })

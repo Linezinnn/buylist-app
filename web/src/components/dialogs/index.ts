@@ -1,1 +1,1 @@
-export { useConfirmDeleteDialog } from './confirm-delete-dialog'
+export { useConfirmDialog } from './confirm-dialog'

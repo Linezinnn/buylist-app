@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Trash } from "lucide-react";
 
-import { useConfirmDeleteDialog } from "@/components/dialogs";
+import { useConfirmDialog } from "@/components/dialogs";
 
 import { ColorDisplay } from "@/components/color-display";
 import { Loading } from "@/components/loading";
@@ -17,11 +17,13 @@ interface ManageListItemProps {
 export function ManageListItem({ color, id, name }: ManageListItemProps) {
   const [isLoadingDeleting, setIsLoadingDeleting] = useState<boolean>(false)
 
-  const { ConfirmDeleteDialogComponent, constructConfirmDeleteDialog } = useConfirmDeleteDialog()
+  const { ConfirmDialogComponent, constructConfirmDialog } = useConfirmDialog()
   const { deleteItemCategory } = useDeleteItemCategory()
 
   function handleDeleteItemCategory(id: string) {
-    constructConfirmDeleteDialog({
+    constructConfirmDialog({
+      title: 'Você tem certeza?',
+      description: 'Você confirma que deseja deletar esta categoria? Esta ação é irreversível e será executada após a confirmação.',
       onClickConfirm: () => {
         setIsLoadingDeleting(true)
     
@@ -34,7 +36,7 @@ export function ManageListItem({ color, id, name }: ManageListItemProps) {
 
   return (
     <>
-      {ConfirmDeleteDialogComponent}
+      {ConfirmDialogComponent}
       <TableRow>
         <TableCell className="flex gap-2 items-center p-auto">
           <ColorDisplay 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { 
   AlertDialog, 
   AlertDialogFooter, 
@@ -7,19 +7,23 @@ import {
   AlertDialogCancel, 
   AlertDialogContent, 
   AlertDialogDescription, 
-  AlertDialogTitle 
+  AlertDialogTitle, 
 } from "@/components/ui/alert-dialog";
 
-interface ConstructConfirmDeleteDialogProps {
+interface ConstructConfirmDialogProps {
   onClickConfirm: () => any,
   onClickCancel?: () => any,
+  title: ReactNode,
+  description: ReactNode,
 }
 
-export function useConfirmDeleteDialog() {
+export function useConfirmDialog() {
   const [ open, setOpen ] = useState<boolean>(false)
 
   const [ cancelMethod, setcancelMethod ] = useState({ handle: () => {} })
   const [ confirmMethod, setConfirmMethod ] = useState({ handle: () => {} })
+  const [ title, setTitle ] = useState<ReactNode>(null)
+  const [ description, setDescription ] = useState<ReactNode>(null)
 
   const handleConfirm = () => {
     setOpen(false)
@@ -31,19 +35,28 @@ export function useConfirmDeleteDialog() {
     cancelMethod.handle()
   }
 
-  function constructConfirmDeleteDialog({ onClickConfirm, onClickCancel = () => {} }: ConstructConfirmDeleteDialogProps) {
+  function constructConfirmDialog({ 
+    onClickConfirm, 
+    onClickCancel = () => {}, 
+    title, 
+    description 
+  }: ConstructConfirmDialogProps) {
     setOpen(true)
     setConfirmMethod({ handle: onClickConfirm})
     setcancelMethod({ handle: onClickCancel })
+    setTitle(title)
+    setDescription(description)
   }
 
-  const ConfirmDeleteDialogComponent = (
+  const ConfirmDialogComponent = (
     <AlertDialog open={open}>
-      <AlertDialogContent>
+      <AlertDialogContent handleChangeOpen={handleCancel}>
         <AlertDialogHeader>
-          <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
+          <AlertDialogTitle>
+            {title}
+          </AlertDialogTitle>
           <AlertDialogDescription>
-            Você confirma que deseja deletar esta categoria? Esta ação é irreversível e será executada após a confirmação.
+            {description}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -54,5 +67,5 @@ export function useConfirmDeleteDialog() {
     </AlertDialog>
   )
 
-  return { constructConfirmDeleteDialog, ConfirmDeleteDialogComponent }
+  return { constructConfirmDialog, ConfirmDialogComponent }
 }

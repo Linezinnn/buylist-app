@@ -35,6 +35,7 @@ export function ManageItemCategoryList() {
                   color={itemCategory.color}
                   name={itemCategory.name}
                   id={itemCategory.id}
+                  key={itemCategory.id}
                 />
               ))}
             </TableBody>
