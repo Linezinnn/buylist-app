@@ -1,13 +1,13 @@
 import { useToast } from "../ui/use-toast"
 
-export function useCreateItemSucessToast() {
+export function useCreateSucessToast() {
   const { toast } = useToast()
 
-  const createItemSucessToast = () => toast({
+  const createSucessToast = () => toast({
     title: 'Sucesso',
-    description: 'A criação do item foi concluída com êxito, e já se encontra na sua lista!',
+    description: 'A criação foi concluída com êxito, e já se encontra disponível!',
     variant: 'sucess',
   })
 
-  return { createItemSucessToast }
+  return { createSucessToast }
 }

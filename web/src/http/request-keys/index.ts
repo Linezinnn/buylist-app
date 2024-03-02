@@ -8,4 +8,6 @@ export const queryKeys = {
 export const mutationKeys = {
   itemCheckUpdate: 'item-check-update',
   createItem: 'create-item',
+  createItemCategory: 'create-item-category',
+  deleteItemCategory: 'delete-item-category',
 }
