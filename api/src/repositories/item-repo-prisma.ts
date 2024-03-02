@@ -11,6 +11,7 @@ import {
 } from "../types/item-types";
 import { CheckItemUseCaseDataType } from "../usecases/item/interfaces/item-interfaces";
 import { ItemCategoryDTOGetType } from "../types/item-category-types";
+import { AmountCategoryDTOGetType } from "../types/amount-category-types";
 
 export class ItemRepositoryPrisma implements IItemRepository {
    private selectVariables = {
@@ -104,6 +105,28 @@ export class ItemRepositoryPrisma implements IItemRepository {
       try {
          await prismaClient.item.deleteMany({
             where: { itemCategoryId: id },
+         })
+
+         return true
+      } catch (err) {
+         if(err instanceof PrismaClientKnownRequestError) return false
+         throw err
+      }
+   }
+
+   async getFirstByAmountCategoryId({ id }: AmountCategoryDTOGetType): Promise<ItemResponseType | null> {
+      const result = await prismaClient.item.findFirst({
+         where: { amountCategoryId: id },
+         select: this.selectVariables,
+      })
+
+      return result 
+   }
+
+   async deleteManyByAmountCategoryId({ id }: AmountCategoryDTOGetType): Promise<boolean> {
+      try {
+         await prismaClient.item.deleteMany({
+            where: { amountCategoryId: id },
          })
 
          return true

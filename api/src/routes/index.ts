@@ -34,7 +34,10 @@ export async function Routes(serverInstance: ServerInstance) {
       new AmountCategoryController(
          new CreateAmountCategoryUseCase(new AmountCategoryRepositoryPrisma()),
          new GetAllAmountCategoriesUsecase(new AmountCategoryRepositoryPrisma()),
-         new DeleteAmountCategoryUseCase(new AmountCategoryRepositoryPrisma()),
+         new DeleteAmountCategoryUseCase(
+            new AmountCategoryRepositoryPrisma(),
+            new ItemRepositoryPrisma(),
+         ),
    ))
 
    const itemCategoryRoutes = new ItemCategoryRoutes(

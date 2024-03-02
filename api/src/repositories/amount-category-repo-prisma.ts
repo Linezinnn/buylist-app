@@ -30,7 +30,7 @@ export class AmountCategoryRepositoryPrisma implements IAmountCategoryRepository
       return result 
    }
 
-   async delete({ id }: AmountCategoryDTODeleteType): Promise<boolean> {
+   async delete({ id }: AmountCategoryDTOGetType): Promise<boolean> {
       try {
          await prismaClient.amountCategory.delete({
             where: { id }

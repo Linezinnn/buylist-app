@@ -13,6 +13,7 @@ const amountCategoryVariables = {
       .min(1, messages.REQUIRED.PT)
       .uuid(messages.UUID.PT),
    createdAt: z.date(),
+   skipChecks: z.boolean(),
 }
 
 export const AmountCategoryDTOGetSchema = z.object({
@@ -25,6 +26,11 @@ export const AmountCategoryDTOPostSchema = z.object({
 
 export const AmountCategoryDTODeleteSchema = z.object({
    id: amountCategoryVariables.id,
+   skipChecks: amountCategoryVariables.skipChecks,
+})
+
+export const AmountCategoryDTODeleteOptionsSchema = z.object({
+   skipChecks: amountCategoryVariables.skipChecks,
 })
 
 export const AmountCategoryResponseSchema = z.object({
@@ -36,4 +42,5 @@ export const AmountCategoryResponseSchema = z.object({
 export type AmountCategoryDTOGetSchemaType = z.infer<typeof AmountCategoryDTOGetSchema>
 export type AmountCategoryDTOPostSchemaType = z.infer<typeof AmountCategoryDTOPostSchema>
 export type AmountCategoryDTODeleteSchemaType = z.infer<typeof AmountCategoryDTODeleteSchema>
+export type AmountCategoryDTODeleteOptionsSchemaType = z.infer<typeof AmountCategoryDTODeleteOptionsSchema>
 export type AmountCategoryResponseSchemaType = z.infer<typeof AmountCategoryResponseSchema>

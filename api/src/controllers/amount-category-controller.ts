@@ -3,7 +3,9 @@ import { statusCode } from "../constants/http-status-codes";
 import { ServerRequest, ServerResponse } from "../types/server-types";
 import { IAmountCategoryController } from "./interfaces/controllers-interfaces";
 import { 
+   AmountCategoryDTODeleteOptionsType,
    AmountCategoryDTODeleteType,
+   AmountCategoryDTOGetType,
    AmountCategoryDTOPostType, 
    AmountCategoryResponseType 
 } from "../types/amount-category-types";
@@ -55,9 +57,10 @@ export class AmountCategoryController implements IAmountCategoryController {
       controllerHandlingFastify({
          response,
          callback: async () => {
-            const paramsData = request.params as AmountCategoryDTODeleteType
+            const { id } = request.params as AmountCategoryDTOGetType
+            const { skipChecks } = request.body as AmountCategoryDTODeleteOptionsType ?? false
 
-            await this.deleteAmountCategoryUseCase.execute(paramsData)
+            await this.deleteAmountCategoryUseCase.execute({ id, skipChecks })
 
             response
             .status(statusCode.NO_CONTENT)

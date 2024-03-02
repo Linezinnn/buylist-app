@@ -28,7 +28,7 @@ export class DeleteItemCategoryUseCase implements IDeleteItemCategoryUseCase {
          if(result) {
             throw new UpError({
                statusCode: statusCode.CONFLICT,
-               message: responseMessages.ITEMS_EXISTS_WITH_THIS_ITEM_CATEGORY_ID,
+               message: responseMessages.ITEMS_EXISTS_WITH_THIS_CATEGORY_ID,
             })
          }
       }

@@ -21,7 +21,7 @@ export interface IAmountCategoryRepository {
    create: (data: AmountCategoryDTOPostType) => Promise<AmountCategoryResponseType>
    getByName: (name: string) => Promise<AmountCategoryResponseType | null>
    getAll: () => Promise<AmountCategoryResponseType[]>
-   delete: (data: AmountCategoryDTODeleteType) => Promise<boolean>
+   delete: (data: AmountCategoryDTOGetType) => Promise<boolean>
    getById: (data: AmountCategoryDTOGetType) => Promise<AmountCategoryResponseType | null>
 }
 
@@ -42,4 +42,6 @@ export interface IItemRepository {
    checkItem: (data: CheckItemUseCaseDataType) => Promise<ItemResponseType | null>
    getFirstByItemCategoryId: (data: ItemCategoryDTOGetType) => Promise<ItemResponseType | null>
    deleteManyByItemCategoryId: (data: ItemCategoryDTOGetType) => Promise<boolean>
+   getFirstByAmountCategoryId: (data: ItemCategoryDTOGetType) => Promise<ItemResponseType | null>
+   deleteManyByAmountCategoryId: (data: ItemCategoryDTOGetType) => Promise<boolean>
 }
