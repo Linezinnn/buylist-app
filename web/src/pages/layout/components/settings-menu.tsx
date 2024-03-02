@@ -1,6 +1,7 @@
 import { LucideSettings, Plus } from "lucide-react"
 
 import { useManageItemCategorySheet } from "./sheets/manage-item-category"
+import { useManageAmountCategorySheet } from "./sheets/manage-amount-category"
 
 import {
   DropdownMenu,
@@ -11,13 +12,13 @@ import {
 import { Button } from "@/components/ui/button"
 
 export function SettingsMenu() {
-  const { ManageItemCategorySheet, handleOpenCallback: handleOpenCreateCategorySheet } = useManageItemCategorySheet()
+  const { ManageItemCategorySheet, handleOpenCallback: openManageItemCategorySheet } = useManageItemCategorySheet()
+  const { ManageAmountCategorySheet, handleOpenCallback: openManageAmountCategorySheet } = useManageAmountCategorySheet()
 
   return (
     <>
-      {
-        ManageItemCategorySheet
-      }
+      {ManageItemCategorySheet}
+      {ManageAmountCategorySheet}
       
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -26,11 +27,11 @@ export function SettingsMenu() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem className="flex gap-2" onClick={handleOpenCreateCategorySheet}>
+          <DropdownMenuItem className="flex gap-2" onClick={openManageItemCategorySheet}>
             <Plus size={16} />
             Cateogrias de item
           </DropdownMenuItem>
-          <DropdownMenuItem className="flex gap-2">
+          <DropdownMenuItem className="flex gap-2" onClick={openManageAmountCategorySheet}>
             <Plus size={16} />
             Categorias de quantidade
           </DropdownMenuItem>

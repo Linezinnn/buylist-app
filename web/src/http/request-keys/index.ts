@@ -10,4 +10,6 @@ export const mutationKeys = {
   createItem: 'create-item',
   createItemCategory: 'create-item-category',
   deleteItemCategory: 'delete-item-category',
+  createAmountCategory: 'create-amount-category',
+  deleteAmountCategory: 'delete-amount-category',
 }
