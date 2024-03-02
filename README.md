@@ -1,4 +1,4 @@
-# Buylist App v1.0
+# Buylist App v1.1
 
 ![ExampleImageInWhiteMode](https://github.com/Linezinnn/buylist-app/assets/111308710/ee285145-8e4d-4a8d-b97a-1166f0248e60)
 
@@ -26,6 +26,7 @@ The purpose of the application is to manage a buy list and document them in the 
 
 ## General Updates ✔️
 - Publish
+- Added custom categories creation
 
 ## Getting Started in Local ✔️
 
@@ -78,7 +79,7 @@ Go to the **_./web_** directory and run the code:
 
 ## Running the tests ✔️
 
-The tests are present in the API, and will be executed to test the use cases, controlerrs, and data schemas using **Vitest**.
+The tests are present in the API, and will be executed to test the use cases, controlerrs, and data schemas using **Vitest**. (Currently unsupported)
 
 To run all tests, run in the terminal:
 
