@@ -1,6 +1,6 @@
 # Buylist App v1.1
 
-![ExampleImageInWhiteMode](https://github.com/Linezinnn/buylist-app/assets/111308710/ee285145-8e4d-4a8d-b97a-1166f0248e60)
+![main-page](https://github.com/Linezinnn/buylist-app/assets/111308710/99dbec20-407f-439c-98c2-1c904a955243)
 
 The purpose of the application is to manage a buy list and document them in the future
 
@@ -72,10 +72,16 @@ Go to the **_./web_** directory and run the code:
 ```
 
 ## Features ✔️
+
  - Register items to buy
  - Check items as bought
  - Create categories of items
  - Create categories of amounts
+
+## Images ✔️
+
+![view-select](https://github.com/Linezinnn/buylist-app/assets/111308710/c7922252-fc8c-43c7-9c51-5c2f52154def)
+![manage-amount-category-sheet](https://github.com/Linezinnn/buylist-app/assets/111308710/a3a0a8ce-0ff0-478d-8c81-fa03656fc541)
 
 ## Running the tests ✔️
 
